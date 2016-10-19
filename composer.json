@@ -2,7 +2,7 @@
   "name" : "zend_Firebase",
   "description" : "firebase library",
   "license" : "BSD-3-Clause",
-  "keywords" : [ "firebase", "firebase library", "google firebase library", "php firebase", "php library firebase", "REST", "wrapper" ],
+  "keywords" : [ "firebase", "firebase library", "google firebase library", "php firebase", "php library firebase", "REST", "wrapper","php7 firebase", "REST firebase", "REST php7 firebase"],
   "homepage" : "http://framework.zend.com/",
   "prefer-stable" : true,
   "require" : {
