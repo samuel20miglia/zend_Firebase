@@ -31,14 +31,6 @@ interface FirebaseInterface
     /**
      *
      * @param
-     *            $seconds
-     * @return mixed
-     */
-    public function setTimeOut($seconds);
-
-    /**
-     *
-     * @param
      *            $path
      * @param
      *            $data
