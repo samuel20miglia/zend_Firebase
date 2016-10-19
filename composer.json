@@ -1,5 +1,5 @@
 {
-  "name" : "zend_Firebase",
+  "name" : "zend_Firebase/zend_Firebase",
   "description" : "firebase library",
   "license" : "BSD-3-Clause",
   "keywords" : [ "firebase", "firebase library", "google firebase library", "php firebase", "php library firebase", "REST", "wrapper","php7 firebase", "REST firebase", "REST php7 firebase"],
