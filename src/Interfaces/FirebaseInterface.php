@@ -66,6 +66,6 @@ interface FirebaseInterface
      *            $options
      * @return mixed
      */
-    public function delete($path, array $data, $options = array());
+    public function delete($path, $options = array());
 }
 

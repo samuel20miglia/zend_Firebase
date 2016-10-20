@@ -58,6 +58,8 @@ class FirebaseInit implements FirebaseInterface
 
     private $responce;
 
+    private $operation;
+
     /**
      * Create new Firebase Client object
      * Remember to install PHP CURL extention
@@ -96,6 +98,8 @@ class FirebaseInit implements FirebaseInterface
     }
 
     /**
+     * Default timeout is 10 seconds
+     * is is not set switch to 30
      *
      * @param number $timeout            
      */
@@ -150,8 +154,16 @@ class FirebaseInit implements FirebaseInterface
      *
      * @see \Interfaces\FirebaseInterface::delete()
      */
-    public function delete($path, array $data, $options = array())
-    {}
+    public function delete($path, $options = array())
+    {
+        try {
+            $responce = $this->client->delete($this->getJsonPath($path));
+            $this->responce = $responce->getReasonPhrase(); // OK
+            $this->operation = 'DELETE';
+        } catch (\Exception $e) {
+            $this->responce = null;
+        }
+    }
 
     /**
      * GET - Reading Data FROM FIREBASE
@@ -168,12 +180,11 @@ class FirebaseInit implements FirebaseInterface
     {
         try {
             $responce = $this->client->get($this->getJsonPath($path));
-            $return = $responce->getBody();
+            $this->responce = $responce;
+            $this->operation = 'GET';
         } catch (\Exception $e) {
-            $return = null;
+            $this->responce = null;
         }
-        
-        return $return;
     }
 
     /**
@@ -189,9 +200,11 @@ class FirebaseInit implements FirebaseInterface
      */
     public function patch($path, array $data, $options = array())
     {
-        return $this->client->patch($this->getJsonPath($path), [
+        $this->responce = $this->client->patch($this->getJsonPath($path), [
             'body' => \json_encode($data)
         ]);
+        
+        $this->operation = 'PATCH';
     }
 
     /**
@@ -207,9 +220,11 @@ class FirebaseInit implements FirebaseInterface
      */
     public function post($path, array $data, $options = array())
     {
-        return $this->client->post($this->getJsonPath($path), [
+        $this->responce = $this->client->post($this->getJsonPath($path), [
             'body' => \json_encode($data)
         ]);
+        
+        $this->operation = 'POST';
     }
 
     /**
@@ -225,9 +240,14 @@ class FirebaseInit implements FirebaseInterface
      */
     public function put($path, array $data, $options = array())
     {
-        return $this->client->put($this->getJsonPath($path), [
+        $this->responce = $this->client->put($this->getJsonPath($path), [
             'body' => \json_encode($data)
         ]);
+    }
+
+    public function responce()
+    {
+        $resp = new FirebaseResponce($responceData, $operation);
     }
 
     /**
