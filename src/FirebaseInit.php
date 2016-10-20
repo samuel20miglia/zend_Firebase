@@ -4,8 +4,9 @@ namespace ZendFirebase;
 
 use Interfaces\FirebaseInterface;
 use GuzzleHttp\Client;
+
 require 'Interfaces/FirebaseInterface.php';
-require 'FirebaseResponce.php';
+
 
 /**
  * PHP7 FIREBASE LIBRARY (http://samuelventimiglia.it/)
@@ -264,9 +265,9 @@ class FirebaseInit extends FirebaseResponce implements FirebaseInterface
      */
     private function responce()
     {
-
+        $jsonData = [];
         if ($this->operation === 'GET') {
-            $jsonData = json_decode($this->response,true);
+            $jsonData = json_decode($this->response, true);
         } else {
             $jsonData[] = 'success';
         }
