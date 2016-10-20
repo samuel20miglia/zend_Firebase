@@ -1,0 +1,25 @@
+<ruleset name="Zend Framework coding standard">
+	<description>Zend Framework coding standard</description>
+
+	<!-- display progress -->
+	<arg value="p" />
+	<arg name="colors" />
+
+	<!-- inherit rules from: -->
+	<rule ref="PSR2">
+		<properties>
+			<property name="ignoreBlankLines" value="false" />
+		</properties>
+	</rule>
+
+	<rule ref="Generic.Arrays.DisallowLongArraySyntax" />
+
+
+	<!-- Paths to check -->
+	<file>src/</file>
+    <file>tests/</file>
+
+	<!-- exclude from sniffing -->
+    <exclude-pattern>vendor/*</exclude-pattern>
+
+</ruleset>
