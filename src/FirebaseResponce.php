@@ -33,7 +33,7 @@ class FirebaseResponce
 
     /**
      *
-     * @return the $responce
+     * @return the $responceData
      */
     public function getResponceData()
     {
@@ -60,7 +60,7 @@ class FirebaseResponce
 
     /**
      *
-     * @param field_type $responce            
+     * @param field_type $responceData            
      */
     protected function setResponceData($responceData)
     {
@@ -130,28 +130,22 @@ class FirebaseResponce
      */
     private function validateResponce()
     {
-        // initialized variable that will contain subsequently the type of object attributes
-        $type = '';
-        
         // check validity of ResponceData
         if (! is_object($this->getResponceData())) {
-            $type = gettype($this->getResponceData());
             throw new \Exception("ResponceData parameter must be GuzzleHttp Object. 
-                Received : {$type} ({$this->getResponceData()}).");
+                Received : " . gettype($this->getResponceData()) . " ({$this->getResponceData()}).");
         }
         
         // check validity of Operation
         if (! is_string($this->getOperation()) || empty($this->getOperation())) {
-            $type = gettype($this->getOperation());
             throw new \Exception("Operation parameter must be STRING and NOT EMPTY. 
-                Received : {$type} ({$this->getOperation()}).");
+                Received : " . gettype($this->getOperation()) . " ({$this->getOperation()}).");
         }
         
         // check validity of Status
         if (! is_numeric($this->getStatus())) {
-            $type = gettype($this->getStatus());
             throw new \Exception("Status parameter must be NUMERIC. 
-                Received : {$type} ({$this->getStatus()}).");
+                Received : " . gettype($this->getStatus()) . " ({$this->getStatus()}).");
         }
     }
 
