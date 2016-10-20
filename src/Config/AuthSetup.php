@@ -59,7 +59,7 @@ class AuthSetup
     public function setBaseURI($baseURI)
     {
         if (\strlen($baseURI) == 0) {
-            $str = 'You must provide a _baseURI variable.';
+            $str = 'You must provide a baseURI variable.';
             trigger_error($str, E_USER_ERROR);
         }
         $baseURI .= (substr($baseURI, - 1) == '/' ? '' : '/');
@@ -75,7 +75,7 @@ class AuthSetup
     public function setServertoken($servertoken)
     {
         if ($servertoken == '' || \strlen($servertoken) == 0) {
-            $str = 'You must provide a _baseURI variable.';
+            $str = 'You must provide serverToken.';
             trigger_error($str, E_USER_ERROR);
         }
         $this->serverToken = \trim($servertoken);

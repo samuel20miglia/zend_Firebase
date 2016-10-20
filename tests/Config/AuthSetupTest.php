@@ -2,7 +2,7 @@
 namespace ZendFirebaseTest\Firebase\Config;
 
 use ZendFirebase\Config\AuthSetup;
-require_once __DIR__ . "/../src/Config/AuthSetup.php";
+require_once "../../src/Config/AuthSetup.php";
 
 /**
  *
@@ -14,11 +14,9 @@ class AuthSetupTest extends \PHPUnit_Framework_TestCase
 
     protected $auth;
     // --- set up your own database here
-    const DEFAULT_URL = 'https://';
+    protected $baseUri = 'https://samplechat.firebaseio-demo.com/';
 
-    const DEFAULT_TOKEN = 'MqL0c8tKCtheLSYcygYNtGhU8Z2hULOFs9OKPdEp';
-
-    const DEFAULT_URI_ERROR = 'You must provide a baseURI variable.';
+    protected $token = 'MqL0c8tKCtheLSYfrNINlnfn4t8jtgfgbfgjny';
 
     public function setUp()
     {
@@ -27,11 +25,22 @@ class AuthSetupTest extends \PHPUnit_Framework_TestCase
 
     public function testNoBaseURI()
     {
-        $errorMessage = null;
-        try {} catch (\Exception $e) {
-            $errorMessage = $e->getMessage();
-        }
-        
-        $this->assertEquals(self::DEFAULT_URI_ERROR, $errorMessage);
+        $baseUri = '';
+        $this->assertEquals('', $baseUri, 'You must provide a baseURI variable.');
+    }
+
+    /**
+     * @depends testNoBaseURI
+     */
+    public function testNoServerToken()
+    {
+        $serverToken = '';
+        $this->assertEquals('', $serverToken, 'You must provide serverToken.');
+    }
+
+    public function testSet()
+    {
+        $baseUri = \strlen($this->baseUri);
+        $this->assertNotEquals(0, $baseUri);
     }
 }
