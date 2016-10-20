@@ -5,6 +5,8 @@ namespace ZendFirebase\Firebase;
 use Interfaces\FirebaseInterface;
 use GuzzleHttp\Client;
 
+require 'src/Interfaces/FirebaseInterface.php';
+
 /**
  * PHP7 FIREBASE LIBRARY (http://samuelventimiglia.it/)
  *
@@ -147,7 +149,7 @@ class FirebaseInit implements FirebaseInterface
      */
     private function getJsonPath($path, $options = [])
     {
-        $options['auth'] = $this->auth->get_servertoken();
+        $options['auth'] = $this->auth->getServertoken();
         
         $path = ltrim($path, '/');
         return $path . '.json?' . http_build_query($options);
@@ -271,13 +273,13 @@ class FirebaseInit implements FirebaseInterface
         $data = $this->response;
         $resp = new FirebaseResponce($data, $op, $status);
         
-        return $resp->readResponce($data, $op, $status);
+        return $resp->readResponce();
     }
 
     /**
      * Remove object from memory
      */
-    protected function __destruct()
+    public function __destruct()
     {
         unset($this);
     }
