@@ -8,6 +8,7 @@ require 'Interfaces/FirebaseInterface.php';
 /**
  *
  * @author Ventimiglia Samuel
+ * @author Biasin Davide
  *        
  */
 class FirebaseInit implements FirebaseInterface
@@ -22,6 +23,10 @@ class FirebaseInit implements FirebaseInterface
 
     private $auth;
 
+    /**
+     *
+     * @var GuzzleHttp\Client
+     */
     private $client;
 
     private $responce;
@@ -43,7 +48,8 @@ class FirebaseInit implements FirebaseInterface
         
         $guzzleClient = new Client([
             'base_uri' => $this->auth->getBaseUri(),
-            'timeout' => $this->getTimeout()
+            'timeout' => $this->getTimeout(),
+            'headers' => $this->getRequestHeaders()
         ]);
         
         $this->client = $guzzleClient;
@@ -67,12 +73,22 @@ class FirebaseInit implements FirebaseInterface
         $this->timeout = $timeout;
     }
 
-    private function getRequestHeaders()
+    /**
+     * Method for get array headers for GuzzleClient
+     *
+     * @throws \Exception
+     * @return array
+     */
+    private function getRequestHeaders(): array
     {
         $headers = [];
-        $headers['headers'] = [
-            'Accept' => 'application/json'
-        ];
+        
+        $headers['Accept'] = 'application/json';
+        
+        // check if header is an array
+        if (! is_array($headers)) {
+            throw new \Exception("The guzzle client headers must be an array.");
+        }
         
         return $headers;
     }
@@ -163,19 +179,6 @@ class FirebaseInit implements FirebaseInterface
     private function writeData($path, $data, $options = array())
     {
         try {} catch (\Exception $e) {}
-    }
-
-    private function setHeaderToGuzzleClient($headers)
-    {
-        // check if header is an array
-        if (! is_array($headers)) {
-            throw new \Exception("The guzzle client headers must be an array.");
-        }
-        
-        // check if array passed contains key 'headers'
-        if (! array_key_exists('headers', $headers)) {
-            throw new \Exception("Headers array must have a key named 'headers'.");
-        }
     }
 }
 
