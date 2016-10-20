@@ -2,6 +2,7 @@
 namespace ZendFirebaseTest\Firebase\Config;
 
 use ZendFirebase\Config\AuthSetup;
+require_once __DIR__ . "/../src/Config/AuthSetup.php";
 
 /**
  *
@@ -16,6 +17,8 @@ class AuthSetupTest extends \PHPUnit_Framework_TestCase
     const DEFAULT_URL = 'https://';
 
     const DEFAULT_TOKEN = 'MqL0c8tKCtheLSYcygYNtGhU8Z2hULOFs9OKPdEp';
+
+    const DEFAULT_URI_ERROR = 'You must provide a baseURI variable.';
 
     public function setUp()
     {
