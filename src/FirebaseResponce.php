@@ -14,7 +14,7 @@ class FirebaseResponce
 
     /**
      * Data from Firebase
-     * @var array | string
+     * @var array $firebaseData
      */
     private $firebaseData;
 
@@ -33,9 +33,9 @@ class FirebaseResponce
     protected $status;
 
     /**
-     * Format to string the responce
+     * Format to array the responce
      *
-     * @return $firebaseData
+     * @return array
      */
     public function getFirebaseData(): array
     {
