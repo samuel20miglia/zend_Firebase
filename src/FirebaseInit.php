@@ -4,7 +4,8 @@ namespace ZendFirebase;
 
 use Interfaces\FirebaseInterface;
 use GuzzleHttp\Client;
-use function GuzzleHttp\json_encode;
+
+
 require 'src/Interfaces/FirebaseInterface.php';
 require 'src/FirebaseResponce.php';
 
