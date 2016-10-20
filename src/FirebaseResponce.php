@@ -3,7 +3,6 @@ declare(strict_types = 1);
 namespace ZendFirebase;
 
 use phpDocumentor\Reflection\Types\Integer;
-use phpDocumentor\Reflection\Types\Object_;
 
 /**
  *
@@ -14,10 +13,10 @@ class FirebaseResponce
 {
 
     /**
-     *
-     * @var Object_
+     * Data from Firebase
+     * @var array | string
      */
-    private $responceData;
+    private $firebaseData;
 
     /**
      * Type of operation
@@ -29,26 +28,26 @@ class FirebaseResponce
     /**
      * Http server code
      *
-     * @var http server code $status
+     * @var integer $status
      */
     protected $status;
 
     /**
      * Format to string the responce
      *
-     * @return the $responceData
+     * @return $responceData
      */
-    public function getResponceData()
+    public function getFirebaseData(): array
     {
-        return $this->responceData;
+        return $this->firebaseData;
     }
 
     /**
      * Type of Operation
      *
-     * @return the $operation
+     * @return  $operation
      */
-    public function getOperation()
+    public function getOperation(): string
     {
         return $this->operation;
     }
@@ -56,20 +55,20 @@ class FirebaseResponce
     /**
      * Status from http server
      *
-     * @return the $status
+     * @return integer $status
      */
-    public function getStatus()
+    public function getStatus(): int
     {
         return $this->status;
     }
 
     /**
      *
-     * @param object $responceData
+     * @param  $responceData
      */
-    protected function setResponceData($responceData)
+    protected function setFirebaseData($firebaseData)
     {
-        $this->responceData = $responceData;
+        $this->FirebaseData = $firebaseData;
     }
 
     /**

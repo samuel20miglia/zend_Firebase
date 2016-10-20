@@ -4,8 +4,6 @@ namespace ZendFirebase;
 
 use Interfaces\FirebaseInterface;
 use GuzzleHttp\Client;
-
-
 require 'src/Interfaces/FirebaseInterface.php';
 require 'src/FirebaseResponce.php';
 
@@ -31,7 +29,7 @@ class FirebaseInit extends FirebaseResponce implements FirebaseInterface
     /**
      * Authentication object
      *
-     * @var \ZendFirebase\Config\AuthSetup $auth
+     * @var $auth
      */
     private $auth;
 
@@ -91,7 +89,7 @@ class FirebaseInit extends FirebaseResponce implements FirebaseInterface
      * Return Integer of Timeout
      * default 30 setted 10
      *
-     * @return the $timeout
+     * @return integer $timeout
      */
     private function getTimeout(): int
     {
@@ -102,7 +100,7 @@ class FirebaseInit extends FirebaseResponce implements FirebaseInterface
      * Default timeout is 10 seconds
      * is is not set switch to 30
      *
-     * @param number $timeout
+     * @param integer $timeout
      */
     public function setTimeout($timeout)
     {
@@ -135,9 +133,9 @@ class FirebaseInit extends FirebaseResponce implements FirebaseInterface
      *
      * @param string $path
      * @param array $options
-     * @return string
+     * @return string $path
      */
-    private function getJsonPath($path, $options = [])
+    private function getJsonPath($path, $options = []): string
     {
         $options['auth'] = $this->auth->getServertoken();
 
@@ -266,15 +264,14 @@ class FirebaseInit extends FirebaseResponce implements FirebaseInterface
      */
     private function responce()
     {
-
         if ($this->operation === 'GET') {
-            $jsonData = json_encode($this->response);
+            $jsonData = json_decode($this->response, true);
         } else {
             $jsonData = 'success';
         }
         parent::setOperation($this->operation);
         parent::setStatus($this->status);
-        parent::setResponceData($jsonData);
+        parent::setFirebaseData($jsonData);
         parent::validateResponce();
     }
 
