@@ -133,7 +133,7 @@ class FirebaseResponce
         // check validity of ResponceData
         if (! is_object($this->getResponceData())) {
             throw new \Exception("ResponceData parameter must be GuzzleHttp Object. 
-                Received : " . gettype($this->getResponceData()) . " ({$this->getResponceData()}).");
+                Received : " . gettype($this->getResponceData()) . " .");
         }
         
         // check validity of Operation
