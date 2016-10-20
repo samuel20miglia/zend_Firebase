@@ -19,7 +19,7 @@ class FirebaseResponce
      * @var String_
      */
     private $operation;
-
+    
     /**
      *
      * @var Integer or NumericString
@@ -89,24 +89,35 @@ class FirebaseResponce
         $this->setStatus($status);
     }
 
-    public function readResponce($responceData, $operation): array
+    public function readResponce(): array
     {
-        // $responce = [];
-        // $responce['operation'] = \strtoupper($operation);
-        // $responce['status'];
         $responce = [];
-        $responce['operation'] = \strtoupper($operation);
-        $responce['data'] = $responceData;
         
-        // return $responce;
+        $responce['operation'] = \strtoupper($this->getOperation());
+        $responce['responcedata'] = $this->getResponceData();
+        $responce['status'] = $this->getStatus();
+        
+        return $responce;
     }
 
     private function validateResponce()
-    {}
+    {
+        // check validity of ResponceData
+        if (! is_string($this->getResponceData()) || json_decode($this->getResponceData() === null)) {
+            throw new \Exception('ResponceData parameter must be STRING and VALID JSON.');
+        }
+        
+        // check validity of Operation
+        if (! is_string($this->getOperation()) || empty($this->getOperation())) {
+            throw new \Exception('Operation parameter must be STRING and NOT EMPTY.');
+        }
+        
+        // check validity of Status
+    }
 
     /**
      */
-    protected function __destruct()
+    public function __destruct()
     {
         unset($this);
     }
