@@ -12,7 +12,7 @@ use GuzzleHttp\Client;
  * @link https://github.com/Samuel18/zend_Firebase
  * @copyright Copyright (c) 2016-now Ventimiglia Samuel - Biasin Davide
  * @license BSD 3-Clause License
- *         
+ *
  */
 class FirebaseInit implements FirebaseInterface
 {
@@ -32,6 +32,7 @@ class FirebaseInit implements FirebaseInterface
     private $auth;
 
     /**
+     * Create new Client
      *
      * @var GuzzleHttp\Client $client
      */
@@ -62,23 +63,33 @@ class FirebaseInit implements FirebaseInterface
      * Create new Firebase _client object
      * Remember to install PHP CURL extention
      *
-     * @param \ZendFirebase\Config\__authSetup $__auth            
+     * @param \ZendFirebase\Config\__authSetup $__auth
      */
     public function __construct(\ZendFirebase\Config\AuthSetup $auth)
     {
         $authMessage = 'Forget credential or is not an object.';
         $curlMessage = 'Extension CURL is not loaded or not installed.';
+        
+        // check if auth is null
         if (! is_object($auth) or null == $auth) {
             trigger_error($authMessage, E_USER_ERROR);
         }
         
+        // check if extension is installed
         if (! extension_loaded('curl')) {
             trigger_error($curlMessage, E_USER_ERROR);
         }
-        
+        // set timeout
         $this->setTimeout(10);
+        // store object into variable
         $this->auth = $auth;
         
+        /*
+         * create new client
+         * set base uri
+         * set timeout
+         * set headers
+         */
         $this->client = new Client([
             'base_uri' => $this->auth->get_baseURI(),
             'timeout' => $this->getTimeout(),
@@ -99,7 +110,7 @@ class FirebaseInit implements FirebaseInterface
      * Default timeout is 10 seconds
      * is is not set switch to 30
      *
-     * @param number $timeout            
+     * @param number $timeout
      */
     public function setTimeout($timeout)
     {
@@ -130,8 +141,8 @@ class FirebaseInit implements FirebaseInterface
     /**
      * Returns with the normalized JSON absolute path
      *
-     * @param unknown $path            
-     * @param array $options            
+     * @param unknown $path
+     * @param array $options
      * @return string
      */
     private function getJsonPath($path, $options = [])
@@ -145,9 +156,9 @@ class FirebaseInit implements FirebaseInterface
     /**
      * DELETE - Removing Data FROM FIREBASE
      *
-     * @param string $path            
-     * @param array $data            
-     * @param array $options            
+     * @param string $path
+     * @param array $data
+     * @param array $options
      *
      * {@inheritdoc}
      *
@@ -168,9 +179,9 @@ class FirebaseInit implements FirebaseInterface
     /**
      * GET - Reading Data FROM FIREBASE
      *
-     * @param string $path            
-     * @param array $data            
-     * @param array $options            
+     * @param string $path
+     * @param array $data
+     * @param array $options
      *
      * {@inheritdoc}
      *
@@ -191,9 +202,9 @@ class FirebaseInit implements FirebaseInterface
     /**
      * PATCH - Updating Data TO FIREBASE
      *
-     * @param string $path            
-     * @param array $data            
-     * @param array $options            
+     * @param string $path
+     * @param array $data
+     * @param array $options
      *
      * {@inheritdoc}
      *
@@ -211,9 +222,9 @@ class FirebaseInit implements FirebaseInterface
     /**
      * POST - Pushing Data TO FIREBASE
      *
-     * @param string $path            
-     * @param array $data            
-     * @param array $options            
+     * @param string $path
+     * @param array $data
+     * @param array $options
      *
      * {@inheritdoc}
      *
@@ -231,9 +242,9 @@ class FirebaseInit implements FirebaseInterface
     /**
      * PUT - Writing Data TO FIREBASE
      *
-     * @param string $path            
-     * @param array $data            
-     * @param array $options            
+     * @param string $path
+     * @param array $data
+     * @param array $options
      *
      * {@inheritdoc}
      *
@@ -260,7 +271,7 @@ class FirebaseInit implements FirebaseInterface
         $data = $this->response;
         $resp = new FirebaseResponce($data, $op, $status);
         
-        return $resp->readResponce($data, $op, $status);
+        return $resp->readResponce();
     }
 
     /**
