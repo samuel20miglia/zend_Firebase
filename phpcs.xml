@@ -16,26 +16,12 @@
 
 
 	<!-- Paths to check -->
-	<file>module/Api</file>
-	<file>module/Ecommerce</file>
-	<file>module/System</file>
-	<file>module/Events</file>
-	<file>module/Ente</file>
-	<file>module/Users</file>
-	<file>module/Companies</file>
-	<file>module/Warehouse</file>
-	<file>module/Application</file>
-	<file>module/Dashboard</file>
-	<file>module/Cron</file>
+	<file>src/</file>
+
 
 	<!-- exclude from sniffing -->
-	<exclude-pattern>test/_files/*</exclude-pattern>
+	<exclude-pattern>tests/_files/*</exclude-pattern>
 	<exclude-pattern>test/TestAsset/*</exclude-pattern>
 	<exclude-pattern>vendor/*</exclude-pattern>
-	<exclude-pattern>module/*/public/*</exclude-pattern>
-	<exclude-pattern>module/*/src/*/Entity/*</exclude-pattern>
-	<exclude-pattern>public/*</exclude-pattern>
-	<exclude-pattern>certs/*</exclude-pattern>
-	<exclude-pattern>data/*</exclude-pattern>
-	<exclude-pattern>cache/*</exclude-pattern>
+
 </ruleset>
