@@ -15,22 +15,6 @@ interface FirebaseInterface
     /**
      *
      * @param
-     *            $token
-     * @return mixed
-     */
-    public function setToken($token);
-
-    /**
-     *
-     * @param
-     *            $baseURI
-     * @return mixed
-     */
-    public function setBaseURI($baseURI);
-
-    /**
-     *
-     * @param
      *            $path
      * @param
      *            $data
@@ -72,7 +56,7 @@ interface FirebaseInterface
      *            $options
      * @return mixed
      */
-    public function get($path, $options = array());
+    public function get($path, $data, $options = array());
 
     /**
      *
@@ -82,6 +66,6 @@ interface FirebaseInterface
      *            $options
      * @return mixed
      */
-    public function delete($path, $options = array());
+    public function delete($path, $data, $options = array());
 }
 
