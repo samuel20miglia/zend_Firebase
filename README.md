@@ -1,9 +1,7 @@
 # PHP7 Firebase REST Client
 
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Samuel18/zend_Firebase/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Samuel18/zend_Firebase/?branch=master)
-
-[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/Samuel18/zend_Firebase/badges/quality-score.png?b=master)
-
+[![Build Status](https://scrutinizer-ci.com/g/Samuel18/zend_Firebase/badges/build.png?b=master)](https://scrutinizer-ci.com/g/Samuel18/zend_Firebase/build-status/master)
 
 Based on the [Firebase REST API](https://firebase.google.com/docs/reference/rest/database/).
 
