@@ -269,10 +269,10 @@ class FirebaseInit extends FirebaseResponce implements FirebaseInterface
         } else {
             $jsonData = 'success';
         }
-        parent::setOperation($this->operation);
-        parent::setStatus($this->status);
-        parent::setFirebaseData($jsonData);
-        parent::validateResponce();
+        $this->setOperation($this->operation);
+        $this->setStatus($this->status);
+        $this->setFirebaseData($jsonData);
+        $this->validateResponce();
     }
 
     /**

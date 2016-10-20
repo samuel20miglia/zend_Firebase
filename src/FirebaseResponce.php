@@ -35,7 +35,7 @@ class FirebaseResponce
     /**
      * Format to string the responce
      *
-     * @return $responceData
+     * @return $firebaseData
      */
     public function getFirebaseData(): array
     {
@@ -64,11 +64,11 @@ class FirebaseResponce
 
     /**
      *
-     * @param  $responceData
+     * @param  $firebaseData
      */
     protected function setFirebaseData($firebaseData)
     {
-        $this->FirebaseData = $firebaseData;
+        $this->firebaseData = $firebaseData;
     }
 
     /**
@@ -97,11 +97,7 @@ class FirebaseResponce
      */
     protected function validateResponce()
     {
-        // check validity of ResponceData
-        // if (! is_object($this->getResponceData())) {
-        // throw new \Exception("ResponceData parameter must be GuzzleHttp Object.
-        // Received : " . gettype($this->getResponceData()) . " .");
-        // }
+
 
         // check validity of Operation
         if (! is_string($this->getOperation()) || empty($this->getOperation())) {
