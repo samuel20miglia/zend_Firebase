@@ -9,7 +9,7 @@ namespace ZendFirebase\Config;
  * @link https://github.com/Samuel18/zend_Firebase
  * @copyright Copyright (c) 2016-now Ventimiglia Samuel - Biasin Davide
  * @license BSD 3-Clause License
- *         
+ *
  */
 class AuthSetup
 {
@@ -54,7 +54,7 @@ class AuthSetup
     /**
      * Set String baseURI
      *
-     * @param string $baseURI            
+     * @param string $baseURI
      */
     public function setBaseURI($baseURI)
     {
@@ -70,7 +70,7 @@ class AuthSetup
     /**
      * Set string token
      *
-     * @param string $servertoken            
+     * @param string $servertoken
      */
     public function setServertoken($servertoken)
     {

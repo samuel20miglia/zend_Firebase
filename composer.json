@@ -21,13 +21,13 @@
   } ],
   "autoload-dev" : {
     "psr-4" : {
-      "ZendFirebaseTest\\Firebase\\" : "tests/"
+      "ZendFirebaseTest\\" : "tests/"
     }
   },
   "minimum-stability" : "dev",
   "autoload" : {
     "psr-4" : {
-      "ZendFirebase\\Firebase\\" : "src/"
+      "ZendFirebase\\" : "src/"
     }
   },
   "scripts" : {

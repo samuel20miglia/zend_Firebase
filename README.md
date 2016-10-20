@@ -16,19 +16,50 @@ composer require zend_firebase/zend_firebase dev-master
 
 More info about Composer at [getcomposer.org](http://getcomposer.org).
 
-### Example
+### Example of Usage
+```php
+use ZendFirebase\FirebaseInit, ZendFirebase\Config\AuthSetup;
 
+$auth = new AuthSetup();
+
+$auth->setBaseURI('https://your_url_from_firebase/');
+$auth->setServertoken('your_firebase_token');
+
+// ---  EXAMPLE OF DATA TO POST REMEMBER ALL DATA MUST BE ARRAY ---
+$test = array(
+    "name" => "TEST",
+    "id" => 5245,
+    "text" => 'ciao TEST 5245',
+    'status' => 'sended'
+);
+
+// --- CREATE NEW OBJECT AND PASS CREDENTIAL ---
+$firebase = new FirebaseInit($auth);
+
+// --- CHOOCE THE OPERATION (SAME NAME OF FIREBASE DOCS)  ---
+
+$firebase->post('usersMessages', $test);
+```
 
 ### Supported Commands
+```php
 
-
-
-
-
+// --- storing data ---
+$firebase->post('usersMessages', $test,$options);
+// --- override data ---
+$firebase->put('usersMessages', $test,$options);
+// --- update data ---
+$firebase->patch('usersMessages', $test,$options);
+// --- retrieve data ---
+$firebase->get('usersMessages',$options);
+// --- delete data ---
+$firebase->delete('usersMessages',$options);
+```
 
 
 ### Unit Tests
-All the unit tests are found in the "/tests" directory. Due to the usage of an interface, the tests must run in isolation.
+All the unit tests are found in the "/tests" directory.
+Due to the usage of an interface, the tests must run in isolation.
 
 
 
