@@ -37,6 +37,6 @@ All the unit tests are found in the "/tests" directory. Due to the usage of an i
 
 #### BSD 3-Clause License
 ```
-[LICENSE]()
+[READ LICENSE](LICENSE)
 ```
 

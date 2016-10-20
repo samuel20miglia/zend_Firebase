@@ -12,7 +12,7 @@ use GuzzleHttp\Client;
  * @link https://github.com/Samuel18/zend_Firebase
  * @copyright Copyright (c) 2016-now Ventimiglia Samuel - Biasin Davide
  * @license BSD 3-Clause License
- *
+ *         
  */
 class FirebaseInit implements FirebaseInterface
 {
@@ -63,7 +63,7 @@ class FirebaseInit implements FirebaseInterface
      * Create new Firebase _client object
      * Remember to install PHP CURL extention
      *
-     * @param \ZendFirebase\Config\__authSetup $__auth
+     * @param \ZendFirebase\Config\__authSetup $__auth            
      */
     public function __construct(\ZendFirebase\Config\AuthSetup $auth)
     {
@@ -91,7 +91,7 @@ class FirebaseInit implements FirebaseInterface
          * set headers
          */
         $this->client = new Client([
-            'base_uri' => $this->auth->get_baseURI(),
+            'base_uri' => $this->auth->getBaseURI(),
             'timeout' => $this->getTimeout(),
             'headers' => $this->getRequestHeaders()
         ]);
@@ -110,7 +110,7 @@ class FirebaseInit implements FirebaseInterface
      * Default timeout is 10 seconds
      * is is not set switch to 30
      *
-     * @param number $timeout
+     * @param number $timeout            
      */
     public function setTimeout($timeout)
     {
@@ -141,8 +141,8 @@ class FirebaseInit implements FirebaseInterface
     /**
      * Returns with the normalized JSON absolute path
      *
-     * @param unknown $path
-     * @param array $options
+     * @param unknown $path            
+     * @param array $options            
      * @return string
      */
     private function getJsonPath($path, $options = [])
@@ -156,9 +156,9 @@ class FirebaseInit implements FirebaseInterface
     /**
      * DELETE - Removing Data FROM FIREBASE
      *
-     * @param string $path
-     * @param array $data
-     * @param array $options
+     * @param string $path            
+     * @param array $data            
+     * @param array $options            
      *
      * {@inheritdoc}
      *
@@ -169,7 +169,7 @@ class FirebaseInit implements FirebaseInterface
         try {
             $_response = $this->client->delete($this->getJsonPath($path));
             $this->response = $_response->getReasonPhrase(); // OK
-            $this->status = $_response->get_statusCode(); // 200
+            $this->status = $_response->getStatusCode(); // 200
             $this->operation = 'DELETE';
         } catch (\Exception $e) {
             $this->response = null;
@@ -179,9 +179,9 @@ class FirebaseInit implements FirebaseInterface
     /**
      * GET - Reading Data FROM FIREBASE
      *
-     * @param string $path
-     * @param array $data
-     * @param array $options
+     * @param string $path            
+     * @param array $data            
+     * @param array $options            
      *
      * {@inheritdoc}
      *
@@ -192,7 +192,7 @@ class FirebaseInit implements FirebaseInterface
         try {
             $_response = $this->client->get($this->getJsonPath($path));
             $this->response = $_response;
-            $this->status = $_response->get_statusCode(); // 200
+            $this->status = $_response->getStatusCode(); // 200
             $this->operation = 'GET';
         } catch (\Exception $e) {
             $this->response = null;
@@ -202,9 +202,9 @@ class FirebaseInit implements FirebaseInterface
     /**
      * PATCH - Updating Data TO FIREBASE
      *
-     * @param string $path
-     * @param array $data
-     * @param array $options
+     * @param string $path            
+     * @param array $data            
+     * @param array $options            
      *
      * {@inheritdoc}
      *
@@ -222,9 +222,9 @@ class FirebaseInit implements FirebaseInterface
     /**
      * POST - Pushing Data TO FIREBASE
      *
-     * @param string $path
-     * @param array $data
-     * @param array $options
+     * @param string $path            
+     * @param array $data            
+     * @param array $options            
      *
      * {@inheritdoc}
      *
@@ -242,9 +242,9 @@ class FirebaseInit implements FirebaseInterface
     /**
      * PUT - Writing Data TO FIREBASE
      *
-     * @param string $path
-     * @param array $data
-     * @param array $options
+     * @param string $path            
+     * @param array $data            
+     * @param array $options            
      *
      * {@inheritdoc}
      *

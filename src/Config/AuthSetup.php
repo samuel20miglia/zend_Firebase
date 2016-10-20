@@ -9,7 +9,7 @@ namespace ZendFirebase\Config;
  * @link https://github.com/Samuel18/zend_Firebase
  * @copyright Copyright (c) 2016-now Ventimiglia Samuel - Biasin Davide
  * @license BSD 3-Clause License
- *
+ *         
  */
 class AuthSetup
 {
@@ -48,13 +48,13 @@ class AuthSetup
      */
     public function getServertoken(): string
     {
-        return $this->servertoken;
+        return $this->serverToken;
     }
 
     /**
      * Set String baseURI
      *
-     * @param string $baseURI
+     * @param string $baseURI            
      */
     public function setBaseURI($baseURI)
     {
@@ -70,14 +70,14 @@ class AuthSetup
     /**
      * Set string token
      *
-     * @param string $servertoken
+     * @param string $servertoken            
      */
     public function setServertoken($servertoken)
     {
-        if ($servertoken == '' or \strlen($servertoken) == 0) {
+        if ($servertoken == '' || \strlen($servertoken) == 0) {
             $str = 'You must provide a _baseURI variable.';
             trigger_error($str, E_USER_ERROR);
         }
-        $this->servertoken = \trim($servertoken);
+        $this->serverToken = \trim($servertoken);
     }
 }
