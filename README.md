@@ -40,7 +40,7 @@ $firebase = new FirebaseInit($auth);
 
 $firebase->post('usersMessages', $test);
 ```
-### Responce Usage
+### Response Usage
 ```php
 
 // --- FIREBASE DATA FROM REALTIME DB IS AN ARRAY  ---
