@@ -14,7 +14,7 @@ class FirebaseResponce
     {
         $responce = [];
         $responce['operation'] = \strtoupper($operation);
-        $responce['status'];
+        $responce['data'] = $responceData;
         
         return $responce;
     }

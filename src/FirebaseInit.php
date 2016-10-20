@@ -56,9 +56,11 @@ class FirebaseInit implements FirebaseInterface
      */
     private $client;
 
-    private $responce;
+    private $response;
 
     private $operation;
+
+    private $status;
 
     /**
      * Create new Firebase Client object
@@ -79,13 +81,11 @@ class FirebaseInit implements FirebaseInterface
         $this->setTimeout(10);
         $this->auth = $auth;
         
-        $guzzleClient = new Client([
+        $this->client = new Client([
             'base_uri' => $this->auth->getBaseUri(),
             'timeout' => $this->getTimeout(),
             'headers' => $this->getRequestHeaders()
         ]);
-        
-        $this->client = $guzzleClient;
     }
 
     /**
@@ -157,11 +157,12 @@ class FirebaseInit implements FirebaseInterface
     public function delete($path, $options = array())
     {
         try {
-            $responce = $this->client->delete($this->getJsonPath($path));
-            $this->responce = $responce->getReasonPhrase(); // OK
+            $response = $this->client->delete($this->getJsonPath($path));
+            $this->response = $response->getReasonPhrase(); // OK
+            $this->status = $response->getStatusCode(); // 200
             $this->operation = 'DELETE';
         } catch (\Exception $e) {
-            $this->responce = null;
+            $this->response = null;
         }
     }
 
@@ -179,11 +180,12 @@ class FirebaseInit implements FirebaseInterface
     public function get($path, $options = array())
     {
         try {
-            $responce = $this->client->get($this->getJsonPath($path));
-            $this->responce = $responce;
+            $response = $this->client->get($this->getJsonPath($path));
+            $this->response = $response;
+            $this->status = $response->getStatusCode(); // 200
             $this->operation = 'GET';
         } catch (\Exception $e) {
-            $this->responce = null;
+            $this->response = null;
         }
     }
 
@@ -200,10 +202,10 @@ class FirebaseInit implements FirebaseInterface
      */
     public function patch($path, array $data, $options = array())
     {
-        $this->responce = $this->client->patch($this->getJsonPath($path), [
+        $this->response = $this->client->patch($this->getJsonPath($path), [
             'body' => \json_encode($data)
         ]);
-        
+        $this->status = $this->response->getStatusCode(); // 200
         $this->operation = 'PATCH';
     }
 
@@ -220,10 +222,10 @@ class FirebaseInit implements FirebaseInterface
      */
     public function post($path, array $data, $options = array())
     {
-        $this->responce = $this->client->post($this->getJsonPath($path), [
+        $this->response = $this->client->post($this->getJsonPath($path), [
             'body' => \json_encode($data)
         ]);
-        
+        $this->status = $this->response->getStatusCode(); // 200
         $this->operation = 'POST';
     }
 
@@ -240,14 +242,23 @@ class FirebaseInit implements FirebaseInterface
      */
     public function put($path, array $data, $options = array())
     {
-        $this->responce = $this->client->put($this->getJsonPath($path), [
+        $this->response = $this->client->put($this->getJsonPath($path), [
             'body' => \json_encode($data)
         ]);
+        $this->status = $this->response->getStatusCode(); // 200
+        $this->operation = 'PUT';
     }
 
+    /**
+     * This method return the responce from firebase
+     *
+     * @return new FirebaseResponce readResponce() Method
+     */
     public function responce()
     {
-        $resp = new FirebaseResponce($responceData, $operation);
+        $resp = new FirebaseResponce($this->response, $this->operation, $this->status);
+        
+        return $resp->readResponce($this->response, $this->operation, $this->status);
     }
 
     /**
