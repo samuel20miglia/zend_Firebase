@@ -4,7 +4,6 @@ namespace ZendFirebase\Firebase;
 
 use Interfaces\FirebaseInterface;
 use GuzzleHttp\Client;
-
 require 'src/Interfaces/FirebaseInterface.php';
 
 /**
@@ -159,7 +158,6 @@ class FirebaseInit implements FirebaseInterface
      * DELETE - Removing Data FROM FIREBASE
      *
      * @param string $path            
-     * @param array $data            
      * @param array $options            
      *
      * {@inheritdoc}
@@ -182,7 +180,6 @@ class FirebaseInit implements FirebaseInterface
      * GET - Reading Data FROM FIREBASE
      *
      * @param string $path            
-     * @param array $data            
      * @param array $options            
      *
      * {@inheritdoc}
