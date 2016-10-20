@@ -1,9 +1,8 @@
 <?php
 namespace ZendFirebaseTest\Config;
-
+require_once __DIR__ . '/../../vendor/autoload.php';
 use ZendFirebase\Config\AuthSetup;
 
-require_once "../../src/Config/AuthSetup.php";
 
 /**
  * Test class for authentication object
