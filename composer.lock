@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d986a5e3b7561360a735f3b932944c81",
-    "content-hash": "76378815afedebb317686163c07bc027",
+    "hash": "2c9f72fa36a68c4e232a8efa3c49f357",
+    "content-hash": "8888b2a4e31a2c928f2900db2dc7e81d",
     "packages": [
         {
             "name": "friendsofphp/php-cs-fixer",

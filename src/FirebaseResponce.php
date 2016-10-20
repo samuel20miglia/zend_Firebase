@@ -3,7 +3,6 @@ declare(strict_types = 1);
 namespace ZendFirebase;
 
 use phpDocumentor\Reflection\Types\Integer;
-use phpDocumentor\Reflection\Types\String_;
 use phpDocumentor\Reflection\Types\Object_;
 
 /**
@@ -21,18 +20,21 @@ class FirebaseResponce
     private $responceData;
 
     /**
+     * Type of operation
      *
-     * @var String_
+     * @var string $operation
      */
-    private $operation;
+    protected $operation;
 
     /**
+     * Http server code
      *
-     * @var Integer
+     * @var http server code $status
      */
-    private $status;
+    protected $status;
 
     /**
+     * Format to string the responce
      *
      * @return the $responceData
      */
@@ -42,6 +44,7 @@ class FirebaseResponce
     }
 
     /**
+     * Type of Operation
      *
      * @return the $operation
      */
@@ -51,6 +54,7 @@ class FirebaseResponce
     }
 
     /**
+     * Status from http server
      *
      * @return the $status
      */
@@ -87,60 +91,25 @@ class FirebaseResponce
     }
 
     /**
-     *
-     * @param object $responceData
-     * @param string $operation
-     * @param integer $status
-     */
-    public function __construct($responceData, $operation, $status)
-    {
-        // set class attributes
-        $this->setResponceData($responceData);
-        $this->setOperation($operation);
-        $this->setStatus($status);
-        
-        // validate data received, otherwise throw new \Exception()
-        $this->validateResponce();
-    }
-
-    /**
-     * Method for get associative array with all data in responce
-     *
-     * @return array
-     */
-    public function readResponce(): array
-    {
-        // initialized array that will contain responce
-        $responce = [];
-        
-        // put data that We need inside array
-        $responce['operation'] = \strtoupper($this->getOperation());
-        $responce['responcedata'] = $this->getResponceData();
-        $responce['status'] = $this->getStatus();
-        
-        return $responce;
-    }
-
-    /**
      * Method for validate data arrives in _costruct.
      * If all data was correct skip function without returns.
      *
      * @throws \Exception
      */
-    private function validateResponce()
+    protected function validateResponce()
     {
         // check validity of ResponceData
         // if (! is_object($this->getResponceData())) {
         // throw new \Exception("ResponceData parameter must be GuzzleHttp Object.
         // Received : " . gettype($this->getResponceData()) . " .");
         // }
-        
+
         // check validity of Operation
         if (! is_string($this->getOperation()) || empty($this->getOperation())) {
             throw new \Exception("Operation parameter must be STRING and NOT EMPTY.
                 Received : " . gettype($this->getOperation()) . " ({$this->getOperation()}).");
         }
-        
+
         // check validity of Status
         if (! is_numeric($this->getStatus())) {
             throw new \Exception("Status parameter must be NUMERIC.

@@ -4,6 +4,7 @@ namespace ZendFirebase;
 
 use Interfaces\FirebaseInterface;
 use GuzzleHttp\Client;
+use function GuzzleHttp\json_encode;
 require 'src/Interfaces/FirebaseInterface.php';
 require 'src/FirebaseResponce.php';
 
@@ -14,9 +15,9 @@ require 'src/FirebaseResponce.php';
  * @link https://github.com/Samuel18/zend_Firebase
  * @copyright Copyright (c) 2016-now Ventimiglia Samuel - Biasin Davide
  * @license BSD 3-Clause License
- *         
+ *
  */
-class FirebaseInit implements FirebaseInterface
+class FirebaseInit extends FirebaseResponce implements FirebaseInterface
 {
 
     /**
@@ -48,35 +49,21 @@ class FirebaseInit implements FirebaseInterface
     private $response;
 
     /**
-     * Type of _operation
-     *
-     * @var string $operation
-     */
-    private $operation;
-
-    /**
-     * Http server code
-     *
-     * @var http server code $status
-     */
-    private $status;
-
-    /**
      * Create new Firebase client object
      * Remember to install PHP CURL extention
      *
-     * @param \ZendFirebase\Config\AuthSetup $auth            
+     * @param \ZendFirebase\Config\AuthSetup $auth
      */
     public function __construct(\ZendFirebase\Config\AuthSetup $auth)
     {
         $authMessage = 'Forget credential or is not an object.';
         $curlMessage = 'Extension CURL is not loaded or not installed.';
-        
+
         // check if auth is null
         if (! is_object($auth) || null == $auth) {
             trigger_error($authMessage, E_USER_ERROR);
         }
-        
+
         // check if extension is installed
         if (! extension_loaded('curl')) {
             trigger_error($curlMessage, E_USER_ERROR);
@@ -85,7 +72,7 @@ class FirebaseInit implements FirebaseInterface
         $this->setTimeout(10);
         // store object into variable
         $this->auth = $auth;
-        
+
         /*
          * create new client
          * set base_uri
@@ -100,10 +87,12 @@ class FirebaseInit implements FirebaseInterface
     }
 
     /**
+     * Return Integer of Timeout
+     * default 30 setted 10
      *
      * @return the $timeout
      */
-    public function getTimeout(): int
+    private function getTimeout(): int
     {
         return $this->timeout;
     }
@@ -112,7 +101,7 @@ class FirebaseInit implements FirebaseInterface
      * Default timeout is 10 seconds
      * is is not set switch to 30
      *
-     * @param number $timeout            
+     * @param number $timeout
      */
     public function setTimeout($timeout)
     {
@@ -120,7 +109,7 @@ class FirebaseInit implements FirebaseInterface
     }
 
     /**
-     * Method for get array headers for Guzzle_client
+     * Method for get array headers for Guzzle client
      *
      * @throws \Exception
      * @return array
@@ -128,29 +117,29 @@ class FirebaseInit implements FirebaseInterface
     private function getRequestHeaders(): array
     {
         $headers = [];
-        
+
         $headers['Accept'] = 'application/json';
-        
+
         // check if header is an array
         if (! is_array($headers)) {
             $str = "The guzzle client headers must be an array.";
             throw new \Exception($str);
         }
-        
+
         return $headers;
     }
 
     /**
      * Returns with the normalized JSON absolute path
      *
-     * @param unknown $path            
-     * @param array $options            
+     * @param string $path
+     * @param array $options
      * @return string
      */
     private function getJsonPath($path, $options = [])
     {
         $options['auth'] = $this->auth->getServertoken();
-        
+
         $path = ltrim($path, '/');
         return $path . '.json?' . http_build_query($options);
     }
@@ -158,8 +147,8 @@ class FirebaseInit implements FirebaseInterface
     /**
      * DELETE - Removing Data FROM FIREBASE
      *
-     * @param string $path            
-     * @param array $options            
+     * @param string $path
+     * @param array $options
      *
      * {@inheritdoc}
      *
@@ -168,20 +157,22 @@ class FirebaseInit implements FirebaseInterface
     public function delete($path, $options = [])
     {
         try {
-            $_response = $this->client->delete($this->getJsonPath($path));
-            $this->response = $_response->getReasonPhrase(); // OK
-            $this->status = $_response->getStatusCode(); // 200
+            $response = $this->client->delete($this->getJsonPath($path));
+            $this->response = $response->getReasonPhrase(); // OK
+            $this->status = $response->getStatusCode(); // 200
             $this->operation = 'DELETE';
         } catch (\Exception $e) {
             $this->response = null;
         }
+
+        $this->responce();
     }
 
     /**
      * GET - Reading Data FROM FIREBASE
      *
-     * @param string $path            
-     * @param array $options            
+     * @param string $path
+     * @param array $options
      *
      * {@inheritdoc}
      *
@@ -190,21 +181,23 @@ class FirebaseInit implements FirebaseInterface
     public function get($path, $options = [])
     {
         try {
-            $_response = $this->client->get($this->getJsonPath($path));
-            $this->response = $_response->getBody();
-            $this->status = $_response->getStatusCode(); // 200
+            $response = $this->client->get($this->getJsonPath($path));
+            $this->response = $response->getBody();
+            $this->status = $response->getStatusCode(); // 200
             $this->operation = 'GET';
         } catch (\Exception $e) {
             $this->response = null;
         }
+
+        $this->responce();
     }
 
     /**
      * PATCH - Updating Data TO FIREBASE
      *
-     * @param string $path            
-     * @param array $data            
-     * @param array $options            
+     * @param string $path
+     * @param array $data
+     * @param array $options
      *
      * {@inheritdoc}
      *
@@ -217,14 +210,16 @@ class FirebaseInit implements FirebaseInterface
         ]);
         $this->status = $this->response->getStatusCode(); // 200
         $this->operation = 'PATCH';
+
+        $this->responce();
     }
 
     /**
      * POST - Pushing Data TO FIREBASE
      *
-     * @param string $path            
-     * @param array $data            
-     * @param array $options            
+     * @param string $path
+     * @param array $data
+     * @param array $options
      *
      * {@inheritdoc}
      *
@@ -237,14 +232,16 @@ class FirebaseInit implements FirebaseInterface
         ]);
         $this->status = $this->response->getStatusCode(); // 200
         $this->operation = 'POST';
+
+        $this->responce();
     }
 
     /**
      * PUT - Writing Data TO FIREBASE
      *
-     * @param string $path            
-     * @param array $data            
-     * @param array $options            
+     * @param string $path
+     * @param array $data
+     * @param array $options
      *
      * {@inheritdoc}
      *
@@ -257,21 +254,27 @@ class FirebaseInit implements FirebaseInterface
         ]);
         $this->status = $this->response->getStatusCode(); // 200
         $this->operation = 'PUT';
+
+        $this->responce();
     }
 
     /**
      * This method return the responce from firebase
      *
-     * @return new FirebaseResponce readResponce() Method
+     * @example set and validate data passed
      */
-    public function responce()
+    private function responce()
     {
-        $status = $this->status;
-        $op = $this->operation;
-        $data = $this->response;
-        $resp = new \ZendFirebase\FirebaseResponce($data, $op, $status);
-        
-        return $resp->readResponce();
+        $jsonData = '';
+        if ($this->status === 200 && $this->operation === 'GET') {
+            $jsonData = json_encode($this->response);
+        } else {
+            $jsonData = 'success';
+        }
+        parent::setOperation($this->operation);
+        parent::setStatus($this->status);
+        parent::setResponceData($jsonData);
+        parent::validateResponce();
     }
 
     /**
