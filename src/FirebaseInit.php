@@ -177,14 +177,29 @@ class FirebaseInit implements FirebaseInterface
 
     private function writeData($path, $data, $options = array())
     {
-        try {
-            
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
-            $return = curl_exec($ch);
-        } catch (\Exception $e) {
-            $return = null;
+        // try {
+        
+        // curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
+        // $return = curl_exec($ch);
+        // } catch (\Exception $e) {
+        // $return = null;
+        // }
+        // return $return;
+    }
+
+    private function setHeaderToGuzzleClient($headers)
+    {
+        // check if header is an array
+        if (! is_array($headers)) {
+            throw new \Exception("The guzzle client headers must be an array.");
         }
-        return $return;
+        
+        // check if array passed contains key 'headers'
+        if (! array_key_exists('headers', $headers)){
+            throw new \Exception("Headers array must have a key named 'headers'.");
+        }
+        
+        
     }
 }
 
