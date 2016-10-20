@@ -22,7 +22,7 @@ interface FirebaseInterface
      *            $options
      * @return mixed
      */
-    public function put($path, $data, $options = array());
+    public function put($path, array $data, $options = array());
 
     /**
      *
@@ -34,7 +34,7 @@ interface FirebaseInterface
      *            $options
      * @return mixed
      */
-    public function post($path, $data, $options = array());
+    public function post($path, array $data, $options = array());
 
     /**
      *
@@ -46,7 +46,7 @@ interface FirebaseInterface
      *            $options
      * @return mixed
      */
-    public function patch($path, $data, $options = array());
+    public function patch($path, array $data, $options = array());
 
     /**
      *
@@ -56,7 +56,7 @@ interface FirebaseInterface
      *            $options
      * @return mixed
      */
-    public function get($path, $data, $options = array());
+    public function get($path, $options = array());
 
     /**
      *
@@ -66,6 +66,6 @@ interface FirebaseInterface
      *            $options
      * @return mixed
      */
-    public function delete($path, $data, $options = array());
+    public function delete($path, array $data, $options = array());
 }
 
