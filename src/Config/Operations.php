@@ -7,7 +7,7 @@ namespace ZendFirebase\Config;
  *
  * @author Ventimiglia Samuel
  * @package Firebase
- *         
+ *
  */
 class Operations
 {
