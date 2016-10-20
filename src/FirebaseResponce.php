@@ -4,6 +4,7 @@ namespace ZendFirebase\Firebase;
 
 use phpDocumentor\Reflection\Types\Integer;
 use phpDocumentor\Reflection\Types\String_;
+use phpDocumentor\Reflection\Types\Object_;
 
 /**
  *
@@ -15,7 +16,7 @@ class FirebaseResponce
 
     /**
      *
-     * @var GuzzleHttp Object
+     * @var Object_
      */
     private $responceData;
 
@@ -27,7 +28,7 @@ class FirebaseResponce
 
     /**
      *
-     * @var Integer or NumericString
+     * @var Integer
      */
     private $status;
 
@@ -60,7 +61,7 @@ class FirebaseResponce
 
     /**
      *
-     * @param field_type $responceData            
+     * @param object $responceData            
      */
     protected function setResponceData($responceData)
     {
@@ -69,7 +70,7 @@ class FirebaseResponce
 
     /**
      *
-     * @param field_type $operation            
+     * @param string $operation            
      */
     protected function setOperation($operation)
     {
@@ -78,7 +79,7 @@ class FirebaseResponce
 
     /**
      *
-     * @param field_type $status            
+     * @param integer $status            
      */
     protected function setStatus($status)
     {
@@ -87,11 +88,9 @@ class FirebaseResponce
 
     /**
      *
-     * @param
-     *            string - Json $responceData
+     * @param object $responceData            
      * @param string $operation            
-     * @param
-     *            numeric string $status
+     * @param integer $status            
      */
     public function __construct($responceData, $operation, $status)
     {
