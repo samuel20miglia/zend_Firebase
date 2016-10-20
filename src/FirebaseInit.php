@@ -38,7 +38,7 @@ class FirebaseInit extends FirebaseResponce implements FirebaseInterface
     /**
      * Create new Client
      *
-     * @var GuzzleHttp\Client $client
+     * @var $client
      */
     private $client;
 
@@ -266,8 +266,8 @@ class FirebaseInit extends FirebaseResponce implements FirebaseInterface
      */
     private function responce()
     {
-        $jsonData = '';
-        if ($this->status === 200 && $this->operation === 'GET') {
+
+        if ($this->operation === 'GET') {
             $jsonData = json_encode($this->response);
         } else {
             $jsonData = 'success';
