@@ -122,4 +122,3 @@ class FirebaseResponce
         unset($this);
     }
 }
-

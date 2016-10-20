@@ -4,7 +4,7 @@ namespace ZendFirebase\Exception;
 /**
  *
  * @author sviluppo
- *        
+ *
  */
 class ZendFirebaseException
 {
@@ -16,7 +16,7 @@ class ZendFirebaseException
      * @param
      *            $message
      */
-    function __construct($error, $message)
+    public function __construct($error, $message)
     {
         $this->error = $error;
         $this->message = $message;
@@ -30,4 +30,3 @@ class ZendFirebaseException
         unset($this);
     }
 }
-

@@ -17,11 +17,9 @@
 
 	<!-- Paths to check -->
 	<file>src/</file>
-
+    <file>tests/</file>
 
 	<!-- exclude from sniffing -->
-	<exclude-pattern>tests/_files/*</exclude-pattern>
-	<exclude-pattern>test/TestAsset/*</exclude-pattern>
-	<exclude-pattern>vendor/*</exclude-pattern>
+    <exclude-pattern>vendor/*</exclude-pattern>
 
 </ruleset>
