@@ -2,8 +2,7 @@
 declare(strict_types = 1);
 namespace ZendFirebase\Firebase;
 
-use Interfaces\FirebaseInterface;
-use GuzzleHttp\Client;
+use Interfaces\FirebaseInterface, GuzzleHttp\Client;
 require 'Interfaces/FirebaseInterface.php';
 
 /**
@@ -25,6 +24,8 @@ class FirebaseInit implements FirebaseInterface
 
     private $client;
 
+    private $responce;
+
     /**
      */
     public function __construct(\ZendFirebase\Config\AuthSetup $auth)
@@ -39,6 +40,7 @@ class FirebaseInit implements FirebaseInterface
         
         $this->setTimeout(10);
         $this->auth = $auth;
+        
         $guzzleClient = new Client([
             'base_uri' => $this->auth->getBaseUri(),
             'timeout' => $this->getTimeout()
@@ -98,7 +100,7 @@ class FirebaseInit implements FirebaseInterface
      *
      * @see \Interfaces\FirebaseInterface::delete()
      */
-    public function delete($path, $options = array())
+    public function delete($path, array $data, $options = array())
     {}
 
     /**
@@ -107,9 +109,9 @@ class FirebaseInit implements FirebaseInterface
      *
      * @see \Interfaces\FirebaseInterface::get()
      */
-    public function get($path, $options = array())
+    public function get($path, array $data, $options = array())
     {
-        // TODO Auto-generated method stub
+        $this->client->get($this->getJsonPath($path), json_encode($data));
     }
 
     /**
@@ -118,7 +120,7 @@ class FirebaseInit implements FirebaseInterface
      *
      * @see \Interfaces\FirebaseInterface::patch()
      */
-    public function patch($path, $data, $options = array())
+    public function patch($path, array $data, $options = array())
     {
         // TODO Auto-generated method stub
     }
@@ -129,9 +131,14 @@ class FirebaseInit implements FirebaseInterface
      *
      * @see \Interfaces\FirebaseInterface::post()
      */
-    public function post($path, $data, $options = array())
+    public function post($path, array $data, $options = array())
     {
-        // TODO Auto-generated method stub
+        // return $this->client->request('POST', $this->getJsonPath($path), [
+        // 'body' => \json_encode($data)
+        // ]);
+        return $this->client->post($this->getJsonPath($path), [
+            'body' => \json_encode($data)
+        ]);
     }
 
     /**
@@ -140,29 +147,7 @@ class FirebaseInit implements FirebaseInterface
      *
      * @see \Interfaces\FirebaseInterface::put()
      */
-    public function put($path, $data, $options = array())
-    {
-        // TODO Auto-generated method stub
-    }
-
-    /**
-     *
-     * {@inheritdoc}
-     *
-     * @see \Interfaces\FirebaseInterface::setBaseURI()
-     */
-    public function setBaseURI($baseURI)
-    {
-        // TODO Auto-generated method stub
-    }
-
-    /**
-     *
-     * {@inheritdoc}
-     *
-     * @see \Interfaces\FirebaseInterface::setToken()
-     */
-    public function setToken($token)
+    public function put($path, array $data, $options = array())
     {
         // TODO Auto-generated method stub
     }
@@ -177,11 +162,7 @@ class FirebaseInit implements FirebaseInterface
 
     private function writeData($path, $data, $options = array())
     {
-        try {
-            
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
-            $return = curl_exec($ch);
-        } catch (\Exception $e) {
+        try {} catch (\Exception $e) {
             $return = null;
         }
         return $return;
