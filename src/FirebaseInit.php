@@ -4,7 +4,6 @@ namespace ZendFirebase;
 
 use Interfaces\FirebaseInterface;
 use GuzzleHttp\Client;
-
 require 'src/Interfaces/FirebaseInterface.php';
 require 'src/FirebaseResponce.php';
 
@@ -15,7 +14,7 @@ require 'src/FirebaseResponce.php';
  * @link https://github.com/Samuel18/zend_Firebase
  * @copyright Copyright (c) 2016-now Ventimiglia Samuel - Biasin Davide
  * @license BSD 3-Clause License
- *
+ *         
  */
 class FirebaseInit implements FirebaseInterface
 {
@@ -28,7 +27,7 @@ class FirebaseInit implements FirebaseInterface
     private $timeout = 30;
 
     /**
-     * __authentication object
+     * Authentication object
      *
      * @var \ZendFirebase\Config\AuthSetup $auth
      */
@@ -63,10 +62,10 @@ class FirebaseInit implements FirebaseInterface
     private $status;
 
     /**
-     * Create new Firebase _client object
+     * Create new Firebase client object
      * Remember to install PHP CURL extention
      *
-     * @param \ZendFirebase\Config\__authSetup $__auth
+     * @param \ZendFirebase\Config\AuthSetup $auth            
      */
     public function __construct(\ZendFirebase\Config\AuthSetup $auth)
     {
@@ -74,7 +73,7 @@ class FirebaseInit implements FirebaseInterface
         $curlMessage = 'Extension CURL is not loaded or not installed.';
         
         // check if auth is null
-        if (! is_object($auth) or null == $auth) {
+        if (! is_object($auth) || null == $auth) {
             trigger_error($authMessage, E_USER_ERROR);
         }
         
@@ -89,7 +88,7 @@ class FirebaseInit implements FirebaseInterface
         
         /*
          * create new client
-         * set base uri
+         * set base_uri
          * set timeout
          * set headers
          */
@@ -113,7 +112,7 @@ class FirebaseInit implements FirebaseInterface
      * Default timeout is 10 seconds
      * is is not set switch to 30
      *
-     * @param number $timeout
+     * @param number $timeout            
      */
     public function setTimeout($timeout)
     {
@@ -144,8 +143,8 @@ class FirebaseInit implements FirebaseInterface
     /**
      * Returns with the normalized JSON absolute path
      *
-     * @param unknown $path
-     * @param array $options
+     * @param unknown $path            
+     * @param array $options            
      * @return string
      */
     private function getJsonPath($path, $options = [])
@@ -159,8 +158,8 @@ class FirebaseInit implements FirebaseInterface
     /**
      * DELETE - Removing Data FROM FIREBASE
      *
-     * @param string $path
-     * @param array $options
+     * @param string $path            
+     * @param array $options            
      *
      * {@inheritdoc}
      *
@@ -181,8 +180,8 @@ class FirebaseInit implements FirebaseInterface
     /**
      * GET - Reading Data FROM FIREBASE
      *
-     * @param string $path
-     * @param array $options
+     * @param string $path            
+     * @param array $options            
      *
      * {@inheritdoc}
      *
@@ -203,9 +202,9 @@ class FirebaseInit implements FirebaseInterface
     /**
      * PATCH - Updating Data TO FIREBASE
      *
-     * @param string $path
-     * @param array $data
-     * @param array $options
+     * @param string $path            
+     * @param array $data            
+     * @param array $options            
      *
      * {@inheritdoc}
      *
@@ -223,9 +222,9 @@ class FirebaseInit implements FirebaseInterface
     /**
      * POST - Pushing Data TO FIREBASE
      *
-     * @param string $path
-     * @param array $data
-     * @param array $options
+     * @param string $path            
+     * @param array $data            
+     * @param array $options            
      *
      * {@inheritdoc}
      *
@@ -243,9 +242,9 @@ class FirebaseInit implements FirebaseInterface
     /**
      * PUT - Writing Data TO FIREBASE
      *
-     * @param string $path
-     * @param array $data
-     * @param array $options
+     * @param string $path            
+     * @param array $data            
+     * @param array $options            
      *
      * {@inheritdoc}
      *
