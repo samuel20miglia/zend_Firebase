@@ -1,11 +1,12 @@
 <?php
-namespace ZendFirebaseTest\Firebase\Config;
+namespace ZendFirebaseTest\Config;
 
 use ZendFirebase\Config\AuthSetup;
 
 require_once "../../src/Config/AuthSetup.php";
 
 /**
+ * Test class for authentication object
  *
  * @author sviluppo
  *

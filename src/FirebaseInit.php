@@ -4,9 +4,9 @@ namespace ZendFirebase;
 
 use Interfaces\FirebaseInterface;
 use GuzzleHttp\Client;
-use function GuzzleHttp\json_encode;
-require 'src/Interfaces/FirebaseInterface.php';
-require 'src/FirebaseResponce.php';
+
+require 'Interfaces/FirebaseInterface.php';
+
 
 /**
  * PHP7 FIREBASE LIBRARY (http://samuelventimiglia.it/)
@@ -30,14 +30,14 @@ class FirebaseInit extends FirebaseResponce implements FirebaseInterface
     /**
      * Authentication object
      *
-     * @var \ZendFirebase\Config\AuthSetup $auth
+     * @var $auth
      */
     private $auth;
 
     /**
      * Create new Client
      *
-     * @var GuzzleHttp\Client $client
+     * @var $client
      */
     private $client;
 
@@ -90,7 +90,7 @@ class FirebaseInit extends FirebaseResponce implements FirebaseInterface
      * Return Integer of Timeout
      * default 30 setted 10
      *
-     * @return the $timeout
+     * @return integer $timeout
      */
     private function getTimeout(): int
     {
@@ -101,7 +101,7 @@ class FirebaseInit extends FirebaseResponce implements FirebaseInterface
      * Default timeout is 10 seconds
      * is is not set switch to 30
      *
-     * @param number $timeout
+     * @param integer $timeout
      */
     public function setTimeout($timeout)
     {
@@ -134,9 +134,9 @@ class FirebaseInit extends FirebaseResponce implements FirebaseInterface
      *
      * @param string $path
      * @param array $options
-     * @return string
+     * @return string $path
      */
-    private function getJsonPath($path, $options = [])
+    private function getJsonPath($path, $options = []): string
     {
         $options['auth'] = $this->auth->getServertoken();
 
@@ -182,7 +182,7 @@ class FirebaseInit extends FirebaseResponce implements FirebaseInterface
     {
         try {
             $response = $this->client->get($this->getJsonPath($path));
-            $this->response = $response->getBody();
+            $this->response = $response->getBody()->getContents();
             $this->status = $response->getStatusCode(); // 200
             $this->operation = 'GET';
         } catch (\Exception $e) {
@@ -265,16 +265,16 @@ class FirebaseInit extends FirebaseResponce implements FirebaseInterface
      */
     private function responce()
     {
-        $jsonData = '';
-        if ($this->status === 200 && $this->operation === 'GET') {
-            $jsonData = json_encode($this->response);
+        $jsonData = [];
+        if ($this->operation === 'GET') {
+            $jsonData = json_decode($this->response, true);
         } else {
-            $jsonData = 'success';
+            $jsonData[] = 'success';
         }
-        parent::setOperation($this->operation);
-        parent::setStatus($this->status);
-        parent::setResponceData($jsonData);
-        parent::validateResponce();
+        $this->setOperation($this->operation);
+        $this->setStatus($this->status);
+        $this->setFirebaseData($jsonData);
+        $this->validateResponce();
     }
 
     /**

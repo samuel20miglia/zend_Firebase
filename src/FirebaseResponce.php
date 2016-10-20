@@ -3,7 +3,6 @@ declare(strict_types = 1);
 namespace ZendFirebase;
 
 use phpDocumentor\Reflection\Types\Integer;
-use phpDocumentor\Reflection\Types\Object_;
 
 /**
  *
@@ -14,10 +13,10 @@ class FirebaseResponce
 {
 
     /**
-     *
-     * @var Object_
+     * Data from Firebase
+     * @var array $firebaseData
      */
-    private $responceData;
+    private $firebaseData;
 
     /**
      * Type of operation
@@ -29,26 +28,26 @@ class FirebaseResponce
     /**
      * Http server code
      *
-     * @var http server code $status
+     * @var integer $status
      */
     protected $status;
 
     /**
-     * Format to string the responce
+     * Format to array the responce
      *
-     * @return the $responceData
+     * @return array
      */
-    public function getResponceData()
+    public function getFirebaseData(): array
     {
-        return $this->responceData;
+        return $this->firebaseData;
     }
 
     /**
      * Type of Operation
      *
-     * @return the $operation
+     * @return  $operation
      */
-    public function getOperation()
+    public function getOperation(): string
     {
         return $this->operation;
     }
@@ -56,20 +55,20 @@ class FirebaseResponce
     /**
      * Status from http server
      *
-     * @return the $status
+     * @return integer $status
      */
-    public function getStatus()
+    public function getStatus(): int
     {
         return $this->status;
     }
 
     /**
      *
-     * @param object $responceData
+     * @param  $firebaseData
      */
-    protected function setResponceData($responceData)
+    protected function setFirebaseData($firebaseData)
     {
-        $this->responceData = $responceData;
+        $this->firebaseData = $firebaseData;
     }
 
     /**
@@ -98,11 +97,7 @@ class FirebaseResponce
      */
     protected function validateResponce()
     {
-        // check validity of ResponceData
-        // if (! is_object($this->getResponceData())) {
-        // throw new \Exception("ResponceData parameter must be GuzzleHttp Object.
-        // Received : " . gettype($this->getResponceData()) . " .");
-        // }
+
 
         // check validity of Operation
         if (! is_string($this->getOperation()) || empty($this->getOperation())) {
