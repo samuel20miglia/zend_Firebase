@@ -7,14 +7,14 @@ class FirebaseResponce
 
     /**
      */
-    public function __construct($responceData, $_operation)
+    public function __construct($responceData, $operation)
     {
     }
 
-    public function readResponce($responceData, $_operation): array
+    public function readResponce($responceData, $operation): array
     {
         $responce = [];
-        $responce['operation'] = \strtoupper($_operation);
+        $responce['operation'] = \strtoupper($operation);
         $responce['data'] = $responceData;
         
         return $responce;

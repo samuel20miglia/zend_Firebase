@@ -9,7 +9,7 @@ namespace ZendFirebase\Config;
  * @link https://github.com/Samuel18/zend_Firebase
  * @copyright Copyright (c) 2016-now Ventimiglia Samuel - Biasin Davide
  * @license BSD 3-Clause License
- *         
+ *
  */
 class AuthSetup
 {
@@ -17,16 +17,16 @@ class AuthSetup
     /**
      * Base uri of firebase database
      *
-     * @var string $_baseURI
+     * @var string $baseURI
      */
-    private $_baseURI;
+    private $baseURI;
 
     /**
      * Token provide from Firebase
      *
-     * @var string $_servertoken
+     * @var string $servertoken
      */
-    private $_serverToken;
+    private $serverToken;
 
     public function __construct()
     {
@@ -35,49 +35,49 @@ class AuthSetup
 
     /**
      *
-     * @return the $_baseURI
+     * @return the $baseURI
      */
-    public function get_baseURI(): string
+    public function getBaseURI(): string
     {
-        return $this->_baseURI;
+        return $this->baseURI;
     }
 
     /**
      *
-     * @return the $_servertoken
+     * @return the $servertoken
      */
-    public function get_servertoken(): string
+    public function getServertoken(): string
     {
-        return $this->_servertoken;
+        return $this->servertoken;
     }
 
     /**
-     * Set String _baseURI
+     * Set String baseURI
      *
-     * @param string $_baseURI            
+     * @param string $baseURI
      */
-    public function set_baseURI($_baseURI)
+    public function setBaseURI($baseURI)
     {
-        if (\strlen($_baseURI) == 0) {
+        if (\strlen($baseURI) == 0) {
             $str = 'You must provide a _baseURI variable.';
             trigger_error($str, E_USER_ERROR);
         }
-        $_baseURI .= (substr($_baseURI, - 1) == '/' ? '' : '/');
+        $baseURI .= (substr($baseURI, - 1) == '/' ? '' : '/');
         
-        $this->_baseURI = \trim($_baseURI);
+        $this->baseURI = \trim($baseURI);
     }
 
     /**
      * Set string token
      *
-     * @param string $_servertoken            
+     * @param string $servertoken
      */
-    public function set_servertoken($_servertoken)
+    public function setServertoken($servertoken)
     {
-        if ($_servertoken == '' or \strlen($_servertoken) == 0) {
+        if ($servertoken == '' or \strlen($servertoken) == 0) {
             $str = 'You must provide a _baseURI variable.';
             trigger_error($str, E_USER_ERROR);
         }
-        $this->_servertoken = \trim($_servertoken);
+        $this->servertoken = \trim($servertoken);
     }
 }

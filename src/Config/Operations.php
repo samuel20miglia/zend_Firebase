@@ -1,5 +1,5 @@
 <?php
-namespace Config;
+namespace ZendFirebase\Config;
 
 /**
  *
@@ -7,7 +7,7 @@ namespace Config;
  *
  * @author Ventimiglia Samuel
  * @package Firebase
- *
+ *         
  */
 class Operations
 {

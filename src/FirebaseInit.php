@@ -2,8 +2,8 @@
 declare(strict_types = 1);
 namespace ZendFirebase\Firebase;
 
-use Interfaces\FirebaseInterface, GuzzleHttp\Client;
-require 'Interfaces/FirebaseInterface.php';
+use Interfaces\FirebaseInterface;
+use GuzzleHttp\Client;
 
 /**
  * PHP7 FIREBASE LIBRARY (http://samuelventimiglia.it/)
@@ -22,41 +22,41 @@ class FirebaseInit implements FirebaseInterface
      *
      * @var integer $timeout
      */
-    private $_timeout = 30;
+    private $timeout = 30;
 
     /**
      * __authentication object
      *
-     * @var \ZendFirebase\Config\__authSetup $__auth
+     * @var \ZendFirebase\Config\AuthSetup $auth
      */
-    private $_auth;
+    private $auth;
 
     /**
      *
-     * @var GuzzleHttp\_client $_client
+     * @var GuzzleHttp\Client $client
      */
-    private $_client;
+    private $client;
 
     /**
      * Responce from firebase
      *
-     * @var string $_response
+     * @var string $response
      */
-    private $_response;
+    private $response;
 
     /**
      * Type of _operation
      *
-     * @var string $_operation
+     * @var string $operation
      */
-    private $_operation;
+    private $operation;
 
     /**
      * Http server code
      *
-     * @var http server code $_status
+     * @var http server code $status
      */
-    private $_status;
+    private $status;
 
     /**
      * Create new Firebase _client object
@@ -64,28 +64,26 @@ class FirebaseInit implements FirebaseInterface
      *
      * @param \ZendFirebase\Config\__authSetup $__auth            
      */
-    public function __construct(\ZendFirebase\Config\AuthSetup $_auth)
+    public function __construct(\ZendFirebase\Config\AuthSetup $auth)
     {
-        $auth = 'Forget credential or is not an object.';
-        $curl = 'Extension CURL is not loaded or not installed.';
-        if (! is_object($_auth) or null == $_auth) {
-            trigger_error($auth, E_USER_ERROR);
+        $authMessage = 'Forget credential or is not an object.';
+        $curlMessage = 'Extension CURL is not loaded or not installed.';
+        if (! is_object($auth) or null == $auth) {
+            trigger_error($authMessage, E_USER_ERROR);
         }
         
         if (! extension_loaded('curl')) {
-            trigger_error($curl, E_USER_ERROR);
+            trigger_error($curlMessage, E_USER_ERROR);
         }
         
         $this->setTimeout(10);
-        $this->_auth = $_auth;
+        $this->auth = $auth;
         
-        $this->_client = new Client(
-            [
-            'base_uri' => $this->_auth->get_baseURI(),
+        $this->client = new Client([
+            'base_uri' => $this->auth->get_baseURI(),
             'timeout' => $this->getTimeout(),
             'headers' => $this->getRequestHeaders()
-            ]
-        );
+        ]);
     }
 
     /**
@@ -94,7 +92,7 @@ class FirebaseInit implements FirebaseInterface
      */
     public function getTimeout(): int
     {
-        return $this->_timeout;
+        return $this->timeout;
     }
 
     /**
@@ -105,7 +103,7 @@ class FirebaseInit implements FirebaseInterface
      */
     public function setTimeout($timeout)
     {
-        $this->_timeout = $timeout;
+        $this->timeout = $timeout;
     }
 
     /**
@@ -138,7 +136,7 @@ class FirebaseInit implements FirebaseInterface
      */
     private function getJsonPath($path, $options = [])
     {
-        $options['_auth'] = $this->_auth->get_servertoken();
+        $options['auth'] = $this->auth->get_servertoken();
         
         $path = ltrim($path, '/');
         return $path . '.json?' . http_build_query($options);
@@ -158,12 +156,12 @@ class FirebaseInit implements FirebaseInterface
     public function delete($path, $options = [])
     {
         try {
-            $_response = $this->_client->delete($this->getJsonPath($path));
-            $this->_response = $_response->getReasonPhrase(); // OK
-            $this->_status = $_response->get_statusCode(); // 200
-            $this->_operation = 'DELETE';
+            $_response = $this->client->delete($this->getJsonPath($path));
+            $this->response = $_response->getReasonPhrase(); // OK
+            $this->status = $_response->get_statusCode(); // 200
+            $this->operation = 'DELETE';
         } catch (\Exception $e) {
-            $this->_response = null;
+            $this->response = null;
         }
     }
 
@@ -181,12 +179,12 @@ class FirebaseInit implements FirebaseInterface
     public function get($path, $options = [])
     {
         try {
-            $_response = $this->_client->get($this->getJsonPath($path));
-            $this->_response = $_response;
-            $this->_status = $_response->get_statusCode(); // 200
-            $this->_operation = 'GET';
+            $_response = $this->client->get($this->getJsonPath($path));
+            $this->response = $_response;
+            $this->status = $_response->get_statusCode(); // 200
+            $this->operation = 'GET';
         } catch (\Exception $e) {
-            $this->_response = null;
+            $this->response = null;
         }
     }
 
@@ -203,13 +201,11 @@ class FirebaseInit implements FirebaseInterface
      */
     public function patch($path, array $data, $options = [])
     {
-        $this->_response = $this->_client->patch(
-            $this->getJsonPath($path), [
+        $this->response = $this->client->patch($this->getJsonPath($path), [
             'body' => \json_encode($data)
-            ]
-        );
-        $this->_status = $this->_response->get_statusCode(); // 200
-        $this->_operation = 'PATCH';
+        ]);
+        $this->status = $this->response->getStatusCode(); // 200
+        $this->operation = 'PATCH';
     }
 
     /**
@@ -225,13 +221,11 @@ class FirebaseInit implements FirebaseInterface
      */
     public function post($path, array $data, $options = [])
     {
-        $this->_response = $this->_client->post(
-            $this->getJsonPath($path), [
+        $this->response = $this->client->post($this->getJsonPath($path), [
             'body' => \json_encode($data)
-            ]
-        );
-        $this->_status = $this->_response->get_statusCode(); // 200
-        $this->_operation = 'POST';
+        ]);
+        $this->status = $this->response->getStatusCode(); // 200
+        $this->operation = 'POST';
     }
 
     /**
@@ -247,13 +241,11 @@ class FirebaseInit implements FirebaseInterface
      */
     public function put($path, array $data, $options = [])
     {
-        $this->_response = $this->_client->put(
-            $this->getJsonPath($path), [
+        $this->response = $this->client->put($this->getJsonPath($path), [
             'body' => \json_encode($data)
-            ]
-        );
-        $this->_status = $this->_response->get_statusCode(); // 200
-        $this->_operation = 'PUT';
+        ]);
+        $this->status = $this->response->getStatusCode(); // 200
+        $this->operation = 'PUT';
     }
 
     /**
@@ -263,9 +255,9 @@ class FirebaseInit implements FirebaseInterface
      */
     public function responce()
     {
-        $status = $this->_status;
-        $op = $this->_operation;
-        $data = $this->_response;
+        $status = $this->status;
+        $op = $this->operation;
+        $data = $this->response;
         $resp = new FirebaseResponce($data, $op, $status);
         
         return $resp->readResponce($data, $op, $status);
