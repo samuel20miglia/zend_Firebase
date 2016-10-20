@@ -17,12 +17,11 @@ composer require zend_firebase/zend_firebase dev-master
 More info about Composer at [getcomposer.org](http://getcomposer.org).
 
 ### Example
-```
-```
+
 
 ### Supported Commands
 
-```
+
 
 
 
@@ -35,7 +34,7 @@ All the unit tests are found in the "/tests" directory. Due to the usage of an i
 
 
 #### BSD 3-Clause License
-```
-[READ LICENSE](LICENSE)
-```
+
+[READ BSD LICENSE](LICENSE)
+
 
