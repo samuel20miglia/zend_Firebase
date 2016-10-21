@@ -2,14 +2,13 @@
 namespace ZendFirebaseTest\Config;
 
 use ZendFirebase\Config\AuthSetup;
-
 require 'src/Config/AuthSetup.php';
 
 /**
  * Test class for authentication object
  *
  * @author sviluppo
- *
+ *        
  */
 class AuthSetupTest extends \PHPUnit_Framework_TestCase
 {
@@ -20,9 +19,26 @@ class AuthSetupTest extends \PHPUnit_Framework_TestCase
 
     protected $token = 'MqL0c8tKCtheLSYfrNINlnfn4t8jtgfgbfgjny';
 
-    public function setUp()
+    /**
+     * Prepares the environment before running a test.
+     */
+    protected function setUp()
     {
+        parent::setUp();
+        
+        // TODO Auto-generated AuthSetupTest::setUp()
         $this->auth = new AuthSetup();
+    }
+
+    /**
+     * Cleans up the environment after running a test.
+     */
+    protected function tearDown()
+    {
+        // TODO Auto-generated AuthSetupTest::tearDown()
+        $this->auth = null;
+        
+        parent::tearDown();
     }
 
     public function testNoBaseURI()
