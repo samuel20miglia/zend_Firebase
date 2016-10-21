@@ -101,13 +101,13 @@ class FirebaseResponce
     {
         
         // check validity of Operation
-        if (! is_string($this->getOperation()) || empty($this->getOperation())) {
+        if (!is_string($this->getOperation()) || empty($this->getOperation())) {
             throw new \Exception("Operation parameter must be STRING and NOT EMPTY.
                 Received : " . gettype($this->getOperation()) . " ({$this->getOperation()}).");
         }
         
         // check validity of Status
-        if (! is_numeric($this->getStatus())) {
+        if (!is_numeric($this->getStatus())) {
             throw new \Exception("Status parameter must be NUMERIC.
                 Received : " . gettype($this->getStatus()) . " ({$this->getStatus()}).");
         }
