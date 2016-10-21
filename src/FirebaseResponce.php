@@ -2,7 +2,6 @@
 declare(strict_types = 1);
 namespace ZendFirebase;
 
-use phpDocumentor\Reflection\Types\Integer;
 
 /**
  *
