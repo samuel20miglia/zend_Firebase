@@ -42,7 +42,7 @@ class FirebaseInit extends FirebaseResponce implements FirebaseInterface
     /**
      * Responce from firebase
      *
-     * @var object $response
+     * @var mixed $response
      */
     private $response;
 
