@@ -5,14 +5,14 @@ namespace ZendFirebase;
 /**
  *
  * @author Davide Biasin
- *        
+ *
  */
 class FirebaseResponce
 {
 
     /**
      * Data from Firebase
-     * 
+     *
      * @var array $firebaseData
      */
     private $firebaseData;
@@ -34,7 +34,7 @@ class FirebaseResponce
     /**
      * Format to array the responce
      *
-     * @return array
+     * @return array $firebaseData
      */
     public function getFirebaseData(): array
     {
@@ -62,9 +62,9 @@ class FirebaseResponce
     }
 
     /**
+     * Set data from firebase api
      *
-     * @param
-     *            $firebaseData
+     * @param array $firebaseData
      */
     protected function setFirebaseData($firebaseData)
     {
@@ -72,8 +72,9 @@ class FirebaseResponce
     }
 
     /**
+     * Set type of operation
      *
-     * @param string $operation            
+     * @param string $operation
      */
     protected function setOperation($operation)
     {
@@ -81,8 +82,9 @@ class FirebaseResponce
     }
 
     /**
+     * Set status responce
      *
-     * @param integer $status            
+     * @param integer $status
      */
     protected function setStatus($status)
     {
