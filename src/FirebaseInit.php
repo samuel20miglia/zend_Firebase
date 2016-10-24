@@ -59,12 +59,12 @@ class FirebaseInit extends FirebaseResponce implements FirebaseInterface
         $curlMessage = 'Extension CURL is not loaded or not installed.';
 
         // check if auth is null
-        if (! is_object($auth) || null == $auth) {
+        if (!is_object($auth) || null == $auth) {
             trigger_error($authMessage, E_USER_ERROR);
         }
 
         // check if extension is installed
-        if (! extension_loaded('curl')) {
+        if (!extension_loaded('curl')) {
             trigger_error($curlMessage, E_USER_ERROR);
         }
         // set timeout
@@ -83,6 +83,7 @@ class FirebaseInit extends FirebaseResponce implements FirebaseInterface
             'timeout' => $this->getTimeout(),
             'headers' => $this->getRequestHeaders()
         ]);
+
 
     }
 
@@ -121,7 +122,7 @@ class FirebaseInit extends FirebaseResponce implements FirebaseInterface
         $headers['Accept'] = 'application/json';
 
         // check if header is an array
-        if (! is_array($headers)) {
+        if (!is_array($headers)) {
             $str = "The guzzle client headers must be an array.";
             throw new \Exception($str);
         }
