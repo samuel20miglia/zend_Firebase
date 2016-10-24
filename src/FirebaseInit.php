@@ -57,12 +57,12 @@ class FirebaseInit extends FirebaseResponce implements FirebaseInterface
     {
         $authMessage = 'Forget credential or is not an object.';
         $curlMessage = 'Extension CURL is not loaded or not installed.';
-        
+
         // check if auth is null
         if (! is_object($auth) || null == $auth) {
             trigger_error($authMessage, E_USER_ERROR);
         }
-        
+
         // check if extension is installed
         if (! extension_loaded('curl')) {
             trigger_error($curlMessage, E_USER_ERROR);
@@ -71,7 +71,7 @@ class FirebaseInit extends FirebaseResponce implements FirebaseInterface
         $this->setTimeout(10);
         // store object into variable
         $this->auth = $auth;
-        
+
         /*
          * create new client
          * set base_uri
@@ -83,6 +83,11 @@ class FirebaseInit extends FirebaseResponce implements FirebaseInterface
             'timeout' => $this->getTimeout(),
             'headers' => $this->getRequestHeaders()
         ]);
+
+
+        if (!empty($this->response)){
+            $this->makeResponce();
+        }
     }
 
     /**
@@ -116,15 +121,15 @@ class FirebaseInit extends FirebaseResponce implements FirebaseInterface
     private function getRequestHeaders(): array
     {
         $headers = [];
-        
+
         $headers['Accept'] = 'application/json';
-        
+
         // check if header is an array
         if (! is_array($headers)) {
             $str = "The guzzle client headers must be an array.";
             throw new \Exception($str);
         }
-        
+
         return $headers;
     }
 
@@ -138,7 +143,7 @@ class FirebaseInit extends FirebaseResponce implements FirebaseInterface
     private function getJsonPath($path, $options = []): string
     {
         $options['auth'] = $this->auth->getServertoken();
-        
+
         $path = ltrim($path, '/');
         return $path . '.json?' . http_build_query($options);
     }
@@ -163,8 +168,8 @@ class FirebaseInit extends FirebaseResponce implements FirebaseInterface
         } catch (\Exception $e) {
             $this->response = null;
         }
-        
-        $this->responce();
+
+
     }
 
     /**
@@ -187,8 +192,6 @@ class FirebaseInit extends FirebaseResponce implements FirebaseInterface
         } catch (\Exception $e) {
             $this->response = null;
         }
-        
-        $this->responce();
     }
 
     /**
@@ -209,8 +212,7 @@ class FirebaseInit extends FirebaseResponce implements FirebaseInterface
         ]);
         $this->status = $this->response->getStatusCode(); // 200
         $this->operation = 'PATCH';
-        
-        $this->responce();
+
     }
 
     /**
@@ -231,8 +233,8 @@ class FirebaseInit extends FirebaseResponce implements FirebaseInterface
         ]);
         $this->status = $this->response->getStatusCode(); // 200
         $this->operation = 'POST';
-        
-        $this->responce();
+
+
     }
 
     /**
@@ -253,8 +255,7 @@ class FirebaseInit extends FirebaseResponce implements FirebaseInterface
         ]);
         $this->status = $this->response->getStatusCode(); // 200
         $this->operation = 'PUT';
-        
-        $this->responce();
+
     }
 
     /**
@@ -262,7 +263,7 @@ class FirebaseInit extends FirebaseResponce implements FirebaseInterface
      *
      * @example set and validate data passed
      */
-    private function responce()
+    private function makeResponce()
     {
         $jsonData = [];
         if ($this->operation === 'GET') {
