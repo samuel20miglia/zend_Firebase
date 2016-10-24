@@ -84,10 +84,6 @@ class FirebaseInit extends FirebaseResponce implements FirebaseInterface
             'headers' => $this->getRequestHeaders()
         ]);
 
-
-        if (!empty($this->response)){
-            $this->makeResponce();
-        }
     }
 
     /**
@@ -263,7 +259,7 @@ class FirebaseInit extends FirebaseResponce implements FirebaseInterface
      *
      * @example set and validate data passed
      */
-    private function makeResponce()
+    public function makeResponce()
     {
         $jsonData = [];
         if ($this->operation === 'GET') {
