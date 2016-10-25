@@ -23,6 +23,18 @@ class FirebaseInitTest extends \PHPUnit_Framework_TestCase
 
     protected $token = 'MqL0c8tKCtheLSYfrNINlnfn4t8jtgfgbfgjny';
 
+    private $auth;
+
+    private $path;
+
+    private $options = [];
+
+    private $operation;
+
+    private $status;
+
+    private $responce;
+
     /**
      * Prepares the environment before running a test.
      */
@@ -30,9 +42,12 @@ class FirebaseInitTest extends \PHPUnit_Framework_TestCase
     {
         parent::setUp();
         
-        // TODO Auto-generated FirebaseInitTest::setUp()
+        $this->auth = new AuthSetup();
         
-        $this->firebaseInit = new FirebaseInit(/* parameters */);
+        $this->auth->setServertoken($this->token);
+        $this->auth->setBaseURI($this->baseUri);
+        // TODO Auto-generated FirebaseInitTest::setUp()
+        $this->firebaseInit = new FirebaseInit($this->auth);
     }
 
     /**
@@ -51,7 +66,7 @@ class FirebaseInitTest extends \PHPUnit_Framework_TestCase
      */
     public function __construct()
     {
-        // TODO Auto-generated constructor
+        //
     }
 
     /**
@@ -59,12 +74,9 @@ class FirebaseInitTest extends \PHPUnit_Framework_TestCase
      */
     public function test__construct()
     {
-        $auth = new AuthSetup();
+        $this->firebaseInit->__construct($this->auth);
         
-        $auth->setServertoken($this->token);
-        $auth->setBaseURI($this->baseUri);
-        
-        $this->firebaseInit->__construct();
+        $this->assertNotEquals(AuthSetup::class, $this->auth);
     }
 
     /**
@@ -72,10 +84,15 @@ class FirebaseInitTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetTimeout()
     {
-        // TODO Auto-generated FirebaseInitTest->testSetTimeout()
-        $this->markTestIncomplete("setTimeout test not implemented");
+        $timeout = 10;
         
-        $this->firebaseInit->setTimeout(/* parameters */);
+        $this->firebaseInit->setTimeout($timeout);
+        
+        /* not empty */
+        $this->assertNotEmpty($this->firebaseInit->getTimeout());
+        
+        /* type int */
+        $this->assertInternalType('int', $this->firebaseInit->getTimeout());
     }
 
     /**
@@ -83,10 +100,17 @@ class FirebaseInitTest extends \PHPUnit_Framework_TestCase
      */
     public function testDelete()
     {
-        // TODO Auto-generated FirebaseInitTest->testDelete()
-        $this->markTestIncomplete("delete test not implemented");
         
-        $this->firebaseInit->delete(/* parameters */);
+        // TODO Auto-generated FirebaseInitTest->testGet()
+        $this->markTestIncomplete("get test not implemented");
+        $this->path = 'somePath';
+        $this->options;
+        $this->operation = 'DELETE';
+        $this->status = 200;
+        
+        $this->firebaseInit->delete($this->path, $this->options);
+        
+        $this->assertEquals(200, $this->status, $this->firebaseInit);
     }
 
     /**
@@ -138,10 +162,9 @@ class FirebaseInitTest extends \PHPUnit_Framework_TestCase
      */
     public function test__destruct()
     {
-        // TODO Auto-generated FirebaseInitTest->test__destruct()
-        $this->markTestIncomplete("__destruct test not implemented");
+        $firebase = $this->firebaseInit->__destruct();
         
-        $this->firebaseInit->__destruct(/* parameters */);
+        $this->assertNull($firebase);
     }
 }
 

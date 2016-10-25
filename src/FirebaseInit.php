@@ -4,7 +4,6 @@ namespace ZendFirebase;
 
 use Interfaces\FirebaseInterface;
 use GuzzleHttp\Client;
-
 require 'Interfaces/FirebaseInterface.php';
 
 /**
@@ -14,7 +13,7 @@ require 'Interfaces/FirebaseInterface.php';
  * @link https://github.com/Samuel18/zend_Firebase
  * @copyright Copyright (c) 2016-now Ventimiglia Samuel - Biasin Davide
  * @license BSD 3-Clause License
- *
+ *         
  */
 class FirebaseInit extends FirebaseResponce implements FirebaseInterface
 {
@@ -51,27 +50,27 @@ class FirebaseInit extends FirebaseResponce implements FirebaseInterface
      * Create new Firebase client object
      * Remember to install PHP CURL extention
      *
-     * @param \ZendFirebase\Config\AuthSetup $auth
+     * @param \ZendFirebase\Config\AuthSetup $auth            
      */
     public function __construct(\ZendFirebase\Config\AuthSetup $auth)
     {
         $authMessage = 'Forget credential or is not an object.';
         $curlMessage = 'Extension CURL is not loaded or not installed.';
-
+        
         // check if auth is null
-        if (!is_object($auth) || null == $auth) {
+        if (! is_object($auth) || null == $auth) {
             trigger_error($authMessage, E_USER_ERROR);
         }
-
+        
         // check if extension is installed
-        if (!extension_loaded('curl')) {
+        if (! extension_loaded('curl')) {
             trigger_error($curlMessage, E_USER_ERROR);
         }
         // set timeout
         $this->setTimeout(10);
         // store object into variable
         $this->auth = $auth;
-
+        
         /*
          * create new client
          * set base_uri
@@ -83,8 +82,6 @@ class FirebaseInit extends FirebaseResponce implements FirebaseInterface
             'timeout' => $this->getTimeout(),
             'headers' => $this->getRequestHeaders()
         ]);
-
-
     }
 
     /**
@@ -93,7 +90,7 @@ class FirebaseInit extends FirebaseResponce implements FirebaseInterface
      *
      * @return integer $timeout
      */
-    private function getTimeout(): int
+    public function getTimeout(): int
     {
         return $this->timeout;
     }
@@ -102,7 +99,7 @@ class FirebaseInit extends FirebaseResponce implements FirebaseInterface
      * Default timeout is 10 seconds
      * is is not set switch to 30
      *
-     * @param integer $timeout
+     * @param integer $timeout            
      */
     public function setTimeout($timeout)
     {
@@ -118,29 +115,29 @@ class FirebaseInit extends FirebaseResponce implements FirebaseInterface
     private function getRequestHeaders(): array
     {
         $headers = [];
-
+        
         $headers['Accept'] = 'application/json';
-
+        
         // check if header is an array
-        if (!is_array($headers)) {
+        if (! is_array($headers)) {
             $str = "The guzzle client headers must be an array.";
             throw new \Exception($str);
         }
-
+        
         return $headers;
     }
 
     /**
      * Returns with the normalized JSON absolute path
      *
-     * @param string $path
-     * @param array $options
+     * @param string $path            
+     * @param array $options            
      * @return string $path
      */
     private function getJsonPath($path, $options = []): string
     {
         $options['auth'] = $this->auth->getServertoken();
-
+        
         $path = ltrim($path, '/');
         return $path . '.json?' . http_build_query($options);
     }
@@ -148,8 +145,8 @@ class FirebaseInit extends FirebaseResponce implements FirebaseInterface
     /**
      * DELETE - Removing Data FROM FIREBASE
      *
-     * @param string $path
-     * @param array $options
+     * @param string $path            
+     * @param array $options            
      *
      * {@inheritdoc}
      *
@@ -165,15 +162,13 @@ class FirebaseInit extends FirebaseResponce implements FirebaseInterface
         } catch (\Exception $e) {
             $this->response = null;
         }
-
-
     }
 
     /**
      * GET - Reading Data FROM FIREBASE
      *
-     * @param string $path
-     * @param array $options
+     * @param string $path            
+     * @param array $options            
      *
      * {@inheritdoc}
      *
@@ -194,9 +189,9 @@ class FirebaseInit extends FirebaseResponce implements FirebaseInterface
     /**
      * PATCH - Updating Data TO FIREBASE
      *
-     * @param string $path
-     * @param array $data
-     * @param array $options
+     * @param string $path            
+     * @param array $data            
+     * @param array $options            
      *
      * {@inheritdoc}
      *
@@ -209,15 +204,14 @@ class FirebaseInit extends FirebaseResponce implements FirebaseInterface
         ]);
         $this->status = $this->response->getStatusCode(); // 200
         $this->operation = 'PATCH';
-
     }
 
     /**
      * POST - Pushing Data TO FIREBASE
      *
-     * @param string $path
-     * @param array $data
-     * @param array $options
+     * @param string $path            
+     * @param array $data            
+     * @param array $options            
      *
      * {@inheritdoc}
      *
@@ -230,16 +224,14 @@ class FirebaseInit extends FirebaseResponce implements FirebaseInterface
         ]);
         $this->status = $this->response->getStatusCode(); // 200
         $this->operation = 'POST';
-
-
     }
 
     /**
      * PUT - Writing Data TO FIREBASE
      *
-     * @param string $path
-     * @param array $data
-     * @param array $options
+     * @param string $path            
+     * @param array $data            
+     * @param array $options            
      *
      * {@inheritdoc}
      *
@@ -252,7 +244,6 @@ class FirebaseInit extends FirebaseResponce implements FirebaseInterface
         ]);
         $this->status = $this->response->getStatusCode(); // 200
         $this->operation = 'PUT';
-
     }
 
     /**
@@ -268,6 +259,8 @@ class FirebaseInit extends FirebaseResponce implements FirebaseInterface
         } else {
             $jsonData[] = 'success';
         }
+        
+        /* Set data after operations */
         $this->setOperation($this->operation);
         $this->setStatus($this->status);
         $this->setFirebaseData($jsonData);
