@@ -1,0 +1,93 @@
+<?php
+use ZendFirebase\Firebase\JsonValidator;
+
+require_once 'src/JsonValidator.php';
+
+/**
+ * JsonValidator test case.
+ */
+class JsonValidatorTest extends PHPUnit_Framework_TestCase
+{
+
+    /**
+     *
+     * @var JsonValidator
+     */
+    private $jsonValidator;
+
+    protected $jsonData;
+
+    /**
+     * Prepares the environment before running a test.
+     */
+    protected function setUp()
+    {
+        parent::setUp();
+
+        $this->jsonValidator = new JsonValidator();
+    }
+
+    /**
+     * Cleans up the environment after running a test.
+     */
+    protected function tearDown()
+    {
+        $this->jsonValidator = null;
+
+        parent::tearDown();
+    }
+
+    /**
+     * Constructs the test case.
+     */
+    public function __construct()
+    {
+        $this->jsonData = '{"test":{"title":"example","another":{"title":"S","list":{"details":
+                           {"ID":"1","sort":"asc","term":"Standard","abbrev":"test","definition":
+                           {"param":"example json","SeeAlso":["example1","example2"]},
+                           "definition2":"not defined"}}}}}';
+    }
+
+    /**
+     * Tests JsonValidator->__construct()
+     */
+    public function test__construct()
+    {
+        $this->jsonValidator->__construct($this->jsonValidator);
+
+        /* assert not equals */
+        $this->assertNotEquals(JsonValidator::class, $this->jsonValidator);
+    }
+
+    /**
+     * Tests JsonValidator->__destruct()
+     */
+    public function test__destruct()
+    {
+        $jsonValidator = $this->jsonValidator->__destruct();
+
+        /* assert null */
+        $this->assertNull($jsonValidator);
+    }
+
+    /**
+     * Tests JsonValidator->getErrors()
+     */
+    public function testGetErrors()
+    {
+        $this->jsonValidator->checkValidJson($this->jsonData);
+
+        /* assert empty */
+        $this->assertEmpty($this->jsonValidator->getErrors());
+    }
+
+    /**
+     * Tests JsonValidator->checkValidJson()
+     */
+    public function testCheckValidJson()
+    {
+        /* assert true */
+        $this->assertTrue($this->jsonValidator->checkValidJson($this->jsonData), 'jsonData are not a valid JSON.');
+    }
+}
+
