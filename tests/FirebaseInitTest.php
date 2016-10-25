@@ -2,7 +2,9 @@
 namespace ZendFirebaseTest;
 
 use ZendFirebase\FirebaseInit;
+use ZendFirebase\Config\AuthSetup;
 require_once 'src/FirebaseInit.php';
+require_once 'src/Config/AuthSetup.php';
 
 /**
  * FirebaseInit test case.
@@ -15,6 +17,11 @@ class FirebaseInitTest extends \PHPUnit_Framework_TestCase
      * @var FirebaseInit
      */
     private $firebaseInit;
+    
+    // --- set up your own database here
+    protected $baseUri = 'https://samplechat.firebaseio-demo.com/';
+
+    protected $token = 'MqL0c8tKCtheLSYfrNINlnfn4t8jtgfgbfgjny';
 
     /**
      * Prepares the environment before running a test.
@@ -52,10 +59,12 @@ class FirebaseInitTest extends \PHPUnit_Framework_TestCase
      */
     public function test__construct()
     {
-        // TODO Auto-generated FirebaseInitTest->test__construct()
-        $this->markTestIncomplete("__construct test not implemented");
+        $auth = new AuthSetup();
         
-        $this->firebaseInit->__construct(/* parameters */);
+        $auth->setServertoken($this->token);
+        $auth->setBaseURI($this->baseUri);
+        
+        $this->firebaseInit->__construct();
     }
 
     /**
