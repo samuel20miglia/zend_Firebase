@@ -5,14 +5,14 @@ namespace ZendFirebase;
 /**
  *
  * @author Davide Biasin
- *        
+ *
  */
 class FirebaseResponce
 {
 
     /**
      * Data from Firebase
-     * 
+     *
      * @var array $firebaseData
      */
     private $firebaseData;
@@ -34,7 +34,7 @@ class FirebaseResponce
     /**
      * Format to array the responce
      *
-     * @return array
+     * @return array $firebaseData
      */
     public function getFirebaseData(): array
     {
@@ -62,9 +62,9 @@ class FirebaseResponce
     }
 
     /**
+     * Set data from firebase api
      *
-     * @param
-     *            $firebaseData
+     * @param array $firebaseData
      */
     protected function setFirebaseData($firebaseData)
     {
@@ -72,8 +72,9 @@ class FirebaseResponce
     }
 
     /**
+     * Set type of operation
      *
-     * @param string $operation            
+     * @param string $operation
      */
     protected function setOperation($operation)
     {
@@ -81,8 +82,9 @@ class FirebaseResponce
     }
 
     /**
+     * Set status responce
      *
-     * @param integer $status            
+     * @param integer $status
      */
     protected function setStatus($status)
     {
@@ -99,13 +101,13 @@ class FirebaseResponce
     {
         
         // check validity of Operation
-        if (! is_string($this->getOperation()) || empty($this->getOperation())) {
+        if (!is_string($this->getOperation()) || empty($this->getOperation())) {
             throw new \Exception("Operation parameter must be STRING and NOT EMPTY.
                 Received : " . gettype($this->getOperation()) . " ({$this->getOperation()}).");
         }
         
         // check validity of Status
-        if (! is_numeric($this->getStatus())) {
+        if (!is_numeric($this->getStatus())) {
             throw new \Exception("Status parameter must be NUMERIC.
                 Received : " . gettype($this->getStatus()) . " ({$this->getStatus()}).");
         }
