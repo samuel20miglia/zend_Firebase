@@ -1,7 +1,11 @@
-<phpunit bootstrap="./bootstrap.php" colors="true">
+<phpunit bootstrap="vendor/autoload.php">>
     <testsuites>
-        <testsuite name="Api Test Suite">
-            <directory>./</directory>
+        <testsuite>
+            <directory>tests/*</directory>
         </testsuite>
     </testsuites>
+    <logging>
+
+
+    </logging>
 </phpunit>

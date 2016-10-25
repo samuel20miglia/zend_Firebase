@@ -1,13 +1,13 @@
 <?php
-namespace Config;
+namespace ZendFirebase\Config;
 
 /**
  *
  * Available type of operations
- * 
+ *
  * @author Ventimiglia Samuel
  * @package Firebase
- *         
+ *
  */
 class Operations
 {
@@ -31,4 +31,3 @@ class Operations
         return $oClass->getConstants();
     }
 }
-
