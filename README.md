@@ -1,1 +1,81 @@
-# zend_Firebase
+# PHP7 Firebase REST Client
+
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Samuel18/zend_Firebase/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Samuel18/zend_Firebase/?branch=master)
+[![Scrutinizer Build Status](https://scrutinizer-ci.com/g/Samuel18/zend_Firebase/badges/build.png?b=master)](https://scrutinizer-ci.com/g/Samuel18/zend_Firebase/build-status/master)
+
+[![ Travis CI Build Status](https://travis-ci.org/Samuel18/zend_Firebase.svg?branch=master)](https://travis-ci.org/Samuel18/zend_Firebase)
+Based on the [Firebase REST API](https://firebase.google.com/docs/reference/rest/database/).
+
+Available on [Packagist](https://packagist.org/packages/zend_firebase/zend_firebase).
+
+### Adding Firebase PHP to your project using Composer
+
+```bash
+cd <your_project>
+composer require zend_firebase/zend_firebase dev-master
+```
+
+More info about Composer at [getcomposer.org](http://getcomposer.org).
+
+### Example of Usage
+```php
+use ZendFirebase\FirebaseInit, ZendFirebase\Config\AuthSetup;
+
+$auth = new AuthSetup();
+
+$auth->setBaseURI('https://your_url_from_firebase/');
+$auth->setServertoken('your_firebase_token');
+
+// ---  EXAMPLE OF DATA TO POST REMEMBER ALL DATA MUST BE ARRAY ---
+$test = array(
+    "name" => "TEST",
+    "id" => 5245,
+    "text" => 'ciao TEST 5245',
+    'status' => 'sended'
+);
+
+// --- CREATE NEW OBJECT AND PASS CREDENTIAL ---
+$firebase = new FirebaseInit($auth);
+
+// --- CHOOCE THE OPERATION (SAME NAME OF FIREBASE DOCS)  ---
+
+$firebase->post('usersMessages', $test);
+```
+### Response Usage
+```php
+
+// --- FIREBASE DATA FROM REALTIME DB IS AN ARRAY  ---
+
+$firebase->getFirebaseData(); <- array
+echo $firebase->getOperation(); <- type of current operation for example: GET or POST etc...
+echo $firebase->getStatus(); <- status of request for example: 200 or 400 or 500
+```
+
+### Supported Commands
+```php
+
+// --- storing data ---
+$firebase->post('usersMessages', $test,$options);
+// --- override data ---
+$firebase->put('usersMessages', $test,$options);
+// --- update data ---
+$firebase->patch('usersMessages', $test,$options);
+// --- retrieve data ---
+$firebase->get('usersMessages',$options);
+// --- delete data ---
+$firebase->delete('usersMessages',$options);
+```
+
+
+### Unit Tests
+All the unit tests are found in the "/tests" directory.
+Due to the usage of an interface, the tests must run in isolation.
+
+
+
+
+#### BSD 3-Clause License
+
+[READ BSD LICENSE](LICENSE)
+
+

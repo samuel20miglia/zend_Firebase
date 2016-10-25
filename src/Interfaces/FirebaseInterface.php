@@ -6,90 +6,47 @@ namespace Interfaces;
  *
  * @author Ventimiglia Samuel
  *         @sice 18/10/2016
- *        
- * @package Firebase
+ *
+ * @package ZendFirebase
  */
 interface FirebaseInterface
 {
 
     /**
      *
-     * @param
-     *            $token
-     * @return mixed
+     * @param unknown $path
+     * @param array $data
+     * @param array $options
      */
-    public function setToken($token);
+    public function put($path, array $data, $options = []);
 
     /**
      *
-     * @param
-     *            $baseURI
-     * @return mixed
+     * @param unknown $path
+     * @param array $data
+     * @param array $options
      */
-    public function setBaseURI($baseURI);
+    public function post($path, array $data, $options = []);
 
     /**
      *
-     * @param
-     *            $seconds
-     * @return mixed
+     * @param unknown $path
+     * @param array $data
+     * @param array $options
      */
-    public function setTimeOut($seconds);
+    public function patch($path, array $data, $options = []);
 
     /**
      *
-     * @param
-     *            $path
-     * @param
-     *            $data
-     * @param
-     *            $options
-     * @return mixed
+     * @param unknown $path
+     * @param array $options
      */
-    public function put($path, $data, $options = array());
+    public function get($path, $options = []);
 
     /**
      *
-     * @param
-     *            $path
-     * @param
-     *            $data
-     * @param
-     *            $options
-     * @return mixed
+     * @param unknown $path
+     * @param array $options
      */
-    public function post($path, $data, $options = array());
-
-    /**
-     *
-     * @param
-     *            $path
-     * @param
-     *            $data
-     * @param
-     *            $options
-     * @return mixed
-     */
-    public function patch($path, $data, $options = array());
-
-    /**
-     *
-     * @param
-     *            $path
-     * @param
-     *            $options
-     * @return mixed
-     */
-    public function get($path, $options = array());
-
-    /**
-     *
-     * @param
-     *            $path
-     * @param
-     *            $options
-     * @return mixed
-     */
-    public function delete($path, $options = array());
+    public function delete($path, $options = []);
 }
-

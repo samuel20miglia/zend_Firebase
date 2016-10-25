@@ -1,33 +1,32 @@
 {
-  "name" : "zend_Firebase",
-  "description" : "firebase library",
-  "license" : "BSD-3-Clause",
-  "keywords" : [ "firebase", "firebase library", "google firebase library", "php firebase", "php library firebase", "REST", "wrapper" ],
-  "homepage" : "http://framework.zend.com/",
-  "prefer-stable" : true,
+  "name" : "zend_firebase/zend_firebase",
+  "description" : "PHP7 Firebase library",
   "require" : {
     "php" : ">=7.0",
     "guzzlehttp/guzzle" : "6.2.2",
-    "guzzlehttp/psr7" : "1.3.1",
-    "friendsofphp/php-cs-fixer" : "v1.12.2"
-  },
-  "require-dev" : {
-    "phpunit/PHPUnit" : "5.3.1",
-    "squizlabs/php_codesniffer" : "2.7.0"
+    "guzzlehttp/psr7" : "1.3.1"
   },
   "repositories" : [ {
     "type" : "composer",
     "url" : "https://packagist.org/"
   } ],
+  "require-dev" : {
+    "phpunit/PHPUnit" : "5.3.1",
+    "squizlabs/php_codesniffer" : "2.7.0",
+    "friendsofphp/php-cs-fixer" : "v1.12.2",
+    "phpunit/php-code-coverage" : "3.3.x-dev"
+  },
+  "license" : "BSD-3-Clause",
+  "keywords" : [ "firebase", "firebase library", "google firebase library", "php firebase", "php library firebase", "REST", "wrapper", "php7 firebase", "REST firebase", "REST php7 firebase" ],
   "autoload-dev" : {
     "psr-4" : {
-      "ZendFirebaseTest\\Firebase\\" : "tests/"
+      "ZendFirebaseTest\\" : "tests/"
     }
   },
   "minimum-stability" : "dev",
   "autoload" : {
     "psr-4" : {
-      "ZendFirebase\\Firebase\\" : "src/"
+      "ZendFirebase\\" : "src/"
     }
   },
   "scripts" : {
@@ -39,6 +38,8 @@
   "support" : {
     "email" : "info@samuelventimiglia.it"
   },
+  "homepage" : "http://www.samuelventimiglia.it/",
+  "prefer-stable" : true,
   "authors" : [ {
     "name" : "Biasin Davide",
     "email" : "dav.biasin@gmail.com",
