@@ -44,8 +44,10 @@ $firebase->post('usersMessages', $test);
 ### Response Usage
 ```php
 
-// --- FIREBASE DATA FROM REALTIME DB IS AN ARRAY  ---
+/* to create a responce */
+$firebase->makeResponce();
 
+// --- FIREBASE DATA FROM REALTIME DB IS AN ARRAY  ---
 $firebase->getFirebaseData(); <- array
 echo $firebase->getOperation(); <- type of current operation for example: GET or POST etc...
 echo $firebase->getStatus(); <- status of request for example: 200 or 400 or 500
