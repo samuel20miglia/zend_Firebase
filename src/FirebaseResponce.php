@@ -48,7 +48,7 @@ class FirebaseResponce
     /**
      * Format to array the responce
      *
-     * @return array
+     *@return array $firebaseData
      */
     public function getFirebaseData(): array
     {
@@ -58,7 +58,7 @@ class FirebaseResponce
     /**
      * Type of Operation
      *
-     * @return $operation
+     * @return string $operation
      */
     public function getOperation(): string
     {
@@ -76,9 +76,9 @@ class FirebaseResponce
     }
 
     /**
-     *
-     * @param
-     *            $firebaseData
+     *Set data from firebase api
+	 *
+     * @param array $firebaseData
      */
     public function setFirebaseData($firebaseData)
     {
@@ -86,7 +86,8 @@ class FirebaseResponce
     }
 
     /**
-     *
+     * Set type of operation
+	 *
      * @param string $operation
      */
     public function setOperation($operation)
@@ -95,6 +96,7 @@ class FirebaseResponce
     }
 
     /**
+	 * Set status responce
      *
      * @param integer $status
      */
@@ -112,21 +114,21 @@ class FirebaseResponce
     public function validateResponce()
     {
 
-        // check validity of Operation
+        /* check validity of Operation */
         if (! is_string($this->getOperation()) || empty($this->getOperation())) {
             throw new \Exception(
                 "Operation parameter must be STRING and NOT EMPTY. Received : " . gettype($this->getOperation()) .
                      " ({$this->getOperation()}).");
         }
 
-        // check validity of Status
+        /* check validity of Status */
         if (! is_numeric($this->getStatus())) {
             throw new \Exception(
                 "Status parameter must be NUMERIC. Received : " . gettype($this->getStatus()) .
                      " ({$this->getStatus()}).");
         }
 
-        // check validity of FirebaseData
+        /* check validity of FirebaseData */
         if (! is_array($this->getFirebaseData()) && ! empty($this->getFirebaseData())) {
             throw new \Exception(
                 "FirebaseData parameter must be ARRAY. Received : " . gettype($this->getFirebaseData()) . ".");
