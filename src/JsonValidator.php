@@ -52,12 +52,15 @@ class JsonValidator
      *
      * @tutorial Method to check validity of json passed
      *
-     * @param Json $json
+     * @param
+     *            string
      * @return boolean
      */
     public function checkValidJson($json)
     {
         try {
+            json_decode($json);
+
             if (json_last_error() === JSON_ERROR_NONE) {
                 // Correct Json
                 return true;

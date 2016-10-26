@@ -84,7 +84,7 @@ class JsonValidatorTest extends PHPUnit_Framework_TestCase
     public function testGetErrors()
     {
         /* call checkValidJson() for test getErrors() after called it */
-        $this->jsonValidator->checkValidJson(json_decode($this->jsonData));
+        $this->jsonValidator->checkValidJson($this->jsonData);
 
         /* assert empty */
         $this->assertEmpty($this->jsonValidator->getErrors());
@@ -92,18 +92,17 @@ class JsonValidatorTest extends PHPUnit_Framework_TestCase
 
     /**
      * Tests JsonValidator->checkValidJson()
+     *
+     * @expectedException InvalidArgumentException
      */
     public function testCheckValidJson()
     {
 
         /* assert true */
-        $this->assertTrue($this->jsonValidator->checkValidJson(json_decode($this->jsonData)),
-            'jsonData are not a valid JSON.');
+        $this->assertTrue($this->jsonValidator->checkValidJson($this->jsonData), 'jsonData are not a valid JSON.');
 
         $incorrectJson = '{"test": "json not valid]}';
         /* assert false */
-        $this->assertFalse($this->jsonValidator->checkValidJson(json_decode($incorrectJson)),
-            'jsonData are not a valid JSON.');
+        $this->assertFalse($this->jsonValidator->checkValidJson($incorrectJson), 'jsonData are not a valid JSON.');
     }
 }
-
