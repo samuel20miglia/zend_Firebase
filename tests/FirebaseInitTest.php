@@ -25,16 +25,6 @@ class FirebaseInitTest extends \PHPUnit_Framework_TestCase
 
     private $auth;
 
-    private $path;
-
-    private $options = [];
-
-    private $operation;
-
-    private $status;
-
-    private $responce;
-
     /**
      * Prepares the environment before running a test.
      */
@@ -152,16 +142,5 @@ class FirebaseInitTest extends \PHPUnit_Framework_TestCase
         
         /* type array */
         $this->assertInternalType('array', $firebase['responce']);
-    }
-
-    /**
-     * Tests FirebaseInit->__destruct()
-     * @depends testConstruct
-     */
-    public function testDestruct()
-    {
-        $firebase = $this->firebaseInit->__destruct();
-        
-        $this->assertNull($firebase);
     }
 }

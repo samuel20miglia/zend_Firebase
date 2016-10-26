@@ -51,7 +51,7 @@ class JsonValidator
      * @tutorial Method to check validity of json passed
      *          
      * @param
-     *            string
+     *            array
      * @return boolean
      */
     public function checkValidJson($json)
