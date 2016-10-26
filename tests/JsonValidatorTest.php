@@ -27,7 +27,7 @@ class JsonValidatorTest extends PHPUnit_Framework_TestCase
     protected function setUp()
     {
         parent::setUp();
-
+        
         $this->jsonValidator = new JsonValidator();
     }
 
@@ -37,7 +37,7 @@ class JsonValidatorTest extends PHPUnit_Framework_TestCase
     protected function tearDown()
     {
         $this->jsonValidator = null;
-
+        
         parent::tearDown();
     }
 
@@ -47,13 +47,22 @@ class JsonValidatorTest extends PHPUnit_Framework_TestCase
     public function __construct()
     {
         /* set JsonData for test */
-        $this->jsonData = '{"test":{"title":"example","another":{"title":"S","list":{"details":
-                           {"ID":"1","sort":"asc","term":"Standard","abbrev":"test","definition":
-                           {"param":"example json","SeeAlso":["example1","example2"]},
-                           "definition2":"not defined"}}}}}';
-
+        $this->jsonData = [
+            "test" => [
+                "title" => "example",
+                "another" => [
+                    "title" => "S",
+                    "list" => [
+                        "ID" => 1,
+                        "sort" => "asc",
+                        "term" => "Standard"
+                    ]
+                ]
+            ]
+        ];
+        
         /* assert Json */
-        $this->assertJson($this->jsonData);
+        $this->assertJson(json_encode($this->jsonData));
     }
 
     /**
@@ -61,21 +70,10 @@ class JsonValidatorTest extends PHPUnit_Framework_TestCase
      */
     public function testConstruct()
     {
-        $this->jsonValidator->__construct($this->jsonValidator);
-
+        $this->jsonValidator->__construct();
+        
         /* assert not equals */
         $this->assertNotEquals(JsonValidator::class, $this->jsonValidator);
-    }
-
-    /**
-     * Tests JsonValidator->__destruct()
-     */
-    public function testDestruct()
-    {
-        $jsonValidator = $this->jsonValidator->__destruct();
-
-        /* assert null */
-        $this->assertNull($jsonValidator);
     }
 
     /**
@@ -85,7 +83,7 @@ class JsonValidatorTest extends PHPUnit_Framework_TestCase
     {
         /* call checkValidJson() for test getErrors() after called it */
         $this->jsonValidator->checkValidJson($this->jsonData);
-
+        
         /* assert empty */
         $this->assertEmpty($this->jsonValidator->getErrors());
     }
@@ -97,10 +95,10 @@ class JsonValidatorTest extends PHPUnit_Framework_TestCase
      */
     public function testCheckValidJson()
     {
-
+        
         /* assert true */
         $this->assertTrue($this->jsonValidator->checkValidJson($this->jsonData), 'jsonData are not a valid JSON.');
-
+        
         $incorrectJson = '{"test": "json not valid]}';
         /* assert false */
         $this->assertFalse($this->jsonValidator->checkValidJson($incorrectJson), 'jsonData are not a valid JSON.');

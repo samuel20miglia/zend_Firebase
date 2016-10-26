@@ -7,7 +7,7 @@ require_once 'src/FirebaseResponce.php';
  * FirebaseResponce test case.
  *
  * @author Davide Biasin
- *
+ *        
  */
 class FirebaseResponceTest extends PHPUnit_Framework_TestCase
 {
@@ -24,10 +24,10 @@ class FirebaseResponceTest extends PHPUnit_Framework_TestCase
     protected function setUp()
     {
         parent::setUp();
-
+        
         // create instance of FirebaseResponce() object
         $this->firebaseResponce = new FirebaseResponce();
-
+        
         $this->firebaseResponce->setFirebaseData([]);
         $this->firebaseResponce->setOperation('GET');
         $this->firebaseResponce->setStatus(200);
@@ -39,7 +39,7 @@ class FirebaseResponceTest extends PHPUnit_Framework_TestCase
     protected function tearDown()
     {
         $this->firebaseResponce = null;
-
+        
         parent::tearDown();
     }
 
@@ -48,19 +48,9 @@ class FirebaseResponceTest extends PHPUnit_Framework_TestCase
      */
     public function testConstruct()
     {
-        $this->firebaseResponce->__construct($this->firebaseResponce);
-
+        $this->firebaseResponce->__construct();
+        
         $this->assertNotEquals(FirebaseResponce::class, $this->firebaseResponce);
-    }
-
-    /**
-     * TestsFirebaseResponce __destruct()
-     */
-    public function testDestruct()
-    {
-        $firebase = $this->firebaseResponce->__destruct();
-
-        $this->assertNull($firebase);
     }
 
     /**
@@ -79,7 +69,7 @@ class FirebaseResponceTest extends PHPUnit_Framework_TestCase
     {
         /* not empty */
         $this->assertNotEmpty($this->firebaseResponce->getOperation());
-
+        
         /* type string */
         $this->assertInternalType('string', $this->firebaseResponce->getOperation());
     }
@@ -91,7 +81,7 @@ class FirebaseResponceTest extends PHPUnit_Framework_TestCase
     {
         /* not empty */
         $this->assertNotEmpty($this->firebaseResponce->getStatus());
-
+        
         /* type int */
         $this->assertInternalType('int', $this->firebaseResponce->getStatus());
     }
@@ -108,7 +98,7 @@ class FirebaseResponceTest extends PHPUnit_Framework_TestCase
         $this->firebaseResponce->setFirebaseData(null);
         $this->firebaseResponce->setOperation(null);
         $this->firebaseResponce->setStatus(null);
-
+        
         // This function throwed new Exception if something not went well
         $this->firebaseResponce->validateResponce();
     }
