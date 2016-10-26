@@ -1,11 +1,11 @@
 <?php
 namespace ZendFirebaseTest;
 
-use ZendFirebase\FirebaseInit;
-use ZendFirebase\Config\AuthSetup;
+use ZendFirebase\Firebase;
+use ZendFirebase\Config\FirebaseAuthSetup;
 
-require_once 'src/FirebaseInit.php';
-require_once 'src/Config/AuthSetup.php';
+require_once 'src/Firebase.php';
+require_once 'src/Config/FirebaseAuthSetup.php';
 
 /**
  * FirebaseInit test case.
@@ -33,12 +33,12 @@ class FirebaseInitTest extends \PHPUnit_Framework_TestCase
     {
         parent::setUp();
         
-        $this->auth = new AuthSetup();
+        $this->auth = new FirebaseAuthSetup();
         
         $this->auth->setServertoken($this->token);
         $this->auth->setBaseURI($this->baseUri);
         // TODO Auto-generated FirebaseInitTest::setUp()
-        $this->firebaseInit = new FirebaseInit($this->auth);
+        $this->firebaseInit = new Firebase($this->auth);
     }
 
     /**
@@ -66,7 +66,7 @@ class FirebaseInitTest extends \PHPUnit_Framework_TestCase
     public function testConstruct()
     {
         $this->firebaseInit->__construct($this->auth);
-        $testAuth = new AuthSetup();
+        $testAuth = new FirebaseAuthSetup();
         $testAuth->setServertoken($this->token);
         $testAuth->setBaseURI($this->baseUri);
         

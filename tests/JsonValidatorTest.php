@@ -1,7 +1,7 @@
 <?php
-use ZendFirebase\Firebase\JsonValidator;
+use ZendFirebase\Firebase\FirebaseJsonValidator;
 
-require_once 'src/JsonValidator.php';
+require_once 'src/FirebaseJsonValidator.php';
 
 /**
  * JsonValidator test case.
@@ -28,7 +28,7 @@ class JsonValidatorTest extends PHPUnit_Framework_TestCase
     {
         parent::setUp();
         
-        $this->jsonValidator = new JsonValidator();
+        $this->jsonValidator = new FirebaseJsonValidator();
     }
 
     /**
@@ -75,7 +75,7 @@ class JsonValidatorTest extends PHPUnit_Framework_TestCase
         $this->jsonValidator->__construct();
         
         /* assert not equals */
-        $this->assertNotEquals(JsonValidator::class, $this->jsonValidator);
+        $this->assertNotEquals(FirebaseJsonValidator::class, $this->jsonValidator);
     }
 
     /**

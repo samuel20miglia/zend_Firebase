@@ -7,7 +7,7 @@ namespace ZendFirebase\Firebase;
  * @author Ventimiglia Samuel - Biasin Davide
  *
  */
-class JsonValidator
+class FirebaseJsonValidator
 {
 
     /**
