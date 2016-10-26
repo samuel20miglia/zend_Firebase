@@ -4,6 +4,7 @@ namespace ZendFirebase;
 
 use Interfaces\FirebaseInterface;
 use GuzzleHttp\Client;
+
 require 'Interfaces/FirebaseInterface.php';
 
 /**
@@ -13,7 +14,7 @@ require 'Interfaces/FirebaseInterface.php';
  * @link https://github.com/Samuel18/zend_Firebase
  * @copyright Copyright (c) 2016-now Ventimiglia Samuel - Biasin Davide
  * @license BSD 3-Clause License
- *         
+ *
  */
 class FirebaseInit extends FirebaseResponce implements FirebaseInterface
 {
@@ -50,7 +51,7 @@ class FirebaseInit extends FirebaseResponce implements FirebaseInterface
      * Create new Firebase client object
      * Remember to install PHP CURL extention
      *
-     * @param \ZendFirebase\Config\AuthSetup $auth            
+     * @param \ZendFirebase\Config\AuthSetup $auth
      */
     public function __construct(\ZendFirebase\Config\AuthSetup $auth)
     {
@@ -90,7 +91,7 @@ class FirebaseInit extends FirebaseResponce implements FirebaseInterface
      *
      * @return integer $timeout
      */
-    private function getTimeout(): int
+    public function getTimeout(): int
     {
         return $this->timeout;
     }
@@ -99,7 +100,7 @@ class FirebaseInit extends FirebaseResponce implements FirebaseInterface
      * Default timeout is 10 seconds
      * is is not set switch to 30
      *
-     * @param integer $timeout            
+     * @param integer $timeout
      */
     public function setTimeout($timeout)
     {
@@ -130,8 +131,8 @@ class FirebaseInit extends FirebaseResponce implements FirebaseInterface
     /**
      * Returns with the normalized JSON absolute path
      *
-     * @param string $path            
-     * @param array $options            
+     * @param string $path
+     * @param array $options
      * @return string $path
      */
     private function getJsonPath($path, $options = []): string
@@ -145,8 +146,8 @@ class FirebaseInit extends FirebaseResponce implements FirebaseInterface
     /**
      * DELETE - Removing Data FROM FIREBASE
      *
-     * @param string $path            
-     * @param array $options            
+     * @param string $path
+     * @param array $options
      *
      * {@inheritdoc}
      *
@@ -162,15 +163,13 @@ class FirebaseInit extends FirebaseResponce implements FirebaseInterface
         } catch (\Exception $e) {
             $this->response = null;
         }
-        
-        $this->responce();
     }
 
     /**
      * GET - Reading Data FROM FIREBASE
      *
-     * @param string $path            
-     * @param array $options            
+     * @param string $path
+     * @param array $options
      *
      * {@inheritdoc}
      *
@@ -186,16 +185,14 @@ class FirebaseInit extends FirebaseResponce implements FirebaseInterface
         } catch (\Exception $e) {
             $this->response = null;
         }
-        
-        $this->responce();
     }
 
     /**
      * PATCH - Updating Data TO FIREBASE
      *
-     * @param string $path            
-     * @param array $data            
-     * @param array $options            
+     * @param string $path
+     * @param array $data
+     * @param array $options
      *
      * {@inheritdoc}
      *
@@ -208,16 +205,14 @@ class FirebaseInit extends FirebaseResponce implements FirebaseInterface
         ]);
         $this->status = $this->response->getStatusCode(); // 200
         $this->operation = 'PATCH';
-        
-        $this->responce();
     }
 
     /**
      * POST - Pushing Data TO FIREBASE
      *
-     * @param string $path            
-     * @param array $data            
-     * @param array $options            
+     * @param string $path
+     * @param array $data
+     * @param array $options
      *
      * {@inheritdoc}
      *
@@ -230,16 +225,14 @@ class FirebaseInit extends FirebaseResponce implements FirebaseInterface
         ]);
         $this->status = $this->response->getStatusCode(); // 200
         $this->operation = 'POST';
-        
-        $this->responce();
     }
 
     /**
      * PUT - Writing Data TO FIREBASE
      *
-     * @param string $path            
-     * @param array $data            
-     * @param array $options            
+     * @param string $path
+     * @param array $data
+     * @param array $options
      *
      * {@inheritdoc}
      *
@@ -252,8 +245,6 @@ class FirebaseInit extends FirebaseResponce implements FirebaseInterface
         ]);
         $this->status = $this->response->getStatusCode(); // 200
         $this->operation = 'PUT';
-        
-        $this->responce();
     }
 
     /**
@@ -261,7 +252,7 @@ class FirebaseInit extends FirebaseResponce implements FirebaseInterface
      *
      * @example set and validate data passed
      */
-    private function responce()
+    public function makeResponce()
     {
         $jsonData = [];
         if ($this->operation === 'GET') {
@@ -269,6 +260,8 @@ class FirebaseInit extends FirebaseResponce implements FirebaseInterface
         } else {
             $jsonData[] = 'success';
         }
+        
+        /* Set data after operations */
         $this->setOperation($this->operation);
         $this->setStatus($this->status);
         $this->setFirebaseData($jsonData);
