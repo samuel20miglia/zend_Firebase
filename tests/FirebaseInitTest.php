@@ -19,9 +19,21 @@ class FirebaseInitTest extends \PHPUnit_Framework_TestCase
     private $firebaseInit;
     
     // --- set up your own database here
-    protected $baseUri = 'https://samplechat.firebaseio-demo.com/';
+    protected $baseUri = 'https://zendfirebase.firebaseio.com/';
 
-    protected $token = 'MqL0c8tKCtheLSYfrNINlnfn4t8jtgfgbfgjny';
+    protected $token = 'YdLUSTlxVOAEEuLAMpB49lAm98AMMCMMWm6y82r4';
+
+    private $auth;
+
+    private $path;
+
+    private $options = [];
+
+    private $operation;
+
+    private $status;
+
+    private $responce;
 
     /**
      * Prepares the environment before running a test.
@@ -30,9 +42,12 @@ class FirebaseInitTest extends \PHPUnit_Framework_TestCase
     {
         parent::setUp();
         
-        // TODO Auto-generated FirebaseInitTest::setUp()
+        $this->auth = new AuthSetup();
         
-        $this->firebaseInit = new FirebaseInit(/* parameters */);
+        $this->auth->setServertoken($this->token);
+        $this->auth->setBaseURI($this->baseUri);
+        // TODO Auto-generated FirebaseInitTest::setUp()
+        $this->firebaseInit = new FirebaseInit($this->auth);
     }
 
     /**
@@ -51,97 +66,102 @@ class FirebaseInitTest extends \PHPUnit_Framework_TestCase
      */
     public function __construct()
     {
-        // TODO Auto-generated constructor
+        //
     }
 
     /**
      * Tests FirebaseInit->__construct()
      */
-    public function test__construct()
+    public function testConstruct()
     {
-        $auth = new AuthSetup();
+        $this->firebaseInit->__construct($this->auth);
+        $testAuth = new AuthSetup();
+        $testAuth->setServertoken($this->token);
+        $testAuth->setBaseURI($this->baseUri);
         
-        $auth->setServertoken($this->token);
-        $auth->setBaseURI($this->baseUri);
-        
-        $this->firebaseInit->__construct();
+        $this->assertEquals($testAuth, $this->auth);
     }
 
     /**
      * Tests FirebaseInit->setTimeout()
+     * @depends testConstruct
      */
     public function testSetTimeout()
     {
-        // TODO Auto-generated FirebaseInitTest->testSetTimeout()
-        $this->markTestIncomplete("setTimeout test not implemented");
+        $timeout = 10;
         
-        $this->firebaseInit->setTimeout(/* parameters */);
+        $this->firebaseInit->setTimeout($timeout);
+        
+        /* not empty */
+        $this->assertNotEmpty($this->firebaseInit->getTimeout());
+        
+        /* type int */
+        $this->assertInternalType('int', $this->firebaseInit->getTimeout());
     }
 
     /**
-     * Tests FirebaseInit->delete()
+     * Test FirebaseInit->makeResponce()
      */
-    public function testDelete()
+    public function testMakeResponce()
     {
-        // TODO Auto-generated FirebaseInitTest->testDelete()
-        $this->markTestIncomplete("delete test not implemented");
+        $this->firebaseInit->get('users');
+        $this->firebaseInit->makeResponce();
         
-        $this->firebaseInit->delete(/* parameters */);
+        $this->assertNotEmpty($this->firebaseInit->getFirebaseData());
+        
+        return [
+            'responce' => $this->firebaseInit->getFirebaseData(),
+            'status' => $this->firebaseInit->getStatus(),
+            'operation' => $this->firebaseInit->getOperation()
+        ];
     }
 
     /**
-     * Tests FirebaseInit->get()
+     * Test FirebaseInit->getStatus()
+     * @depends testMakeResponce
+     * @dataProvider testMakeResponce
      */
-    public function testGet()
+    public function testGetStatus($status)
     {
-        // TODO Auto-generated FirebaseInitTest->testGet()
-        $this->markTestIncomplete("get test not implemented");
-        
-        $this->firebaseInit->get(/* parameters */);
+        $this->assertNotNull($status['status']);
+        /* type int */
+        $this->assertInternalType('int', $status['status']);
     }
 
     /**
-     * Tests FirebaseInit->patch()
+     * Test FirebaseInit->getOperation()
+     * @depends testMakeResponce
+     * @dataProvider testMakeResponce
      */
-    public function testPatch()
+    public function testGetOperation($operation)
     {
-        // TODO Auto-generated FirebaseInitTest->testPatch()
-        $this->markTestIncomplete("patch test not implemented");
+        $this->assertNotNull($operation['operation']);
         
-        $this->firebaseInit->patch(/* parameters */);
+        /* type string */
+        $this->assertInternalType('string', $operation['operation']);
     }
 
     /**
-     * Tests FirebaseInit->post()
+     * Test FirebaseInit->getFirebaseData()
+     * @depends testMakeResponce
+     * @dataProvider testMakeResponce
      */
-    public function testPost()
+    public function testGetFirebaseData($firebase)
     {
-        // TODO Auto-generated FirebaseInitTest->testPost()
-        $this->markTestIncomplete("post test not implemented");
+        $this->assertNotNull($firebase['responce']);
         
-        $this->firebaseInit->post(/* parameters */);
-    }
-
-    /**
-     * Tests FirebaseInit->put()
-     */
-    public function testPut()
-    {
-        // TODO Auto-generated FirebaseInitTest->testPut()
-        $this->markTestIncomplete("put test not implemented");
-        
-        $this->firebaseInit->put(/* parameters */);
+        /* type array */
+        $this->assertInternalType('array', $firebase['responce']);
     }
 
     /**
      * Tests FirebaseInit->__destruct()
+     * @depends testConstruct
      */
-    public function test__destruct()
+    public function testDestruct()
     {
-        // TODO Auto-generated FirebaseInitTest->test__destruct()
-        $this->markTestIncomplete("__destruct test not implemented");
+        $firebase = $this->firebaseInit->__destruct();
         
-        $this->firebaseInit->__destruct(/* parameters */);
+        $this->assertNull($firebase);
     }
 }
-
