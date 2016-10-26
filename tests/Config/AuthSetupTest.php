@@ -1,9 +1,9 @@
 <?php
 namespace ZendFirebaseTest\Config;
 
-use ZendFirebase\Config\AuthSetup;
+use ZendFirebase\Config\FirebaseAuthSetup;
 
-require 'src/Config/AuthSetup.php';
+require 'src/Config/FirebaseAuthSetup.php';
 
 /**
  * Test class for authentication object
@@ -28,7 +28,7 @@ class AuthSetupTest extends \PHPUnit_Framework_TestCase
         parent::setUp();
         
         // TODO Auto-generated AuthSetupTest::setUp()
-        $this->auth = new AuthSetup();
+        $this->auth = new FirebaseAuthSetup();
     }
 
     /**

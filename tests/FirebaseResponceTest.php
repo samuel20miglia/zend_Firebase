@@ -7,7 +7,7 @@ require_once 'src/FirebaseResponce.php';
  * FirebaseResponce test case.
  *
  * @author Davide Biasin
- *        
+ *
  */
 class FirebaseResponceTest extends PHPUnit_Framework_TestCase
 {
@@ -103,4 +103,3 @@ class FirebaseResponceTest extends PHPUnit_Framework_TestCase
         $this->firebaseResponce->validateResponce();
     }
 }
-

@@ -21,7 +21,7 @@ More info about Composer at [getcomposer.org](http://getcomposer.org).
 ```php
 use ZendFirebase\FirebaseInit, ZendFirebase\Config\AuthSetup;
 
-$auth = new AuthSetup();
+$auth = new FirebaseAuthSetup();
 
 $auth->setBaseURI('https://your_url_from_firebase/');
 $auth->setServertoken('your_firebase_token');
@@ -35,7 +35,7 @@ $test = array(
 );
 
 /* --- CREATE NEW OBJECT AND PASS CREDENTIAL --- */
-$firebase = new FirebaseInit($auth);
+$firebase = new Firebase($auth);
 
 
 /* --- CHOOCE THE OPERATION (SAME NAME OF FIREBASE DOCS)  --- */
