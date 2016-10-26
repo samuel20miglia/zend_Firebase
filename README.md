@@ -37,6 +37,7 @@ $test = array(
 /* --- CREATE NEW OBJECT AND PASS CREDENTIAL --- */
 $firebase = new FirebaseInit($auth);
 
+
 /* --- CHOOCE THE OPERATION (SAME NAME OF FIREBASE DOCS)  --- */
 $firebase->post('usersMessages', $test);
 ```
@@ -47,7 +48,6 @@ $firebase->post('usersMessages', $test);
 $firebase->makeResponce();
 
 /* --- FIREBASE DATA FROM REALTIME DB IS AN ARRAY  --- */
-
 $firebase->getFirebaseData(); <- array
 echo $firebase->getOperation(); <- type of current operation for example: GET or POST etc...
 echo $firebase->getStatus(); <- status of request for example: 200 or 400 or 500
@@ -73,9 +73,9 @@ $firebase->delete('usersMessages',$options);
 All the unit tests are found in the "/tests" directory.
 Due to the usage of an interface, the tests must run in isolation.
 
-Project Configuration it's just setted for doing all tests with the simple command 
- 
-```bash 
+Project Configuration it's just setted for doing all tests with the simple command
+
+```bash
 cd <your_project>
 
 phpunit

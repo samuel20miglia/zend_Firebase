@@ -77,7 +77,7 @@ class FirebaseResponce
 
     /**
      *Set data from firebase api
-	 *
+     *
      * @param array $firebaseData
      */
     public function setFirebaseData($firebaseData)
@@ -87,7 +87,7 @@ class FirebaseResponce
 
     /**
      * Set type of operation
-	 *
+     *
      * @param string $operation
      */
     public function setOperation($operation)
@@ -96,7 +96,7 @@ class FirebaseResponce
     }
 
     /**
-	 * Set status responce
+     * Set status responce
      *
      * @param integer $status
      */
@@ -118,14 +118,14 @@ class FirebaseResponce
         if (! is_string($this->getOperation()) || empty($this->getOperation())) {
             throw new \Exception(
                 "Operation parameter must be STRING and NOT EMPTY. Received : " . gettype($this->getOperation()) .
-                     " ({$this->getOperation()}).");
+                        " ({$this->getOperation()}).");
         }
 
         /* check validity of Status */
         if (! is_numeric($this->getStatus())) {
             throw new \Exception(
                 "Status parameter must be NUMERIC. Received : " . gettype($this->getStatus()) .
-                     " ({$this->getStatus()}).");
+                        " ({$this->getStatus()}).");
         }
 
         /* check validity of FirebaseData */
