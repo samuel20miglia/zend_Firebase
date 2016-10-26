@@ -2,19 +2,17 @@
 declare(strict_types = 1);
 namespace ZendFirebase\Firebase;
 
-use phpDocumentor\Reflection\Types\String_;
-
 /**
  *
  * @author Ventimiglia Samuel - Biasin Davide
- *
+ *        
  */
 class JsonValidator
 {
 
     /**
      *
-     * @var String_
+     * @var string
      */
     protected $errors;
 
@@ -39,7 +37,7 @@ class JsonValidator
 
     /**
      *
-     * @param \phpDocumentor\Reflection\Types\String_ $errors
+     * @param string $errors            
      */
     public function setErrors($errors)
     {
@@ -49,9 +47,9 @@ class JsonValidator
     /**
      *
      * @author Davdie Biasin
-     *
+     *        
      * @tutorial Method to check validity of json passed
-     *
+     *          
      * @param
      *            string
      * @return boolean
@@ -60,7 +58,7 @@ class JsonValidator
     {
         try {
             json_decode($json);
-
+            
             if (json_last_error() === JSON_ERROR_NONE) {
                 // Correct Json
                 return true;
