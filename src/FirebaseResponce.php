@@ -115,7 +115,7 @@ class FirebaseResponce
     {
         
         /* check validity of Operation */
-        if (! is_string($this->getOperation())) {
+        if (!is_string($this->getOperation())) {
             $getOperation = "Operation parameter must be STRING and NOT EMPTY. Received : ";
             $getOperation .= gettype($this->getOperation()) . " ({$this->getOperation()}).";
             
@@ -123,7 +123,7 @@ class FirebaseResponce
         }
         
         /* check validity of Status */
-        if (! is_numeric($this->getStatus())) {
+        if (!is_numeric($this->getStatus())) {
             $getStatus = "Status parameter must be NUMERIC. Received : ";
             $getStatus .= gettype($this->getStatus()) . " ({$this->getStatus()}).";
             
@@ -131,7 +131,7 @@ class FirebaseResponce
         }
         
         /* check validity of FirebaseData */
-        if (! is_array($this->getFirebaseData())) {
+        if (!is_array($this->getFirebaseData())) {
             $gettype = "FirebaseData parameter must be ARRAY. Received : " . gettype($this->getFirebaseData()) . ".";
             throw new \Exception($gettype);
         }
