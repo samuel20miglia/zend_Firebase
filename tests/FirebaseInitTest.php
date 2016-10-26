@@ -3,6 +3,7 @@ namespace ZendFirebaseTest;
 
 use ZendFirebase\FirebaseInit;
 use ZendFirebase\Config\AuthSetup;
+
 require_once 'src/FirebaseInit.php';
 require_once 'src/Config/AuthSetup.php';
 
