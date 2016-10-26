@@ -5,7 +5,7 @@ namespace ZendFirebase\Firebase;
 /**
  *
  * @author Ventimiglia Samuel - Biasin Davide
- *
+ *        
  */
 class FirebaseJsonValidator
 {
@@ -19,14 +19,12 @@ class FirebaseJsonValidator
     /**
      */
     public function __construct()
-    {
-    }
+    {}
 
     /**
      */
     public function __destruct()
-    {
-    }
+    {}
 
     /**
      *
@@ -39,7 +37,7 @@ class FirebaseJsonValidator
 
     /**
      *
-     * @param string $errors
+     * @param string $errors            
      */
     public function setErrors($errors)
     {
@@ -49,17 +47,16 @@ class FirebaseJsonValidator
     /**
      *
      * @author Davdie Biasin
-     *
+     *        
      * @tutorial Method to check validity of json passed
-     *
+     *          
      * @param
      *            string
      * @return boolean
      */
-    public function checkValidJson($json)
+    public function checkValidJson()
     {
         try {
-            json_decode($json);
             
             if (json_last_error() === JSON_ERROR_NONE) {
                 // Correct Json
