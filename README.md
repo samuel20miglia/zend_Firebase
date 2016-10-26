@@ -1,7 +1,6 @@
 # PHP7 Firebase REST Client
 
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Samuel18/zend_Firebase/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Samuel18/zend_Firebase/?branch=master)
-[![Scrutinizer Build Status](https://scrutinizer-ci.com/g/Samuel18/zend_Firebase/badges/build.png?b=master)](https://scrutinizer-ci.com/g/Samuel18/zend_Firebase/build-status/master)
 [![Travis CI Build Status](https://travis-ci.org/Samuel18/zend_Firebase.svg?branch=master)](https://travis-ci.org/Samuel18/zend_Firebase)
 
 Based on the [Firebase REST API](https://firebase.google.com/docs/reference/rest/database/).
@@ -38,7 +37,6 @@ $test = array(
 $firebase = new FirebaseInit($auth);
 
 // --- CHOOCE THE OPERATION (SAME NAME OF FIREBASE DOCS)  ---
-
 $firebase->post('usersMessages', $test);
 ```
 ### Response Usage
@@ -79,5 +77,3 @@ Due to the usage of an interface, the tests must run in isolation.
 #### BSD 3-Clause License
 
 [READ BSD LICENSE](LICENSE)
-
-
