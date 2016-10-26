@@ -3,7 +3,6 @@ namespace ZendFirebaseTest;
 
 use ZendFirebase\FirebaseInit;
 use ZendFirebase\Config\AuthSetup;
-
 require_once 'src/FirebaseInit.php';
 require_once 'src/Config/AuthSetup.php';
 
@@ -85,7 +84,7 @@ class FirebaseInitTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Tests FirebaseInit->setTimeout()
-     * @depends test__construct
+     * @depends testConstruct
      */
     public function testSetTimeout()
     {
@@ -98,16 +97,6 @@ class FirebaseInitTest extends \PHPUnit_Framework_TestCase
         
         /* type int */
         $this->assertInternalType('int', $this->firebaseInit->getTimeout());
-    }
-
-    /**
-     * Test FirebaseInit->getFirebaseData()
-     * @expectedException PHPUnit_Framework_Error
-     */
-    public function testException()
-    {
-        $this->responce = null;
-        $this->expectException($this->responce);
     }
 
     /**
