@@ -59,7 +59,7 @@ class JsonValidatorTest extends PHPUnit_Framework_TestCase
     /**
      * Tests JsonValidator->__construct()
      */
-    public function test__construct()
+    public function testConstruct()
     {
         $this->jsonValidator->__construct($this->jsonValidator);
 
@@ -70,7 +70,7 @@ class JsonValidatorTest extends PHPUnit_Framework_TestCase
     /**
      * Tests JsonValidator->__destruct()
      */
-    public function test__destruct()
+    public function testDestruct()
     {
         $jsonValidator = $this->jsonValidator->__destruct();
 

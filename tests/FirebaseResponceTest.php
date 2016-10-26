@@ -46,7 +46,7 @@ class FirebaseResponceTest extends PHPUnit_Framework_TestCase
     /**
      * Tests FirebaseResponce __construct()
      */
-    public function test__construct()
+    public function testConstruct()
     {
         $this->firebaseResponce->__construct($this->firebaseResponce);
 
@@ -56,7 +56,7 @@ class FirebaseResponceTest extends PHPUnit_Framework_TestCase
     /**
      * TestsFirebaseResponce __destruct()
      */
-    public function test__destruct()
+    public function testDestruct()
     {
         $firebase = $this->firebaseResponce->__destruct();
 
