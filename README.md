@@ -1,9 +1,8 @@
 # PHP7 Firebase REST Client
 
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Samuel18/zend_Firebase/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Samuel18/zend_Firebase/?branch=master)
-[![Scrutinizer Build Status](https://scrutinizer-ci.com/g/Samuel18/zend_Firebase/badges/build.png?b=master)](https://scrutinizer-ci.com/g/Samuel18/zend_Firebase/build-status/master)
+[![Travis CI Build Status](https://travis-ci.org/Samuel18/zend_Firebase.svg?branch=master)](https://travis-ci.org/Samuel18/zend_Firebase)
 
-[![ Travis CI Build Status](https://travis-ci.org/Samuel18/zend_Firebase.svg?branch=master)](https://travis-ci.org/Samuel18/zend_Firebase)
 Based on the [Firebase REST API](https://firebase.google.com/docs/reference/rest/database/).
 
 Available on [Packagist](https://packagist.org/packages/zend_firebase/zend_firebase).
@@ -12,6 +11,7 @@ Available on [Packagist](https://packagist.org/packages/zend_firebase/zend_fireb
 
 ```bash
 cd <your_project>
+
 composer require zend_firebase/zend_firebase dev-master
 ```
 
@@ -26,7 +26,7 @@ $auth = new AuthSetup();
 $auth->setBaseURI('https://your_url_from_firebase/');
 $auth->setServertoken('your_firebase_token');
 
-// ---  EXAMPLE OF DATA TO POST REMEMBER ALL DATA MUST BE ARRAY ---
+/* ---  EXAMPLE OF DATA TO POST REMEMBER ALL DATA MUST BE ARRAY --- */
 $test = array(
     "name" => "TEST",
     "id" => 5245,
@@ -34,17 +34,19 @@ $test = array(
     'status' => 'sended'
 );
 
-// --- CREATE NEW OBJECT AND PASS CREDENTIAL ---
+/* --- CREATE NEW OBJECT AND PASS CREDENTIAL --- */
 $firebase = new FirebaseInit($auth);
 
-// --- CHOOCE THE OPERATION (SAME NAME OF FIREBASE DOCS)  ---
-
+/* --- CHOOCE THE OPERATION (SAME NAME OF FIREBASE DOCS)  --- */
 $firebase->post('usersMessages', $test);
 ```
 ### Response Usage
 ```php
 
-// --- FIREBASE DATA FROM REALTIME DB IS AN ARRAY  ---
+/* to create a responce */
+$firebase->makeResponce();
+
+/* --- FIREBASE DATA FROM REALTIME DB IS AN ARRAY  --- */
 
 $firebase->getFirebaseData(); <- array
 echo $firebase->getOperation(); <- type of current operation for example: GET or POST etc...
@@ -54,15 +56,15 @@ echo $firebase->getStatus(); <- status of request for example: 200 or 400 or 500
 ### Supported Commands
 ```php
 
-// --- storing data ---
+/* --- storing data --- */
 $firebase->post('usersMessages', $test,$options);
-// --- override data ---
+/* --- override data --- */
 $firebase->put('usersMessages', $test,$options);
-// --- update data ---
+/* --- update data --- */
 $firebase->patch('usersMessages', $test,$options);
-// --- retrieve data ---
+/* --- retrieve data --- */
 $firebase->get('usersMessages',$options);
-// --- delete data ---
+/* --- delete data --- */
 $firebase->delete('usersMessages',$options);
 ```
 
@@ -71,11 +73,17 @@ $firebase->delete('usersMessages',$options);
 All the unit tests are found in the "/tests" directory.
 Due to the usage of an interface, the tests must run in isolation.
 
+Project Configuration it's just setted for doing all tests with the simple command 
+ 
+```bash 
+cd <your_project>
+
+phpunit
+```
+
 
 
 
 #### BSD 3-Clause License
 
 [READ BSD LICENSE](LICENSE)
-
-
