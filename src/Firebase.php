@@ -52,7 +52,7 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
      *
      * @param \ZendFirebase\Config\AuthSetup $auth            
      */
-    public function __construct(\ZendFirebase\Config\FirebaseAuthSetup $auth)
+    public function __construct(\ZendFirebase\Config\FirebaseAuth $auth)
     {
         $authMessage = 'Forget credential or is not an object.';
         $curlMessage = 'Extension CURL is not loaded or not installed.';

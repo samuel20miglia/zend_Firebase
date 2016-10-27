@@ -19,9 +19,9 @@ More info about Composer at [getcomposer.org](http://getcomposer.org).
 
 ### Example of Usage
 ```php
-use ZendFirebase\FirebaseInit, ZendFirebase\Config\AuthSetup;
+use ZendFirebase\Firebase, ZendFirebase\Config\FirebaseAuth;
 
-$auth = new FirebaseAuthSetup();
+$auth = new FirebaseAuth();
 
 $auth->setBaseURI('https://your_url_from_firebase/');
 $auth->setServertoken('your_firebase_token');

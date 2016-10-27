@@ -5,7 +5,7 @@ namespace ZendFirebase;
 /**
  *
  * @author Davide Biasin
- *        
+ *
  */
 class FirebaseResponce
 {
@@ -35,7 +35,8 @@ class FirebaseResponce
      * Constructior method
      */
     public function __construct()
-    {}
+    {
+    }
 
     /**
      * Remove this current Object from memory
@@ -78,7 +79,7 @@ class FirebaseResponce
     /**
      * Set data from firebase api
      *
-     * @param array $firebaseData            
+     * @param array $firebaseData
      */
     public function setFirebaseData($firebaseData)
     {
@@ -88,7 +89,7 @@ class FirebaseResponce
     /**
      * Set type of operation
      *
-     * @param string $operation            
+     * @param string $operation
      */
     public function setOperation($operation)
     {
@@ -98,7 +99,7 @@ class FirebaseResponce
     /**
      * Set status responce
      *
-     * @param integer $status            
+     * @param integer $status
      */
     public function setStatus($status)
     {
