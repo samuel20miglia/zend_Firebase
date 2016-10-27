@@ -11,7 +11,7 @@ namespace ZendFirebase\Config;
  * @license BSD 3-Clause License
  *
  */
-class FirebaseAuthSetup
+class FirebaseAuth
 {
 
     /**
