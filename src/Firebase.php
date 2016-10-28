@@ -278,7 +278,7 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
      * @param unknown $folderToStoreLog
      * @param string $typeofResponce
      */
-    public function startStream($path, $folderToStoreLog, $typeofResponce = 'object')
+    public function startStream($path, $folderToStoreLog)
     {
         $url = $this->auth->getBaseURI() . $this->getJsonPath($path);
 
