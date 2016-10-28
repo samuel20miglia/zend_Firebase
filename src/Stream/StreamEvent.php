@@ -1,27 +1,40 @@
 <?php
-
 namespace ZendFirebase\Stream;
 
 use InvalidArgumentException;
 
+/**
+ * PHP7 FIREBASE LIBRARY (http://samuelventimiglia.it/)
+ *
+ *
+ * @link https://github.com/Samuel18/zend_Firebase
+ * @copyright Copyright (c) 2016-now Ventimiglia Samuel - Biasin Davide
+ * @license BSD 3-Clause License
+ *
+ */
 class StreamEvent
 {
+
     const END_OF_LINE = "/\r\n|\n|\r/";
 
     /** @var string */
     private $data;
+
     /** @var string */
     private $eventType;
+
     /** @var string */
     private $id;
+
     /** @var int */
     private $retry;
 
     /**
+     *
      * @param string $data
      * @param string $eventType
-     * @param null   $id
-     * @param null   $retry
+     * @param null $id
+     * @param null $retry
      */
     public function __construct($data = '', $eventType = 'message', $id = null, $retry = null)
     {
@@ -32,7 +45,9 @@ class StreamEvent
     }
 
     /**
-     * @param $raw
+     *
+     * @param
+     *            $raw
      *
      * @return Event
      */
@@ -44,7 +59,7 @@ class StreamEvent
         foreach ($lines as $line) {
             $matched = preg_match('/(?P<name>[^:]*):?( ?(?P<value>.*))?/', $line, $matches);
 
-            if (!$matched) {
+            if (! $matched) {
                 throw new InvalidArgumentException(sprintf('Invalid line %s', $line));
             }
 
