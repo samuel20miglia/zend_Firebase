@@ -295,7 +295,7 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
         // Create the logger
         $logger = new Logger('stream_logger');
         // Now add some handlers
-        $stream = new StreamHandler($folderToStoreLog.self::$dateFormatLogFilename.".log", Logger::DEBUG);
+        $stream = new StreamHandler(trim($folderToStoreLog).self::$dateFormatLogFilename.".log", Logger::DEBUG);
         $stream->setFormatter($formatter);
         $logger->pushHandler($stream);
         $logger->pushHandler(new FirePHPHandler());
