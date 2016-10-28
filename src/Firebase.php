@@ -4,8 +4,10 @@ namespace ZendFirebase;
 
 use Interfaces\FirebaseInterface;
 use GuzzleHttp\Client;
-require 'Interfaces/FirebaseInterface.php';
+use ZendFirebase\Stream\StreamClient;
 
+require 'Interfaces/FirebaseInterface.php';
+require 'Stream/StreamClient.php';
 /**
  * PHP7 FIREBASE LIBRARY (http://samuelventimiglia.it/)
  *
@@ -13,7 +15,7 @@ require 'Interfaces/FirebaseInterface.php';
  * @link https://github.com/Samuel18/zend_Firebase
  * @copyright Copyright (c) 2016-now Ventimiglia Samuel - Biasin Davide
  * @license BSD 3-Clause License
- *         
+ *
  */
 class Firebase extends FirebaseResponce implements FirebaseInterface
 {
@@ -50,7 +52,7 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
      * Create new Firebase client object
      * Remember to install PHP CURL extention
      *
-     * @param \ZendFirebase\Config\AuthSetup $auth            
+     * @param \ZendFirebase\Config\AuthSetup $auth
      */
     public function __construct(\ZendFirebase\Config\FirebaseAuth $auth)
     {
@@ -66,8 +68,7 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
         if (! extension_loaded('curl')) {
             trigger_error($curlMessage, E_USER_ERROR);
         }
-        // set timeout
-        $this->setTimeout(10);
+        
         // store object into variable
         $this->auth = $auth;
         
@@ -99,7 +100,7 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
      * Default timeout is 10 seconds
      * is is not set switch to 30
      *
-     * @param integer $timeout            
+     * @param integer $timeout
      */
     public function setTimeout($timeout)
     {
@@ -115,8 +116,9 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
     private function getRequestHeaders(): array
     {
         $headers = [];
-        
+        $headers['stream'] = true;
         $headers['Accept'] = 'application/json';
+        $headers['Content-Type'] = 'application/json';
         
         // check if header is an array
         if (! is_array($headers)) {
@@ -130,8 +132,8 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
     /**
      * Returns with the normalized JSON absolute path
      *
-     * @param string $path            
-     * @param array $options            
+     * @param string $path
+     * @param array $options
      * @return string $path
      */
     private function getJsonPath($path, $options = []): string
@@ -145,8 +147,8 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
     /**
      * DELETE - Removing Data FROM FIREBASE
      *
-     * @param string $path            
-     * @param array $options            
+     * @param string $path
+     * @param array $options
      *
      * {@inheritdoc}
      *
@@ -167,8 +169,8 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
     /**
      * GET - Reading Data FROM FIREBASE
      *
-     * @param string $path            
-     * @param array $options            
+     * @param string $path
+     * @param array $options
      *
      * {@inheritdoc}
      *
@@ -189,9 +191,9 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
     /**
      * PATCH - Updating Data TO FIREBASE
      *
-     * @param string $path            
-     * @param array $data            
-     * @param array $options            
+     * @param string $path
+     * @param array $data
+     * @param array $options
      *
      * {@inheritdoc}
      *
@@ -209,9 +211,9 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
     /**
      * POST - Pushing Data TO FIREBASE
      *
-     * @param string $path            
-     * @param array $data            
-     * @param array $options            
+     * @param string $path
+     * @param array $data
+     * @param array $options
      *
      * {@inheritdoc}
      *
@@ -229,9 +231,9 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
     /**
      * PUT - Writing Data TO FIREBASE
      *
-     * @param string $path            
-     * @param array $data            
-     * @param array $options            
+     * @param string $path
+     * @param array $data
+     * @param array $options
      *
      * {@inheritdoc}
      *
@@ -244,6 +246,24 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
         ]);
         $this->status = $this->response->getStatusCode(); // 200
         $this->operation = 'PUT';
+    }
+    
+    public function startStream($path,$typeofResponce = 'object')
+    {
+        $url = $this->auth->getBaseURI().$this->getJsonPath($path);
+        
+        
+        $client = new StreamClient($url);
+        
+        // returns generator
+        $events = $client->getEvents();
+        
+        // blocks until new event arrive
+        foreach ($events as $event) {
+            // pass event to callback function
+            print_r($event);
+        }
+        
     }
 
     /**
