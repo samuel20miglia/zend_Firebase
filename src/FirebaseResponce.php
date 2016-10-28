@@ -35,7 +35,8 @@ class FirebaseResponce
      * Constructior method
      */
     public function __construct()
-    {}
+    {
+    }
 
     /**
      * Remove this current Object from memory
@@ -48,7 +49,7 @@ class FirebaseResponce
     /**
      * Format to array the responce
      *
-     *@return array $firebaseData
+     * @return array $firebaseData
      */
     public function getFirebaseData(): array
     {
@@ -76,8 +77,8 @@ class FirebaseResponce
     }
 
     /**
-     *Set data from firebase api
-	 *
+     * Set data from firebase api
+     *
      * @param array $firebaseData
      */
     public function setFirebaseData($firebaseData)
@@ -87,7 +88,7 @@ class FirebaseResponce
 
     /**
      * Set type of operation
-	 *
+     *
      * @param string $operation
      */
     public function setOperation($operation)
@@ -96,7 +97,7 @@ class FirebaseResponce
     }
 
     /**
-	 * Set status responce
+     * Set status responce
      *
      * @param integer $status
      */
@@ -113,25 +114,27 @@ class FirebaseResponce
      */
     public function validateResponce()
     {
-
+        
         /* check validity of Operation */
-        if (! is_string($this->getOperation()) || empty($this->getOperation())) {
-            throw new \Exception(
-                "Operation parameter must be STRING and NOT EMPTY. Received : " . gettype($this->getOperation()) .
-                     " ({$this->getOperation()}).");
+        if (!is_string($this->getOperation())) {
+            $getOperation = "Operation parameter must be STRING and NOT EMPTY. Received : ";
+            $getOperation .= gettype($this->getOperation()) . " ({$this->getOperation()}).";
+            
+            throw new \Exception($getOperation);
         }
-
+        
         /* check validity of Status */
-        if (! is_numeric($this->getStatus())) {
-            throw new \Exception(
-                "Status parameter must be NUMERIC. Received : " . gettype($this->getStatus()) .
-                     " ({$this->getStatus()}).");
+        if (!is_numeric($this->getStatus())) {
+            $getStatus = "Status parameter must be NUMERIC. Received : ";
+            $getStatus .= gettype($this->getStatus()) . " ({$this->getStatus()}).";
+            
+            throw new \Exception($getStatus);
         }
-
+        
         /* check validity of FirebaseData */
-        if (! is_array($this->getFirebaseData()) && ! empty($this->getFirebaseData())) {
-            throw new \Exception(
-                "FirebaseData parameter must be ARRAY. Received : " . gettype($this->getFirebaseData()) . ".");
+        if (!is_array($this->getFirebaseData())) {
+            $gettype = "FirebaseData parameter must be ARRAY. Received : " . gettype($this->getFirebaseData()) . ".";
+            throw new \Exception($gettype);
         }
     }
 }

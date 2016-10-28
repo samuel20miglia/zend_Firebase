@@ -4,7 +4,6 @@ namespace ZendFirebase;
 
 use Interfaces\FirebaseInterface;
 use GuzzleHttp\Client;
-
 require 'Interfaces/FirebaseInterface.php';
 
 /**
@@ -14,9 +13,9 @@ require 'Interfaces/FirebaseInterface.php';
  * @link https://github.com/Samuel18/zend_Firebase
  * @copyright Copyright (c) 2016-now Ventimiglia Samuel - Biasin Davide
  * @license BSD 3-Clause License
- *
+ *         
  */
-class FirebaseInit extends FirebaseResponce implements FirebaseInterface
+class Firebase extends FirebaseResponce implements FirebaseInterface
 {
 
     /**
@@ -51,9 +50,9 @@ class FirebaseInit extends FirebaseResponce implements FirebaseInterface
      * Create new Firebase client object
      * Remember to install PHP CURL extention
      *
-     * @param \ZendFirebase\Config\AuthSetup $auth
+     * @param \ZendFirebase\Config\AuthSetup $auth            
      */
-    public function __construct(\ZendFirebase\Config\AuthSetup $auth)
+    public function __construct(\ZendFirebase\Config\FirebaseAuth $auth)
     {
         $authMessage = 'Forget credential or is not an object.';
         $curlMessage = 'Extension CURL is not loaded or not installed.';
@@ -100,7 +99,7 @@ class FirebaseInit extends FirebaseResponce implements FirebaseInterface
      * Default timeout is 10 seconds
      * is is not set switch to 30
      *
-     * @param integer $timeout
+     * @param integer $timeout            
      */
     public function setTimeout($timeout)
     {
@@ -131,8 +130,8 @@ class FirebaseInit extends FirebaseResponce implements FirebaseInterface
     /**
      * Returns with the normalized JSON absolute path
      *
-     * @param string $path
-     * @param array $options
+     * @param string $path            
+     * @param array $options            
      * @return string $path
      */
     private function getJsonPath($path, $options = []): string
@@ -146,8 +145,8 @@ class FirebaseInit extends FirebaseResponce implements FirebaseInterface
     /**
      * DELETE - Removing Data FROM FIREBASE
      *
-     * @param string $path
-     * @param array $options
+     * @param string $path            
+     * @param array $options            
      *
      * {@inheritdoc}
      *
@@ -168,8 +167,8 @@ class FirebaseInit extends FirebaseResponce implements FirebaseInterface
     /**
      * GET - Reading Data FROM FIREBASE
      *
-     * @param string $path
-     * @param array $options
+     * @param string $path            
+     * @param array $options            
      *
      * {@inheritdoc}
      *
@@ -190,9 +189,9 @@ class FirebaseInit extends FirebaseResponce implements FirebaseInterface
     /**
      * PATCH - Updating Data TO FIREBASE
      *
-     * @param string $path
-     * @param array $data
-     * @param array $options
+     * @param string $path            
+     * @param array $data            
+     * @param array $options            
      *
      * {@inheritdoc}
      *
@@ -210,9 +209,9 @@ class FirebaseInit extends FirebaseResponce implements FirebaseInterface
     /**
      * POST - Pushing Data TO FIREBASE
      *
-     * @param string $path
-     * @param array $data
-     * @param array $options
+     * @param string $path            
+     * @param array $data            
+     * @param array $options            
      *
      * {@inheritdoc}
      *
@@ -230,9 +229,9 @@ class FirebaseInit extends FirebaseResponce implements FirebaseInterface
     /**
      * PUT - Writing Data TO FIREBASE
      *
-     * @param string $path
-     * @param array $data
-     * @param array $options
+     * @param string $path            
+     * @param array $data            
+     * @param array $options            
      *
      * {@inheritdoc}
      *
