@@ -80,7 +80,7 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
      * Create new Firebase client object
      * Remember to install PHP CURL extention
      *
-     * @param \ZendFirebase\Config\AuthSetup $auth
+     * @param Config\FirebaseAuth $auth
      */
     public function __construct(\ZendFirebase\Config\FirebaseAuth $auth)
     {
