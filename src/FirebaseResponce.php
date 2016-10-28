@@ -2,8 +2,6 @@
 declare(strict_types = 1);
 namespace ZendFirebase;
 
-use phpDocumentor\Reflection\Types\Integer;
-
 /**
  *
  * @author Davide Biasin
@@ -14,6 +12,7 @@ class FirebaseResponce
 
     /**
      * Data from Firebase
+     *
      * @var array $firebaseData
      */
     private $firebaseData;
@@ -33,9 +32,24 @@ class FirebaseResponce
     protected $status;
 
     /**
+     * Constructior method
+     */
+    public function __construct()
+    {
+    }
+
+    /**
+     * Remove this current Object from memory
+     */
+    public function __destruct()
+    {
+        unset($this);
+    }
+
+    /**
      * Format to array the responce
      *
-     * @return array
+     * @return array $firebaseData
      */
     public function getFirebaseData(): array
     {
@@ -45,7 +59,7 @@ class FirebaseResponce
     /**
      * Type of Operation
      *
-     * @return  $operation
+     * @return string $operation
      */
     public function getOperation(): string
     {
@@ -63,28 +77,31 @@ class FirebaseResponce
     }
 
     /**
+     * Set data from firebase api
      *
-     * @param  $firebaseData
+     * @param array $firebaseData
      */
-    protected function setFirebaseData($firebaseData)
+    public function setFirebaseData($firebaseData)
     {
         $this->firebaseData = $firebaseData;
     }
 
     /**
+     * Set type of operation
      *
      * @param string $operation
      */
-    protected function setOperation($operation)
+    public function setOperation($operation)
     {
         $this->operation = $operation;
     }
 
     /**
+     * Set status responce
      *
      * @param integer $status
      */
-    protected function setStatus($status)
+    public function setStatus($status)
     {
         $this->status = $status;
     }
@@ -95,28 +112,29 @@ class FirebaseResponce
      *
      * @throws \Exception
      */
-    protected function validateResponce()
+    public function validateResponce()
     {
-
-
-        // check validity of Operation
-        if (! is_string($this->getOperation()) || empty($this->getOperation())) {
-            throw new \Exception("Operation parameter must be STRING and NOT EMPTY.
-                Received : " . gettype($this->getOperation()) . " ({$this->getOperation()}).");
+        
+        /* check validity of Operation */
+        if (!is_string($this->getOperation())) {
+            $getOperation = "Operation parameter must be STRING and NOT EMPTY. Received : ";
+            $getOperation .= gettype($this->getOperation()) . " ({$this->getOperation()}).";
+            
+            throw new \Exception($getOperation);
         }
-
-        // check validity of Status
-        if (! is_numeric($this->getStatus())) {
-            throw new \Exception("Status parameter must be NUMERIC.
-                Received : " . gettype($this->getStatus()) . " ({$this->getStatus()}).");
+        
+        /* check validity of Status */
+        if (!is_numeric($this->getStatus())) {
+            $getStatus = "Status parameter must be NUMERIC. Received : ";
+            $getStatus .= gettype($this->getStatus()) . " ({$this->getStatus()}).";
+            
+            throw new \Exception($getStatus);
         }
-    }
-
-    /**
-     * Remove this current Object from memory
-     */
-    public function __destruct()
-    {
-        unset($this);
+        
+        /* check validity of FirebaseData */
+        if (!is_array($this->getFirebaseData())) {
+            $gettype = "FirebaseData parameter must be ARRAY. Received : " . gettype($this->getFirebaseData()) . ".";
+            throw new \Exception($gettype);
+        }
     }
 }
