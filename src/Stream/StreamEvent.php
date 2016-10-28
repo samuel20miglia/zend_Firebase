@@ -23,25 +23,16 @@ class StreamEvent
     /** @var string */
     private $eventType;
 
-    /** @var string */
-    private $id;
-
-    /** @var int */
-    private $retry;
 
     /**
      *
      * @param string $data
      * @param string $eventType
-     * @param null $id
-     * @param null $retry
      */
-    public function __construct($data = '', $eventType = 'message', $id = null, $retry = null)
+    public function __construct($data = '', $eventType = 'message')
     {
         $this->data = $data;
         $this->eventType = $eventType;
-        $this->id = $id;
-        $this->retry = $retry;
     }
 
     /**
@@ -55,6 +46,7 @@ class StreamEvent
     {
         $event = new static();
         $lines = preg_split(self::END_OF_LINE, $raw);
+
 
         foreach ($lines as $line) {
             $matched = preg_match('/(?P<name>[^:]*):?( ?(?P<value>.*))?/', $line, $matches);
@@ -78,12 +70,7 @@ class StreamEvent
                 case 'data':
                     $event->data = empty($event->data) ? $value : "$event->data\n$value";
                     break;
-                case 'id':
-                    $event->id = $value;
-                    break;
-                case 'retry':
-                    $event->retry = (int) $value;
-                    break;
+
                 default:
                     // The field is ignored.
                     continue;
@@ -101,15 +88,5 @@ class StreamEvent
     public function getEventType()
     {
         return $this->eventType;
-    }
-
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    public function getRetry()
-    {
-        return $this->retry;
     }
 }

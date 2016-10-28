@@ -165,7 +165,6 @@ class StreamClient
         while (true) {
             /* if server close connection - try to reconnect */
             if ($body->eof()) {
-
                 /* wait retry period before reconnection */
                 sleep(self::RETRY_DEFAULT_MS / 1000);
 
@@ -179,7 +178,6 @@ class StreamClient
             $buffer .= $body->read(1);
 
             if (preg_match(self::END_OF_MESSAGE, $buffer)) {
-
                 $parts = preg_split(self::END_OF_MESSAGE, $buffer, 2);
 
                 $rawMessage = $parts[0];
@@ -194,16 +192,6 @@ class StreamClient
                  * @return StreamEvent $event
                  */
                 $event = StreamEvent::parse($rawMessage);
-
-                // if message contains id set it to last received message id
-                if ($event->getId()) {
-                    $this->setLastMessageId($event->getId());
-                }
-
-                // take into account server request for reconnection delay
-                if ($event->getRetry()) {
-                    $this->setRetry($event->getRetry());
-                }
 
                 yield $event;
             }
