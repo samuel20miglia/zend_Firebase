@@ -11,7 +11,7 @@ require_once 'src/FirebaseResponce.php';
  * @author Davide Biasin
  *
  */
-class FirebaseResponceTest extends PHPUnit_Framework_TestCase
+class FirebaseResponceTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
