@@ -66,7 +66,12 @@ class StreamClient
      */
     private $lastMessageId;
 
-    /** @var  int - reconnection time in milliseconds */
+    /**
+     * Reconnection time in milliseconds
+     *
+     * @var integer $retry
+     * @return integer $retry
+     */
     private $retry = self::RETRY_DEFAULT_MS;
 
     /**
@@ -93,14 +98,16 @@ class StreamClient
     }
 
     /**
-     * @return the $retry
+     *
+     * @return integer $retry
      */
-    public function getRetry()
+    public function getRetry(): int
     {
         return $this->retry;
     }
 
     /**
+     *
      * @param number $retry
      */
     public function setRetry($retry)
