@@ -276,7 +276,6 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
      *
      * @param unknown $path
      * @param unknown $folderToStoreLog
-     * @param string $typeofResponce
      */
     public function startStream($path, $folderToStoreLog)
     {
