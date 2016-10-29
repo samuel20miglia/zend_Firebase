@@ -43,7 +43,6 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
      * Format of datetime of logs
      *
      * @var string $dateFormatLog
-     * @return string $dateFormatLog
      */
     private $dateFormatLog = "Y n j, g:i a";
 
@@ -51,7 +50,6 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
      * DateTime of log filename
      *
      * @var string $dateFormatLogFilename
-     * @return string $dateFormatLogFilename
      */
     private static $dateFormatLogFilename;
 
