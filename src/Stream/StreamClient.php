@@ -117,7 +117,7 @@ class StreamClient
 
     /**
      *
-     * @return the $lastMessageId
+     * @return string $lastMessageId
      */
     public function getLastMessageId(): string
     {
@@ -158,7 +158,7 @@ class StreamClient
     /**
      * Returns generator that yields new event when it's available on stream.
      *
-     * @return Event[]
+     * @return \Generator
      */
     public function getEvents()
     {
