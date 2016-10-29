@@ -37,24 +37,24 @@ class StreamClient
     /**
      * Client for send request
      *
-     * @var GuzzleHttp\Client
-     * @return $client
+     * @var GuzzleHttp\Client $client
+     * @return GuzzleHttp\Client
      */
     private $client;
 
     /**
      * Responce object from rest
      *
-     * @var GuzzleHttp\Psr7\Response
-     * @return $response
+     * @var GuzzleHttp\Psr7\Response $response
+     * @return GuzzleHttp\Psr7\Response
      */
     private $response;
 
     /**
      * Request url to send request
      *
-     * @var string
-     * @return $url
+     * @var string $url
+     * @return string $url
      */
     private $url;
 
@@ -62,7 +62,7 @@ class StreamClient
      * Last received message id
      *
      * @var string
-     * @return $lastMessageId
+     * @return string $lastMessageId
      */
     private $lastMessageId;
 
