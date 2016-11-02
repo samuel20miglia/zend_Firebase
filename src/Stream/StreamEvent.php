@@ -61,7 +61,7 @@ class StreamEvent
             $matches = '';
             $matched = preg_match('/(?P<name>[^:]*):?( ?(?P<value>.*))?/', $line, $matches);
 
-            if (! $matched) {
+            if (!$matched) {
                 throw new InvalidArgumentException(sprintf('Invalid line %s', $line));
             }
 
