@@ -382,6 +382,6 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
      */
     public function __destruct()
     {
-        unset($this);
+        
     }
 }
