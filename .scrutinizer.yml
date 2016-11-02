@@ -12,3 +12,7 @@ coding_style:
 tools:
     php_cs_fixer:
         config: { level: psr2 }
+build:
+    tests:
+        override:
+            - phpcs-run phpcs.xml
