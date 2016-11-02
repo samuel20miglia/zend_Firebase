@@ -15,12 +15,25 @@ use InvalidArgumentException;
 class StreamEvent
 {
 
+    /**
+     * Strng pattern END_OF_LINE
+     *
+     * @var string END_OF_LINE
+     */
     const END_OF_LINE = "/\r\n|\n|\r/";
 
-    /** @var string */
+    /**
+     * Raw data form stream
+     *
+     * @var string $data
+     */
     private $data;
 
-    /** @var string */
+    /**
+     * Type of event
+     *
+     * @var string $eventType
+     */
     private $eventType;
 
     /**
@@ -36,14 +49,13 @@ class StreamEvent
 
     /**
      *
-     * @param
-     *            $raw
-     *
-     * @return Event
+     * @param $raw
+     * @return StreamEvent $event
      */
     public static function parse($raw)
     {
-        $event = new static();
+        $event = new StreamEvent();
+        
         $lines = preg_split(self::END_OF_LINE, $raw);
         
         foreach ($lines as $line) {
