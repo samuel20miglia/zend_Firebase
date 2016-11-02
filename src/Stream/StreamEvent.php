@@ -49,14 +49,13 @@ class StreamEvent
 
     /**
      *
-     * @param $raw
+     * @param
+     *            $raw
      * @return StreamEvent $event
      */
     public static function parse($raw)
     {
-
-
-        $lines = preg_split(self::END_OF_LINE, $raw);
+        $lines = self::splitEndOfStream($raw);
 
         foreach ($lines as $line) {
             $matches = '';
@@ -74,18 +73,29 @@ class StreamEvent
                 continue;
             }
 
-            self::switchTypeOfData($name,$value);
+            self::switchTypeOfData($name, $value);
         }
+    }
 
-
+    /**
+     * Find enf of stream
+     *
+     * @param mixed $raw
+     * @return mixed
+     */
+    private static function splitEndOfStream($raw)
+    {
+        $lines = preg_split(self::END_OF_LINE, $raw);
+        return $lines;
     }
 
     /**
      * This Method return object
+     *
      * @param string $name
      * @param string $value
      */
-    private static function switchTypeOfData($name,$value)
+    private static function switchTypeOfData($name, $value)
     {
         $event = new StreamEvent();
 
@@ -103,9 +113,7 @@ class StreamEvent
         }
 
         return $event;
-
     }
-
 
     /**
      * All db changes
