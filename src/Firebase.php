@@ -9,6 +9,7 @@ use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\FirePHPHandler;
 use Monolog\Formatter\LineFormatter;
+
 require 'Interfaces/FirebaseInterface.php';
 require 'Stream/StreamClient.php';
 
@@ -177,9 +178,7 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
     public function delete($path, $options = [])
     {
         try {
-            
             $this->writeRequest('delete', $this->getJsonPath($path), '');
-           
         } catch (\Exception $e) {
             $this->response = null;
         }
@@ -198,7 +197,6 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
     public function get($path, $options = [])
     {
         try {
-            
             $this->writeRequest('get', $this->getJsonPath($path), '');
         } catch (\Exception $e) {
             $this->response = null;
@@ -219,7 +217,6 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
     public function patch($path, array $data, $options = [])
     {
         $this->writeRequest('patch', $this->getJsonPath($path), $data);
-        
     }
 
     /**
@@ -237,7 +234,6 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
     {
         
         $this->writeRequest('post', $this->getJsonPath($path), $data);
-
     }
 
     /**
@@ -254,7 +250,6 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
     public function put($path, array $data, $options = [])
     {
         $this->writeRequest('put', $this->getJsonPath($path), $data);
-        
     }
 
     /**
@@ -270,7 +265,6 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
         
         switch ($operation) {
             case 'get':
-                
                 $response = $this->client->{$operation}($path);
                 $this->response = $response->getBody()->getContents();
                 
@@ -290,8 +284,6 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
                 $this->setDataFromOperation($op, $this->response->getStatusCode());
                 break;
         }
-        
-       
     }
 
     /**
@@ -408,5 +400,6 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
      * Remove object from memory
      */
     public function __destruct()
-    {}
+    {
+    }
 }

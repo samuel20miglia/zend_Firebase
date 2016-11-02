@@ -94,4 +94,3 @@ class StreamClientTest extends PHPUnit_Framework_TestCase
         $this->assertNotEquals($event, '');
     }
 }
-

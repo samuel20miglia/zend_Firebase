@@ -122,4 +122,3 @@ class StreamEventTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('message', $event->getEventType());
     }
 }
-
