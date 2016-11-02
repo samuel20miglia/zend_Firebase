@@ -114,12 +114,12 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
         $curlMessage = 'Extension CURL is not loaded or not installed.';
 
         // check if auth is null
-        if (! is_object($auth) || null == $auth) {
+        if (!is_object($auth) || null == $auth) {
             trigger_error($authMessage, E_USER_ERROR);
         }
 
         // check if extension is installed
-        if (! extension_loaded('curl')) {
+        if (!extension_loaded('curl')) {
             trigger_error($curlMessage, E_USER_ERROR);
         }
     }
@@ -337,6 +337,7 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
             $this->printEventData($eventData, $event);
 
             $this->writeEventLogs($logger, $eventData, $event, $path);
+
         }
     }
 
