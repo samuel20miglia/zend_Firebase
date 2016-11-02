@@ -161,11 +161,11 @@ class StreamClient
      * Create infinite loop
      *
      * @param string $buffer
-     * @param unknown $body
-     * @param unknown $parts
-     * @param unknown $rawMessage
-     * @param unknown $remaining
-     * @param unknown $event
+     * @param mixed $body
+     * @param mixed $parts
+     * @param mixed $rawMessage
+     * @param mixed $remaining
+     * @param mixed $event
      * @return Generator
      */
     private function infiniteLoop($buffer, $body, $parts, $rawMessage, $remaining, $event): GuzzleHttp\Psr7\Stream
