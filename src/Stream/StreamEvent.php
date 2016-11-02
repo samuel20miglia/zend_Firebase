@@ -55,25 +55,25 @@ class StreamEvent
     public static function parse($raw)
     {
         $event = new StreamEvent();
-        
+
         $lines = preg_split(self::END_OF_LINE, $raw);
-        
+
         foreach ($lines as $line) {
             $matches = '';
             $matched = preg_match('/(?P<name>[^:]*):?( ?(?P<value>.*))?/', $line, $matches);
-            
+
             if (! $matched) {
                 throw new InvalidArgumentException(sprintf('Invalid line %s', $line));
             }
-            
+
             $name = $matches['name'];
             $value = $matches['value'];
-            
+
             if ($name === '') {
                 // ignore comments
                 continue;
             }
-            
+
             switch ($name) {
                 case 'event':
                     $event->eventType = $value;
@@ -81,13 +81,13 @@ class StreamEvent
                 case 'data':
                     $event->data = empty($event->data) ? $value : "{$event->data}\n{$value}";
                     break;
-                
+
                 default:
                     // The field is ignored.
                     continue;
             }
         }
-        
+
         return $event;
     }
 
