@@ -85,12 +85,12 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
         $curlMessage = 'Extension CURL is not loaded or not installed.';
         
         // check if auth is null
-        if (!is_object($auth) || null == $auth) {
+        if (! is_object($auth) || null == $auth) {
             trigger_error($authMessage, E_USER_ERROR);
         }
         
         // check if extension is installed
-        if (!extension_loaded('curl')) {
+        if (! extension_loaded('curl')) {
             trigger_error($curlMessage, E_USER_ERROR);
         }
         
@@ -141,7 +141,7 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
         $headers['Content-Type'] = 'application/json';
         
         // check if header is an array
-        if (!is_array($headers)) {
+        if (! is_array($headers)) {
             $str = "The guzzle client headers must be an array.";
             throw new \Exception($str);
         }
@@ -179,8 +179,8 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
         try {
             $response = $this->client->delete($this->getJsonPath($path));
             $this->response = $response->getReasonPhrase(); // OK
-            $this->status = $response->getStatusCode(); // 200
-            $this->operation = 'DELETE';
+            
+            $this->setDataFromOperation('DELETE', $response->getStatusCode());
         } catch (\Exception $e) {
             $this->response = null;
         }
@@ -201,8 +201,8 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
         try {
             $response = $this->client->get($this->getJsonPath($path));
             $this->response = $response->getBody()->getContents();
-            $this->status = $response->getStatusCode(); // 200
-            $this->operation = 'GET';
+            
+            $this->setDataFromOperation('GET', $response->getStatusCode());
         } catch (\Exception $e) {
             $this->response = null;
         }
@@ -224,8 +224,8 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
         $this->response = $this->client->patch($this->getJsonPath($path), [
             'body' => \json_encode($data)
         ]);
-        $this->status = $this->response->getStatusCode(); // 200
-        $this->operation = 'PATCH';
+        
+        $this->setDataFromOperation('PATCH', $this->response->getStatusCode());
     }
 
     /**
@@ -244,8 +244,8 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
         $this->response = $this->client->post($this->getJsonPath($path), [
             'body' => \json_encode($data)
         ]);
-        $this->status = $this->response->getStatusCode(); // 200
-        $this->operation = 'POST';
+        
+        $this->setDataFromOperation('POST', $this->response->getStatusCode());
     }
 
     /**
@@ -264,8 +264,20 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
         $this->response = $this->client->put($this->getJsonPath($path), [
             'body' => \json_encode($data)
         ]);
-        $this->status = $this->response->getStatusCode(); // 200
-        $this->operation = 'PUT';
+        
+        $this->setDataFromOperation('PUT', $this->response->getStatusCode());
+    }
+
+    /**
+     * This function set variables after operation
+     *
+     * @param string $operation
+     * @param mixed $status
+     */
+    private function setDataFromOperation($operation, $status)
+    {
+        $this->status = $status; // 200
+        $this->operation = $operation;
     }
 
     /**
@@ -302,7 +314,7 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
             print_r($eventData);
             print_r("EVENT TYPE: " . $event->getEventType() . PHP_EOL . PHP_EOL);
             
-            if (!empty($eventData) || null != $eventData) {
+            if (! empty($eventData) || null != $eventData) {
                 $logger->addDebug("path: {$path}", [
                     'DATA' => $eventData,
                     'EVENT TYPE' => $event->getEventType()
@@ -320,6 +332,7 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
      * Create logger instance for save stream log
      *
      * @param string $folderToStoreLog
+     * @return Monolog\Logger $logger
      */
     private function createLogger($folderToStoreLog)
     {
