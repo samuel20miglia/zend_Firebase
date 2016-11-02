@@ -82,6 +82,15 @@ class StreamClient
         if (empty($this->url)) {
             throw new \InvalidArgumentException('Error: url empty...');
         }
+        $this->createClientObject();
+        $this->connect();
+    }
+
+    /**
+     * Create client
+     */
+    private function createClientObject()
+    {
         $this->client = new GuzzleHttp\Client([
             'headers' => [
                 'Accept' => 'text/event-stream',
@@ -89,7 +98,6 @@ class StreamClient
                 'allow_redirects' => true
             ]
         ]);
-        $this->connect();
     }
 
     /**
@@ -145,6 +153,22 @@ class StreamClient
         /* bring body of response */
         $body = $this->response->getBody();
 
+        $buffer = $this->infiniteLoop($buffer, $body, $parts, $rawMessage, $remaining, $event);
+    }
+
+    /**
+     * Create infinite loop
+     *
+     * @param unknown $buffer
+     * @param unknown $body
+     * @param unknown $parts
+     * @param unknown $rawMessage
+     * @param unknown $remaining
+     * @param unknown $event
+     * @return unknown|Generator
+     */
+    private function infiniteLoop($buffer, $body, $parts, $rawMessage, $remaining, $event): string
+    {
         /* infinte loop */
         while (true) {
             /* if server close connection - try to reconnect */
@@ -180,5 +204,6 @@ class StreamClient
                 yield $event;
             }
         }
+        return $buffer;
     }
 }
