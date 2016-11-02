@@ -54,7 +54,7 @@ class StreamEvent
      */
     public static function parse($raw)
     {
-        $event = new StreamEvent();
+
 
         $lines = preg_split(self::END_OF_LINE, $raw);
 
@@ -74,22 +74,38 @@ class StreamEvent
                 continue;
             }
 
-            switch ($name) {
-                case 'event':
-                    $event->eventType = $value;
-                    break;
-                case 'data':
-                    $event->data = empty($event->data) ? $value : "{$event->data}\n{$value}";
-                    break;
+            self::switchTypeOfData($name,$value);
+        }
 
-                default:
-                    // The field is ignored.
-                    continue;
-            }
+
+    }
+
+    /**
+     * This Method return object
+     * @param string $name
+     * @param string $value
+     */
+    private static function switchTypeOfData($name,$value)
+    {
+        $event = new StreamEvent();
+
+        switch ($name) {
+            case 'event':
+                $event->eventType = $value;
+                break;
+            case 'data':
+                $event->data = empty($event->data) ? $value : "{$event->data}\n{$value}";
+                break;
+
+            default:
+                // The field is ignored.
+                continue;
         }
 
         return $event;
+
     }
+
 
     /**
      * All db changes
