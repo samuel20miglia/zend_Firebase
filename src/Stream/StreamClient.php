@@ -159,13 +159,13 @@ class StreamClient
     /**
      * Create infinite loop
      *
-     * @param unknown $buffer
+     * @param string $buffer
      * @param unknown $body
      * @param unknown $parts
      * @param unknown $rawMessage
      * @param unknown $remaining
      * @param unknown $event
-     * @return unknown|Generator
+     * @return \Generator
      */
     private function infiniteLoop($buffer, $body, $parts, $rawMessage, $remaining, $event): string
     {
