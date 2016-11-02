@@ -9,6 +9,7 @@ use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\FirePHPHandler;
 use Monolog\Formatter\LineFormatter;
+
 require 'Interfaces/FirebaseInterface.php';
 require 'Stream/StreamClient.php';
 
@@ -306,7 +307,6 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
         
         // blocks until new event arrive
         foreach ($events as $event) {
-            
             // decode json data arrived to php array
             $eventData = json_decode($event->getData(), true);
             
