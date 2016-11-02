@@ -9,7 +9,6 @@ use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\FirePHPHandler;
 use Monolog\Formatter\LineFormatter;
-
 require 'Interfaces/FirebaseInterface.php';
 require 'Stream/StreamClient.php';
 
@@ -86,12 +85,12 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
         $curlMessage = 'Extension CURL is not loaded or not installed.';
         
         // check if auth is null
-        if (!is_object($auth) || null == $auth) {
+        if (! is_object($auth) || null == $auth) {
             trigger_error($authMessage, E_USER_ERROR);
         }
         
         // check if extension is installed
-        if (!extension_loaded('curl')) {
+        if (! extension_loaded('curl')) {
             trigger_error($curlMessage, E_USER_ERROR);
         }
         
@@ -142,7 +141,7 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
         $headers['Content-Type'] = 'application/json';
         
         // check if header is an array
-        if (!is_array($headers)) {
+        if (! is_array($headers)) {
             $str = "The guzzle client headers must be an array.";
             throw new \Exception($str);
         }
@@ -178,10 +177,9 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
     public function delete($path, $options = [])
     {
         try {
-            $response = $this->client->delete($this->getJsonPath($path));
-            $this->response = $response->getReasonPhrase(); // OK
             
-            $this->setDataFromOperation('DELETE', $response->getStatusCode());
+            $this->writeRequest('delete', $this->getJsonPath($path), '');
+           
         } catch (\Exception $e) {
             $this->response = null;
         }
@@ -200,10 +198,8 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
     public function get($path, $options = [])
     {
         try {
-            $response = $this->client->get($this->getJsonPath($path));
-            $this->response = $response->getBody()->getContents();
             
-            $this->setDataFromOperation('GET', $response->getStatusCode());
+            $this->writeRequest('get', $this->getJsonPath($path), '');
         } catch (\Exception $e) {
             $this->response = null;
         }
@@ -222,11 +218,8 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
      */
     public function patch($path, array $data, $options = [])
     {
-        $this->response = $this->client->patch($this->getJsonPath($path), [
-            'body' => \json_encode($data)
-        ]);
+        $this->writeRequest('patch', $this->getJsonPath($path), $data);
         
-        $this->setDataFromOperation('PATCH', $this->response->getStatusCode());
     }
 
     /**
@@ -242,11 +235,9 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
      */
     public function post($path, array $data, $options = [])
     {
-        $this->response = $this->client->post($this->getJsonPath($path), [
-            'body' => \json_encode($data)
-        ]);
         
-        $this->setDataFromOperation('POST', $this->response->getStatusCode());
+        $this->writeRequest('post', $this->getJsonPath($path), $data);
+
     }
 
     /**
@@ -262,11 +253,45 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
      */
     public function put($path, array $data, $options = [])
     {
-        $this->response = $this->client->put($this->getJsonPath($path), [
-            'body' => \json_encode($data)
-        ]);
+        $this->writeRequest('put', $this->getJsonPath($path), $data);
         
-        $this->setDataFromOperation('PUT', $this->response->getStatusCode());
+    }
+
+    /**
+     * Method to send request
+     *
+     * @param string $op
+     * @param string $path
+     * @param mixed $data
+     */
+    private function writeRequest($op, $path, $data)
+    {
+        $operation = \strtolower($op);
+        
+        switch ($operation) {
+            case 'get':
+                
+                $response = $this->client->{$operation}($path);
+                $this->response = $response->getBody()->getContents();
+                
+                $this->setDataFromOperation('get', $response->getStatusCode());
+                break;
+            case 'delete':
+                $response = $this->client->{$operation}($path);
+                $this->response = $response->getReasonPhrase(); // OK
+                $this->setDataFromOperation('get', $response->getStatusCode());
+                break;
+            
+            default:
+                $this->response = $this->client->{$operation}($path, [
+                    'body' => $data
+                ]);
+                
+                $this->setDataFromOperation($op, $this->response->getStatusCode());
+                break;
+        }
+        
+       
     }
 
     /**
@@ -277,8 +302,10 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
      */
     private function setDataFromOperation($operation, $status)
     {
+        $oP = \strtoupper($operation);
+        
         $this->status = $status; // 200
-        $this->operation = $operation;
+        $this->operation = $oP;
     }
 
     /**
@@ -314,7 +341,7 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
             print_r($eventData);
             print_r("EVENT TYPE: " . $event->getEventType() . PHP_EOL . PHP_EOL);
             
-            if (!empty($eventData) || null != $eventData) {
+            if (! empty($eventData) || null != $eventData) {
                 $logger->addDebug("path: {$path}", [
                     'DATA' => $eventData,
                     'EVENT TYPE' => $event->getEventType()
@@ -381,7 +408,5 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
      * Remove object from memory
      */
     public function __destruct()
-    {
-        
-    }
+    {}
 }
