@@ -67,8 +67,33 @@ $firebase->get('usersMessages',$options);
 /* --- delete data --- */
 $firebase->delete('usersMessages',$options);
 ```
+<hr/>
+
+### Rest Stream API
+```php
+
+use ZendFirebase\Firebase, ZendFirebase\Config\FirebaseAuth;
+
+$auth = new FirebaseAuth();
+
+$auth->setBaseURI('https://your_url_from_firebase/');
+$auth->setServertoken('your_firebase_token');
+
+/* ---  EXAMPLE OF DATA TO POST REMEMBER ALL DATA MUST BE ARRAY --- */
+$test = array(
+    "name" => "TEST",
+    "id" => 5245,
+    "text" => 'ciao TEST 5245',
+    'status' => 'sended'
+);
+
+/* --- CREATE NEW OBJECT AND PASS CREDENTIAL --- */
+$firebase = new Firebase($auth);
 
 
+```
+
+<hr/>
 ### Unit Tests
 All the unit tests are found in the "/tests" directory.
 Due to the usage of an interface, the tests must run in isolation.

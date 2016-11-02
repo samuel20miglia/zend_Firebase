@@ -272,8 +272,8 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
     /**
      * Start stream with server and write log in choised folder
      *
-     * @param unknown $path
-     * @param unknown $folderToStoreLog
+     * @param string $path
+     * @param string $folderToStoreLog + /
      */
     public function startStream($path, $folderToStoreLog)
     {
@@ -291,8 +291,13 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
         self::$dateFormatLogFilename = date("Y-m-d_H:i:s");
         // Create the logger
         $logger = new Logger('stream_logger');
+        
+        $folderName = substr(strrchr(trim($folderToStoreLog), "/"), 1);
+        
+        echo $folderName;
+        
         // Now add some handlers
-        $stream = new StreamHandler(trim($folderToStoreLog).self::$dateFormatLogFilename.".log", Logger::DEBUG);
+        $stream = new StreamHandler($folderName.self::$dateFormatLogFilename.".log", Logger::DEBUG);
         $stream->setFormatter($formatter);
         $logger->pushHandler($stream);
         $logger->pushHandler(new FirePHPHandler());
