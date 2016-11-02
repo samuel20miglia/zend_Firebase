@@ -83,27 +83,26 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
     {
         $authMessage = 'Forget credential or is not an object.';
         $curlMessage = 'Extension CURL is not loaded or not installed.';
-
+        
         // check if auth is null
         if (! is_object($auth) || null == $auth) {
             trigger_error($authMessage, E_USER_ERROR);
         }
-
+        
         // check if extension is installed
         if (! extension_loaded('curl')) {
             trigger_error($curlMessage, E_USER_ERROR);
         }
-
+        
         // store object into variable
         $this->auth = $auth;
-
+        
         /* create new client */
-        $this->client = new Client(
-            [
-                'base_uri' => $this->auth->getBaseURI(),
-                'timeout' => $this->getTimeout(),
-                'headers' => $this->getRequestHeaders()
-            ]);
+        $this->client = new Client([
+            'base_uri' => $this->auth->getBaseURI(),
+            'timeout' => $this->getTimeout(),
+            'headers' => $this->getRequestHeaders()
+        ]);
     }
 
     /**
@@ -140,13 +139,13 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
         $headers['stream'] = true;
         $headers['Accept'] = 'application/json';
         $headers['Content-Type'] = 'application/json';
-
+        
         // check if header is an array
         if (! is_array($headers)) {
             $str = "The guzzle client headers must be an array.";
             throw new \Exception($str);
         }
-
+        
         return $headers;
     }
 
@@ -160,7 +159,7 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
     private function getJsonPath($path, $options = []): string
     {
         $options['auth'] = $this->auth->getServertoken();
-
+        
         $path = ltrim($path, '/');
         return $path . '.json?' . http_build_query($options);
     }
@@ -222,10 +221,9 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
      */
     public function patch($path, array $data, $options = [])
     {
-        $this->response = $this->client->patch($this->getJsonPath($path),
-            [
-                'body' => \json_encode($data)
-            ]);
+        $this->response = $this->client->patch($this->getJsonPath($path), [
+            'body' => \json_encode($data)
+        ]);
         $this->status = $this->response->getStatusCode(); // 200
         $this->operation = 'PATCH';
     }
@@ -243,10 +241,9 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
      */
     public function post($path, array $data, $options = [])
     {
-        $this->response = $this->client->post($this->getJsonPath($path),
-            [
-                'body' => \json_encode($data)
-            ]);
+        $this->response = $this->client->post($this->getJsonPath($path), [
+            'body' => \json_encode($data)
+        ]);
         $this->status = $this->response->getStatusCode(); // 200
         $this->operation = 'POST';
     }
@@ -264,10 +261,9 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
      */
     public function put($path, array $data, $options = [])
     {
-        $this->response = $this->client->put($this->getJsonPath($path),
-            [
-                'body' => \json_encode($data)
-            ]);
+        $this->response = $this->client->put($this->getJsonPath($path), [
+            'body' => \json_encode($data)
+        ]);
         $this->status = $this->response->getStatusCode(); // 200
         $this->operation = 'PUT';
     }
@@ -276,45 +272,45 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
      * Start stream with server and write log in choised folder
      *
      * @param string $path
-     * @param string $folderToStoreLog + /
-
+     * @param string $folderToStoreLog/
+     * @param integer $requestDelay
+     * @example $requestDelay = 3000 -> 3 seconds between get request
      */
-    public function startStream($path, $folderToStoreLog)
+    public function startStream($path, $folderToStoreLog, $requestDelay = 5000)
     {
         $url = $this->auth->getBaseURI() . $this->getJsonPath($path);
-
-        $client = new StreamClient($url);
-
+        
+        $client = new StreamClient($url, $requestDelay);
+        
         // returns generator
         $events = $client->getEvents();
-
         
+        /* search / in string */
         $folderName = substr(strrchr(trim($folderToStoreLog), "/"), 1);
-        
-        echo $folderName;
+        /* if not exsits add on path+/ */
+        $folderName = empty($folderName) ? $folderToStoreLog . '/' : $folderToStoreLog;
         // call method for create instance of logger
-        $logger = $this->createLogger($folderToStoreLog);
-
+        $logger = $this->createLogger($folderName);
+        
         // blocks until new event arrive
         foreach ($events as $event) {
+            
             // decode json data arrived to php array
             $eventData = json_decode($event->getData(), true);
-
+            
             // pass event to callback function
             print_r($eventData);
             print_r("EVENT TYPE: " . $event->getEventType() . PHP_EOL . PHP_EOL);
-
+            
             if (! empty($eventData) || null != $eventData) {
-                $logger->addDebug("path: {$path}",
-                    [
-                        'DATA' => $eventData,
-                        'EVENT TYPE' => $event->getEventType()
-                    ]);
+                $logger->addDebug("path: {$path}", [
+                    'DATA' => $eventData,
+                    'EVENT TYPE' => $event->getEventType()
+                ]);
             } else {
-                $logger->addDebug("path: {$path}",
-                    [
-                        'EVENT TYPE' => $event->getEventType()
-                    ]);
+                $logger->addDebug("path: {$path}", [
+                    'EVENT TYPE' => $event->getEventType()
+                ]);
             }
         }
     }
@@ -323,7 +319,8 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
      *
      * Create logger instance for save stream log
      *
-     * @param string folderToStoreLog
+     * @param
+     *            string folderToStoreLog
      */
     private function createLogger($folderToStoreLog)
     {
@@ -337,11 +334,11 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
         
         // Now add some handlers
         $stream = new StreamHandler(trim($folderToStoreLog) . self::$dateFormatLogFilename . ".log", Logger::DEBUG);
-
+        
         $stream->setFormatter($formatter);
         $logger->pushHandler($stream);
         $logger->pushHandler(new FirePHPHandler());
-
+        
         // You can now use your logger
         $logger->addInfo('Stream logger is ready...');
         return $logger;
@@ -360,7 +357,7 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
         } else {
             $jsonData[] = 'success';
         }
-
+        
         /* Set data after operations */
         $this->setOperation($this->operation);
         $this->setStatus($this->status);
