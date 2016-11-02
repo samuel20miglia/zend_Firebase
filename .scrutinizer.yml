@@ -10,7 +10,7 @@ coding_style:
                 unary_additive: true
                 concatenation: true
 
-build:
-    tests:
-        override:
-            - phpcs-run phpcs.xml
+          - phpcs-run phpcs.xml
+tools:
+    php_cs_fixer:
+        config: { level: psr2 } # or psr1 if you would just like to get fixes for PSR1
