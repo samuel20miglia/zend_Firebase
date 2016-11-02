@@ -356,7 +356,7 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
     /**
      * Write log of current event
      *
-     * @param Monolog\Logger $logger
+     * @param Logger $logger
      * @param array $eventData
      * @param mixed $event
      * @param string $path
@@ -396,7 +396,7 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
      * Create logger instance for save stream log
      *
      * @param string $folderToStoreLog
-     * @return Monolog\Logger $logger
+     * @return Logger $logger
      */
     private function createLogger($folderToStoreLog)
     {
