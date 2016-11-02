@@ -49,19 +49,26 @@ class StreamEvent
 
     /**
      *
+<<<<<<< HEAD
      * @param
      *            $raw
+=======
+     * @param $raw
+>>>>>>> branch 'develop' of https://github.com/Samuel18/zend_Firebase.git
      * @return StreamEvent $event
      */
     public static function parse($raw)
     {
+
         $lines = self::splitEndOfStream($raw);
+
 
         foreach ($lines as $line) {
             $matches = '';
             $matched = preg_match('/(?P<name>[^:]*):?( ?(?P<value>.*))?/', $line, $matches);
 
             if (!$matched) {
+
                 throw new InvalidArgumentException(sprintf('Invalid line %s', $line));
             }
 
@@ -72,6 +79,7 @@ class StreamEvent
                 // ignore comments
                 continue;
             }
+
 
             self::switchTypeOfData($name, $value);
         }
@@ -110,6 +118,7 @@ class StreamEvent
             default:
                 // The field is ignored.
                 continue;
+
         }
 
         return $event;

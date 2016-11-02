@@ -9,7 +9,6 @@ use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\FirePHPHandler;
 use Monolog\Formatter\LineFormatter;
-
 require 'Interfaces/FirebaseInterface.php';
 require 'Stream/StreamClient.php';
 
@@ -82,10 +81,13 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
      */
     public function __construct(\ZendFirebase\Config\FirebaseAuth $auth)
     {
+
         $this->checkDipendenties($auth);
+
 
         // store object into variable
         $this->auth = $auth;
+
 
         $this->gulleClientInit();
     }
@@ -95,6 +97,7 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
      */
     private function gulleClientInit()
     {
+
         /* create new client */
         $this->client = new Client([
             'base_uri' => $this->auth->getBaseURI(),
@@ -323,8 +326,10 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
 
         $client = new StreamClient($url, $requestDelay);
 
+
         // returns generator
         $events = $client->getEvents();
+
 
         // call method for create instance of logger
         $logger = $this->createLogger($this->formatFolderName($folderToStoreLog));

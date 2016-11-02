@@ -98,6 +98,9 @@ class StreamClient
                 'allow_redirects' => true
             ]
         ]);
+
+        $this->connect();
+
     }
 
     /**
@@ -153,6 +156,7 @@ class StreamClient
         /* bring body of response */
         $body = $this->response->getBody();
 
+
         $buffer = $this->infiniteLoop($buffer, $body, $parts, $rawMessage, $remaining, $event);
     }
 
@@ -169,6 +173,7 @@ class StreamClient
      */
     private function infiniteLoop($buffer, $body, $parts, $rawMessage, $remaining, $event): GuzzleHttp\Psr7\Stream
     {
+
         /* infinte loop */
         while (true) {
             /* if server close connection - try to reconnect */
