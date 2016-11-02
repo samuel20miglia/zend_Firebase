@@ -4,7 +4,6 @@ namespace ZendFirebase\Stream;
 use GuzzleHttp;
 use RuntimeException;
 
-
 /**
  * PHP7 FIREBASE LIBRARY (http://samuelventimiglia.it/)
  *
@@ -160,7 +159,7 @@ class StreamClient
     /**
      * Create infinite loop
      *
-     * @param string $buffer
+     * @param GuzzleHttp\Psr7\Stream $buffer
      * @param mixed $body
      * @param mixed $parts
      * @param mixed $rawMessage

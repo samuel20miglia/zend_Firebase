@@ -337,7 +337,6 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
             $this->printEventData($eventData, $event);
 
             $this->writeEventLogs($logger, $eventData, $event, $path);
-
         }
     }
 
