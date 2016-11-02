@@ -9,9 +9,7 @@ coding_style:
             around_operators:
                 unary_additive: true
                 concatenation: true
-tools:
-    php_cs_fixer:
-        config: { level: psr2 }
+
 build:
     tests:
         override:
