@@ -177,11 +177,7 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
      */
     public function delete($path, $options = [])
     {
-        try {
-            $this->writeRequest('delete', $this->getJsonPath($path), '');
-        } catch (\Exception $e) {
-            $this->response = null;
-        }
+        $this->writeRequest('delete', $this->getJsonPath($path), '');
     }
 
     /**
@@ -196,11 +192,7 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
      */
     public function get($path, $options = [])
     {
-        try {
-            $this->writeRequest('get', $this->getJsonPath($path), '');
-        } catch (\Exception $e) {
-            $this->response = null;
-        }
+        $this->writeRequest('get', $this->getJsonPath($path), '');
     }
 
     /**
@@ -232,7 +224,6 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
      */
     public function post($path, array $data, $options = [])
     {
-        
         $this->writeRequest('post', $this->getJsonPath($path), $data);
     }
 
