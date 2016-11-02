@@ -272,7 +272,7 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
      * Start stream with server and write log in choised folder
      *
      * @param string $path
-     * @param string $folderToStoreLog/
+     * @param string $folderToStoreLog
      * @param integer $requestDelay
      * @example $requestDelay = 3000 -> 3 seconds between get request
      */
@@ -319,8 +319,7 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
      *
      * Create logger instance for save stream log
      *
-     * @param
-     *            string folderToStoreLog
+     * @param string $folderToStoreLog
      */
     private function createLogger($folderToStoreLog)
     {
