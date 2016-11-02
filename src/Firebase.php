@@ -160,7 +160,7 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
         $headers['Content-Type'] = 'application/json';
 
         // check if header is an array
-        if (! is_array($headers)) {
+        if (!is_array($headers)) {
             $str = "The guzzle client headers must be an array.";
             throw new \Exception($str);
         }
@@ -363,7 +363,7 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
      */
     private function writeEventLogs($logger, $eventData, $event, $path)
     {
-        if (! empty($eventData) || null != $eventData) {
+        if (!empty($eventData) || null != $eventData) {
             $logger->addDebug("path: {$path}", [
                 'DATA' => $eventData,
                 'EVENT TYPE' => $event->getEventType()
