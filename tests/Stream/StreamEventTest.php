@@ -5,6 +5,8 @@ require_once 'src/Stream/StreamEvent.php';
 
 /**
  * StreamEvent test case.
+ *
+ * @author Davide Biasin
  */
 class StreamEventTest extends PHPUnit_Framework_TestCase
 {
@@ -40,7 +42,9 @@ class StreamEventTest extends PHPUnit_Framework_TestCase
      */
     protected function tearDown()
     {
+        /* reset streamEvent istance */
         $this->streamEvent = null;
+        /* reset streamEvent istance */
         $this->streamEventWithData = null;
 
         parent::tearDown();

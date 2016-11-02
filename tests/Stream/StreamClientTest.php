@@ -5,6 +5,8 @@ require_once 'src/Stream/StreamClient.php';
 
 /**
  * StreamClient test case.
+ *
+ * @author Davide Biasin
  */
 class StreamClientTest extends PHPUnit_Framework_TestCase
 {
@@ -28,6 +30,7 @@ class StreamClientTest extends PHPUnit_Framework_TestCase
     {
         parent::setUp();
 
+        /* New instance of StreamClient */
         $this->streamClient = new StreamClient($this->url, 0);
     }
 
@@ -36,6 +39,7 @@ class StreamClientTest extends PHPUnit_Framework_TestCase
      */
     protected function tearDown()
     {
+        /* Reset stremClient instance */
         $this->streamClient = null;
 
         parent::tearDown();
