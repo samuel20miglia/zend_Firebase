@@ -15,4 +15,11 @@ tools:
     php_code_coverage: true
     php_cs_fixer:
         config: { level: psr2 } # or psr1 if you would just like to get fixes for PSR1
-
+build:
+    tests:
+        override:
+            -
+                command: 'phpunit --coverage-clover=clover.xml'
+                coverage:
+                    file: 'clover.xml'
+                    format: 'clover'
