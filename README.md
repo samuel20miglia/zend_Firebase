@@ -79,19 +79,14 @@ $auth = new FirebaseAuth();
 $auth->setBaseURI('https://your_url_from_firebase/');
 $auth->setServertoken('your_firebase_token');
 
-/* ---  EXAMPLE OF DATA TO POST REMEMBER ALL DATA MUST BE ARRAY --- */
-$test = array(
-    "name" => "TEST",
-    "id" => 5245,
-    "text" => 'ciao TEST 5245',
-    'status' => 'sended'
-);
 
 /* --- CREATE NEW OBJECT AND PASS CREDENTIAL --- */
 $firebase = new Firebase($auth);
 
-
+/* --- SET PATH, NAME OF FOLDER WHERE STORE LOGS, AND MILLISECONDS OF DELAY BETWEEN NEW REQUEST */
+$firebase->startStream('products', 'logs/',5000);
 ```
+this method start listener and write log file of changes
 
 <hr/>
 ### Unit Tests
