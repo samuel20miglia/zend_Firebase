@@ -160,7 +160,7 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
         $headers['Content-Type'] = 'application/json';
 
         // check if header is an array
-        if (!is_array($headers)) {
+        if (! is_array($headers)) {
             $str = "The guzzle client headers must be an array.";
             throw new \Exception($str);
         }
@@ -326,33 +326,68 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
         // returns generator
         $events = $client->getEvents();
 
-        /* search / in string */
-        $folderName = substr(strrchr(trim($folderToStoreLog), "/"), 1);
-        /* if not exsits add on path+/ */
-        $folderName = empty($folderName) ? $folderToStoreLog . '/' : $folderToStoreLog;
         // call method for create instance of logger
-        $logger = $this->createLogger($folderName);
+        $logger = $this->createLogger($this->formatFolderName($folderToStoreLog));
 
         // blocks until new event arrive
         foreach ($events as $event) {
             // decode json data arrived to php array
-            $eventData = json_decode($event->getData(), true);
+            $eventData = \json_decode($event->getData(), true);
 
-            // pass event to callback function
-            print_r($eventData);
-            print_r("EVENT TYPE: " . $event->getEventType() . PHP_EOL . PHP_EOL);
+            $this->printEventData($eventData, $event);
 
-            if (! empty($eventData) || null != $eventData) {
-                $logger->addDebug("path: {$path}", [
-                    'DATA' => $eventData,
-                    'EVENT TYPE' => $event->getEventType()
-                ]);
-            } else {
-                $logger->addDebug("path: {$path}", [
-                    'EVENT TYPE' => $event->getEventType()
-                ]);
-            }
+            $this->writeEventLogs($logger, $eventData, $event, $path);
         }
+    }
+
+    /**
+     * Print on output datas
+     *
+     * @param unknown $eventData
+     */
+    private function printEventData($eventData, $event)
+    {
+        // pass event to callback function
+        print_r($eventData);
+        print_r("EVENT TYPE: " . $event->getEventType() . PHP_EOL . PHP_EOL);
+    }
+
+    /**
+     * Write log of current event
+     *
+     * @param Monolog\Logger $logger
+     * @param array $eventData
+     * @param mixed $event
+     * @param string $path
+     */
+    private function writeEventLogs($logger, $eventData, $event, $path)
+    {
+        if (! empty($eventData) || null != $eventData) {
+            $logger->addDebug("path: {$path}", [
+                'DATA' => $eventData,
+                'EVENT TYPE' => $event->getEventType()
+            ]);
+        } else {
+            $logger->addDebug("path: {$path}", [
+                'EVENT TYPE' => $event->getEventType()
+            ]);
+        }
+    }
+
+    /**
+     * Format folder name
+     *
+     * @param string $folderToStoreLog
+     * @return string $folderName
+     */
+    private function formatFolderName($folderToStoreLog): string
+    {
+        /* search / in string */
+        $folderName = substr(strrchr(trim($folderToStoreLog), "/"), 1);
+        /* if not exsits add on path+/ */
+        $folderName = empty($folderName) ? $folderToStoreLog . '/' : $folderToStoreLog;
+
+        return $folderName;
     }
 
     /**

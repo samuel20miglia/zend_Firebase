@@ -56,12 +56,12 @@ class StreamEventTest extends PHPUnit_Framework_TestCase
     public function test__construct()
     {
         /* Equals default value */
-        $this->assertEquals(null,$this->streamEvent->getData() );
-        $this->assertEquals('message',$this->streamEvent->getEventType());
+        $this->assertEquals(null, $this->streamEvent->getData());
+        $this->assertEquals('message', $this->streamEvent->getEventType());
 
         /* Equals value passed */
-        $this->assertEquals('data',$this->streamEventWithData->getData());
-        $this->assertEquals('operation',$this->streamEventWithData->getEventType() );
+        $this->assertEquals('data', $this->streamEventWithData->getData());
+        $this->assertEquals('operation', $this->streamEventWithData->getEventType());
     }
 
     /**
@@ -70,7 +70,7 @@ class StreamEventTest extends PHPUnit_Framework_TestCase
     public function testGetData()
     {
         /* Empty, default value */
-        $this->assertEmpty(null,$this->streamEvent->getData());
+        $this->assertEmpty(null, $this->streamEvent->getData());
 
         /* Not empty, passed value from construct */
         $this->assertNotEmpty($this->streamEventWithData->getData());
@@ -99,9 +99,9 @@ class StreamEventTest extends PHPUnit_Framework_TestCase
         $event = StreamEvent::parse("event: testEvent\ndata: testData");
 
         /* Equal than event parameter passed */
-        $this->assertEquals(null,$event->getEventType() );
+        $this->assertEquals(null, $event->getEventType());
         /* Equal than data parameter passed */
-        $this->assertEquals(null,$event->getData());
+        $this->assertEquals(null, $event->getData());
 
         /* type string */
         $this->assertInternalType('string', $event->getEventType());
