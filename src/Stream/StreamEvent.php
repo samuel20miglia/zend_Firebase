@@ -79,7 +79,7 @@ class StreamEvent
                     $event->eventType = $value;
                     break;
                 case 'data':
-                    $event->data = empty($event->data) ? $value : "$event->data\n$value";
+                    $event->data = empty($event->data) ? $value : "{$event->data}\n{$value}";
                     break;
                 
                 default:
