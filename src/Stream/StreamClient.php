@@ -26,19 +26,16 @@ class StreamClient
 {
 
     /**
-     * Reconnection time in milliseconds
+     * Stream pattern END_OF_MESSAGE
      *
-     * @var integer
+     * @var string
      */
-    const RETRY_DEFAULT_MS = 3000;
-
     const END_OF_MESSAGE = "/\r\n\r\n|\n\n|\r\r/";
 
     /**
      * Client for send request
      *
      * @var GuzzleHttp\Client $client
-     * @return GuzzleHttp\Client
      */
     private $client;
 
@@ -46,7 +43,6 @@ class StreamClient
      * Responce object from rest
      *
      * @var GuzzleHttp\Psr7\Response $response
-     * @return GuzzleHttp\Psr7\Response
      */
     private $response;
 
@@ -54,15 +50,13 @@ class StreamClient
      * Request url to send request
      *
      * @var string $url
-     * @return string $url
      */
     private $url;
 
     /**
      * Last received message id
      *
-     * @var string
-     * @return string $lastMessageId
+     * @var string $lastMessageId
      */
     private $lastMessageId;
 
@@ -70,23 +64,33 @@ class StreamClient
      * Reconnection time in milliseconds
      *
      * @var integer $retry
-     * @return integer $retry
      */
-    private $retry = self::RETRY_DEFAULT_MS;
+    private $retry = 3000;
 
     /**
      * Constructor
      *
      * @param string $url
+     * @param integer $requestDelay
      * @throws InvaliArgumentException
      */
-    public function __construct($url)
+    public function __construct($url, $requestDelay)
     {
         $this->url = $url;
+        $this->retry = $requestDelay;
 
         if (empty($this->url)) {
-            throw new InvaliArgumentException('Error: url empty...');
+            throw new \InvalidArgumentException('Error: url empty...');
         }
+        $this->createClientObject();
+        $this->connect();
+    }
+
+    /**
+     * Create client
+     */
+    private function createClientObject()
+    {
         $this->client = new GuzzleHttp\Client([
             'headers' => [
                 'Accept' => 'text/event-stream',
@@ -94,25 +98,9 @@ class StreamClient
                 'allow_redirects' => true
             ]
         ]);
+
         $this->connect();
-    }
 
-    /**
-     *
-     * @return integer $retry
-     */
-    public function getRetry(): int
-    {
-        return $this->retry;
-    }
-
-    /**
-     *
-     * @param number $retry
-     */
-    public function setRetry($retry)
-    {
-        $this->retry = $retry;
     }
 
     /**
@@ -168,12 +156,30 @@ class StreamClient
         /* bring body of response */
         $body = $this->response->getBody();
 
+
+        $buffer = $this->infiniteLoop($buffer, $body, $parts, $rawMessage, $remaining, $event);
+    }
+
+    /**
+     * Create infinite loop
+     *
+     * @param GuzzleHttp\Psr7\Stream $buffer
+     * @param mixed $body
+     * @param mixed $parts
+     * @param mixed $rawMessage
+     * @param mixed $remaining
+     * @param mixed $event
+     * @return \Generator
+     */
+    private function infiniteLoop($buffer, $body, $parts, $rawMessage, $remaining, $event): GuzzleHttp\Psr7\Stream
+    {
+
         /* infinte loop */
         while (true) {
             /* if server close connection - try to reconnect */
             if ($body->eof()) {
                 /* wait retry period before reconnection */
-                sleep(self::RETRY_DEFAULT_MS / 1000);
+                sleep($this->retry / 1000);
 
                 /* reconnect */
                 $this->connect();
@@ -203,5 +209,6 @@ class StreamClient
                 yield $event;
             }
         }
+        return $buffer;
     }
 }
