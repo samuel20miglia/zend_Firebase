@@ -4,6 +4,8 @@
 [![Travis CI Build Status](https://travis-ci.org/Samuel18/zend_Firebase.svg?branch=master)](https://travis-ci.org/Samuel18/zend_Firebase)
 
 [![PHP 7 ready](http://php7ready.timesplinter.ch/Samuel18/zend_Firebase/badge.svg)](https://travis-ci.org/Samuel18/zend_Firebase)
+[![Total Downloads](https://poser.pugx.org/zend_firebase/zend_firebase/downloads)](https://packagist.org/packages/zend_firebase/zend_firebase)
+[![License](https://poser.pugx.org/zend_firebase/zend_firebase/license)](https://packagist.org/packages/zend_firebase/zend_firebase)
 
 Based on the [Firebase REST API](https://firebase.google.com/docs/reference/rest/database/).
 
