@@ -78,7 +78,7 @@ class StreamClient
     {
         $this->url = $url;
         $this->retry = $requestDelay;
-
+        
         if (empty($this->url)) {
             throw new \InvalidArgumentException('Error: url empty...');
         }
@@ -98,7 +98,7 @@ class StreamClient
                 'allow_redirects' => true
             ]
         ]);
-
+        
         $this->connect();
     }
 
@@ -131,12 +131,12 @@ class StreamClient
         if ($this->lastMessageId) {
             $headers['Last-Event-ID'] = $this->lastMessageId;
         }
-
+        
         $this->response = $this->client->request('GET', $this->url, [
             'stream' => true,
             'headers' => $headers
         ]);
-
+        
         if ($this->response->getStatusCode() == 204) {
             throw new RuntimeException('Error: Server forbid connection retry by responding 204 status code.');
         }
@@ -144,55 +144,52 @@ class StreamClient
 
     /**
      * Returns generator that yields new event when it's available on stream.
-     *
-     * @return \Generator
      */
     public function getEvents()
     {
         /* initialize empty buffer */
         $buffer = '';
-
+        
         /* bring body of response */
         $body = $this->response->getBody();
-
-
+        
         $buffer = $this->infiniteLoop($buffer, $body);
     }
 
     /**
      * Create infinite loop
      *
-     * @param GuzzleHttp\Psr7\Stream $buffer
+     * @param string $buffer
      * @param mixed $body
      * @return Generator
      */
-    private function infiniteLoop($buffer, $body)
+    private function infiniteLoop($buffer, $body): string
     {
-
+        
         /* infinte loop */
         while (true) {
             /* if server close connection - try to reconnect */
             if ($body->eof()) {
                 /* wait retry period before reconnection */
                 sleep($this->retry / 1000);
-
+                
                 /* reconnect */
                 $this->connect();
-
+                
                 /* clear buffer since there is no sense in partial message */
                 $buffer = '';
             }
             /* start read into stream */
             $buffer .= $body->read(1);
-
+            
             if (preg_match(self::END_OF_MESSAGE, $buffer)) {
                 $parts = preg_split(self::END_OF_MESSAGE, $buffer, 2);
-
+                
                 $rawMessage = $parts[0];
                 $remaining = $parts[1];
-
+                
                 $buffer = $remaining;
-
+                
                 /**
                  * Save event into StreamEvent
                  *
@@ -200,7 +197,7 @@ class StreamClient
                  * @return StreamEvent $event
                  */
                 $event = StreamEvent::parse($rawMessage);
-
+                
                 yield $event;
             }
         }
