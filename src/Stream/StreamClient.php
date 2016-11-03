@@ -100,7 +100,6 @@ class StreamClient
         ]);
 
         $this->connect();
-
     }
 
     /**
