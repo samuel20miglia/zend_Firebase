@@ -80,8 +80,8 @@ class StreamEvent
     
     /**
      * Return Object
-     * @param unknown $name
-     * @param unknown $value
+     * @param string $name
+     * @param string $value
      * @return \ZendFirebase\Stream\StreamEvent
      */
     private static function parseEventData($name, $value)
