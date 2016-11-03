@@ -8,9 +8,9 @@ require_once 'src/Firebase.php';
 require_once 'src/Config/FirebaseAuth.php';
 
 /**
- * FirebaseInit test case.
+ * Firebase test case.
  */
-class FirebaseInitTest extends \PHPUnit_Framework_TestCase
+class FirebaseTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
@@ -18,7 +18,7 @@ class FirebaseInitTest extends \PHPUnit_Framework_TestCase
      * @var FirebaseInit
      */
     private $firebaseInit;
-    
+
     // --- set up your own database here
     protected $baseUri = 'https://zendfirebase.firebaseio.com/';
 
@@ -32,9 +32,9 @@ class FirebaseInitTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         parent::setUp();
-        
+
         $this->auth = new FirebaseAuth();
-        
+
         $this->auth->setServertoken($this->token);
         $this->auth->setBaseURI($this->baseUri);
         // TODO Auto-generated FirebaseInitTest::setUp()
@@ -48,7 +48,7 @@ class FirebaseInitTest extends \PHPUnit_Framework_TestCase
     {
         // TODO Auto-generated FirebaseInitTest::tearDown()
         $this->firebaseInit = null;
-        
+
         parent::tearDown();
     }
 
@@ -69,7 +69,7 @@ class FirebaseInitTest extends \PHPUnit_Framework_TestCase
         $testAuth = new FirebaseAuth();
         $testAuth->setServertoken($this->token);
         $testAuth->setBaseURI($this->baseUri);
-        
+
         $this->assertEquals($testAuth, $this->auth);
     }
 
@@ -80,12 +80,12 @@ class FirebaseInitTest extends \PHPUnit_Framework_TestCase
     public function testSetTimeout()
     {
         $timeout = 10;
-        
+
         $this->firebaseInit->setTimeout($timeout);
-        
+
         /* not empty */
         $this->assertNotEmpty($this->firebaseInit->getTimeout());
-        
+
         /* type int */
         $this->assertInternalType('int', $this->firebaseInit->getTimeout());
     }
@@ -97,9 +97,9 @@ class FirebaseInitTest extends \PHPUnit_Framework_TestCase
     {
         $this->firebaseInit->get('users');
         $this->firebaseInit->makeResponce();
-        
+
         $this->assertNotEmpty($this->firebaseInit->getFirebaseData());
-        
+
         return [
             'responce' => $this->firebaseInit->getFirebaseData(),
             'status' => $this->firebaseInit->getStatus(),
@@ -127,7 +127,7 @@ class FirebaseInitTest extends \PHPUnit_Framework_TestCase
     public function testGetOperation($operation)
     {
         $this->assertNotNull($operation['operation']);
-        
+
         /* type string */
         $this->assertInternalType('string', $operation['operation']);
     }
@@ -140,7 +140,7 @@ class FirebaseInitTest extends \PHPUnit_Framework_TestCase
     public function testGetFirebaseData($firebase)
     {
         $this->assertNotNull($firebase['responce']);
-        
+
         /* type array */
         $this->assertInternalType('array', $firebase['responce']);
     }

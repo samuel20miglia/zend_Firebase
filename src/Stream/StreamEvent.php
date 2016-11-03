@@ -15,14 +15,26 @@ use InvalidArgumentException;
 class StreamEvent
 {
 
+    /**
+     * Strng pattern END_OF_LINE
+     *
+     * @var string END_OF_LINE
+     */
     const END_OF_LINE = "/\r\n|\n|\r/";
 
-    /** @var string */
+    /**
+     * Raw data form stream
+     *
+     * @var string $data
+     */
     private $data;
 
-    /** @var string */
+    /**
+     * Type of event
+     *
+     * @var string $eventType
+     */
     private $eventType;
-
 
     /**
      *
@@ -37,21 +49,19 @@ class StreamEvent
 
     /**
      *
-     * @param
-     *            $raw
-     *
-     * @return Event
+     * @param $raw
+     * @return StreamEvent $event
      */
     public static function parse($raw)
     {
-        $event = new static();
-        $lines = preg_split(self::END_OF_LINE, $raw);
 
+        $lines = self::splitEndOfStream($raw);
 
         foreach ($lines as $line) {
+            $matches = '';
             $matched = preg_match('/(?P<name>[^:]*):?( ?(?P<value>.*))?/', $line, $matches);
 
-            if (! $matched) {
+            if (!$matched) {
                 throw new InvalidArgumentException(sprintf('Invalid line %s', $line));
             }
 
@@ -63,29 +73,66 @@ class StreamEvent
                 continue;
             }
 
-            switch ($name) {
-                case 'event':
-                    $event->eventType = $value;
-                    break;
-                case 'data':
-                    $event->data = empty($event->data) ? $value : "$event->data\n$value";
-                    break;
-
-                default:
-                    // The field is ignored.
-                    continue;
-            }
+            $event = self::parseEventData($name, $value);
         }
-
+        return $event;
+    }
+    
+    /**
+     * Return Object
+     * @param string $name
+     * @param string $value
+     * @return \ZendFirebase\Stream\StreamEvent
+     */
+    private static function parseEventData($name, $value)
+    {
+        $event = new StreamEvent();
+        
+        switch ($name) {
+            case 'event':
+                $event->eventType = $value;
+                break;
+            case 'data':
+                $event->data = empty($event->data) ? $value : "$event->data\n$value";
+                break;
+        
+            default:
+                // The field is ignored.
+                continue;
+        }
         return $event;
     }
 
-    public function getData()
+
+    /**
+     * Find enf of stream
+     *
+     * @param mixed $raw
+     * @return mixed
+     */
+    private static function splitEndOfStream($raw)
+    {
+        $lines = preg_split(self::END_OF_LINE, $raw);
+        return $lines;
+    }
+
+
+    /**
+     * All db changes
+     *
+     * @return string $this->data
+     */
+    public function getData(): string
     {
         return $this->data;
     }
 
-    public function getEventType()
+    /**
+     * Type of event
+     *
+     * @return string $this->eventType
+     */
+    public function getEventType(): string
     {
         return $this->eventType;
     }

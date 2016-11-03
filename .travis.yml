@@ -1,6 +1,16 @@
 language: php
-php:
-  - 7.0
+sudo: true
 
+matrix:
+  fast_finish: true
+  include:
+  - php: 7.0
+    env: deps=low
+  - php: 7.0
+    env: WITH_CRYPTO=true
+  - php: 7.1
+    env: deps=low
+  - php: 7.1
+    env: WITH_CRYPTO=true
 before_install:
- - composer install --dev
+- composer install --dev
