@@ -291,7 +291,7 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
 
             default:
                 $this->response = $this->client->{$operation}($path, [
-                    'body' => $data
+                    'body' => \json_encode($data)
                 ]);
 
                 $this->setDataFromOperation($op, $this->response->getStatusCode());
