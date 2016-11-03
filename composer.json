@@ -1,7 +1,7 @@
 {
   "name" : "zend_firebase/zend_firebase",
   "description" : "PHP7 rest and stream Firebase library",
-  "version" : "v0.2.0",
+  "version" : "v0.2.1",
   "require" : {
     "php" : "^7.0",
     "guzzlehttp/guzzle" : "6.2.2",
