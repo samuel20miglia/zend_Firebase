@@ -129,7 +129,7 @@ class StreamClient
     private function connect()
     {
         
-        $this->createClient();
+        $this->sendRequest();
         
         if ($this->response->getStatusCode() == 204) {
             throw new RuntimeException('Error: Server forbid connection retry by responding 204 status code.');
@@ -137,9 +137,9 @@ class StreamClient
     }
     
     /**
-     * Initialize client
+     * Send Request
      */
-    private function createClient()
+    private function sendRequest()
     {
         $headers = [];
         if ($this->lastMessageId) {
