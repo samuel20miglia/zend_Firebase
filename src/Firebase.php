@@ -9,6 +9,7 @@ use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\FirePHPHandler;
 use Monolog\Formatter\LineFormatter;
+
 require 'Interfaces/FirebaseInterface.php';
 require 'Stream/StreamClient.php';
 
@@ -348,7 +349,8 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
     /**
      * Print on output datas
      *
-     * @param unknown $eventData
+     * @param mixed $eventData
+     * @param mixed $event
      */
     private function printEventData($eventData, $event)
     {
@@ -402,7 +404,7 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
      * @param string $folderToStoreLog
      * @return Logger $logger
      */
-    private function createLogger($folderToStoreLog)
+    private function createLogger($folderToStoreLog): Logger
     {
         // the default output format is "[%datetime%] %channel%.%level_name%: %message% %context% %extra%\n"
         $output = "%datetime% > %level_name% > %message% %context% %extra%\n";
