@@ -3,6 +3,7 @@ namespace ZendFirebase\Stream;
 
 use GuzzleHttp;
 use RuntimeException;
+use phpDocumentor\Reflection\DocBlock\Tags\Generic;
 
 /**
  * PHP7 FIREBASE LIBRARY (http://samuelventimiglia.it/)
@@ -127,6 +128,19 @@ class StreamClient
      */
     private function connect()
     {
+        
+        $this->createClient();
+        
+        if ($this->response->getStatusCode() == 204) {
+            throw new RuntimeException('Error: Server forbid connection retry by responding 204 status code.');
+        }
+    }
+    
+    /**
+     * Initialize client
+     */
+    private function createClient()
+    {
         $headers = [];
         if ($this->lastMessageId) {
             $headers['Last-Event-ID'] = $this->lastMessageId;
@@ -136,11 +150,8 @@ class StreamClient
             'stream' => true,
             'headers' => $headers
         ]);
-        
-        if ($this->response->getStatusCode() == 204) {
-            throw new RuntimeException('Error: Server forbid connection retry by responding 204 status code.');
-        }
     }
+
 
     /**
      * Returns generator that yields new event when it's available on stream.
@@ -152,19 +163,6 @@ class StreamClient
         
         /* bring body of response */
         $body = $this->response->getBody();
-        
-        $buffer = $this->infiniteLoop($buffer, $body);
-    }
-
-    /**
-     * Create infinite loop
-     *
-     * @param string $buffer
-     * @param mixed $body
-     * @return Generator
-     */
-    private function infiniteLoop($buffer, $body): string
-    {
         
         /* infinte loop */
         while (true) {
@@ -193,14 +191,12 @@ class StreamClient
                 /**
                  * Save event into StreamEvent
                  *
-                 * @var StreamEvent
-                 * @return StreamEvent $event
+                 * @var StreamEvent $event
                  */
                 $event = StreamEvent::parse($rawMessage);
                 
                 yield $event;
             }
         }
-        return $buffer;
     }
 }
