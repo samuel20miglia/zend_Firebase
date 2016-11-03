@@ -49,19 +49,13 @@ class StreamEvent
 
     /**
      *
-<<<<<<< HEAD
-     * @param
-     *            $raw
-=======
      * @param $raw
->>>>>>> branch 'develop' of https://github.com/Samuel18/zend_Firebase.git
      * @return StreamEvent $event
      */
     public static function parse($raw)
     {
 
         $lines = self::splitEndOfStream($raw);
-
 
         foreach ($lines as $line) {
             $matches = '';
@@ -79,10 +73,36 @@ class StreamEvent
                 continue;
             }
 
-
-            self::switchTypeOfData($name, $value);
+            $event = self::parseEventData($name, $value);
         }
+        return $event;
     }
+    
+    /**
+     * Return Object
+     * @param unknown $name
+     * @param unknown $value
+     * @return \ZendFirebase\Stream\StreamEvent
+     */
+    private static function parseEventData($name, $value)
+    {
+        $event = new StreamEvent();
+        
+        switch ($name) {
+            case 'event':
+                $event->eventType = $value;
+                break;
+            case 'data':
+                $event->data = empty($event->data) ? $value : "$event->data\n$value";
+                break;
+        
+            default:
+                // The field is ignored.
+                continue;
+        }
+        return $event;
+    }
+
 
     /**
      * Find enf of stream
@@ -96,31 +116,6 @@ class StreamEvent
         return $lines;
     }
 
-    /**
-     * This Method return object
-     *
-     * @param string $name
-     * @param string $value
-     */
-    private static function switchTypeOfData($name, $value)
-    {
-        $event = new StreamEvent();
-
-        switch ($name) {
-            case 'event':
-                $event->eventType = $value;
-                break;
-            case 'data':
-                $event->data = empty($event->data) ? $value : "{$event->data}\n{$value}";
-                break;
-
-            default:
-                // The field is ignored.
-                continue;
-        }
-
-        return $event;
-    }
 
     /**
      * All db changes
