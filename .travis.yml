@@ -1,9 +1,6 @@
 language: php
 sudo: true
-php:
-- '7.0'
-- hhvm
-- nightly
+
 matrix:
   fast_finish: true
   include:
@@ -14,12 +11,6 @@ matrix:
   - php: 7.1
     env: deps=low
   - php: 7.1
-    env: WITH_CRYPTO=true
-  - php: hhvm
-    env: deps=low
-  - php: nightly
-    env: deps=low
-  - php: nightly
     env: WITH_CRYPTO=true
 before_install:
 - composer install --dev
