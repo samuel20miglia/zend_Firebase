@@ -11,7 +11,7 @@ require 'src/Config/FirebaseAuth.php';
  * @author sviluppo
  *
  */
-class AuthSetupTest extends \PHPUnit_Framework_TestCase
+class FirebaseAuthTest extends \PHPUnit_Framework_TestCase
 {
 
     protected $auth;

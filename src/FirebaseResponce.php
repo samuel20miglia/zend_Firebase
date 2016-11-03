@@ -43,7 +43,6 @@ class FirebaseResponce
      */
     public function __destruct()
     {
-        unset($this);
     }
 
     /**

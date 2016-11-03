@@ -1,7 +1,9 @@
-# PHP7 Firebase REST Client
+# PHP7 Firebase REST and STREAM Client
 
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Samuel18/zend_Firebase/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Samuel18/zend_Firebase/?branch=master)
 [![Travis CI Build Status](https://travis-ci.org/Samuel18/zend_Firebase.svg?branch=master)](https://travis-ci.org/Samuel18/zend_Firebase)
+
+[![PHP 7 ready](http://php7ready.timesplinter.ch/Samuel18/zend_Firebase/badge.svg)](https://travis-ci.org/Samuel18/zend_Firebase)
 
 Based on the [Firebase REST API](https://firebase.google.com/docs/reference/rest/database/).
 
@@ -67,8 +69,28 @@ $firebase->get('usersMessages',$options);
 /* --- delete data --- */
 $firebase->delete('usersMessages',$options);
 ```
+<hr/>
+
+### Rest Stream API
+```php
+
+use ZendFirebase\Firebase, ZendFirebase\Config\FirebaseAuth;
+
+$auth = new FirebaseAuth();
+
+$auth->setBaseURI('https://your_url_from_firebase/');
+$auth->setServertoken('your_firebase_token');
 
 
+/* --- CREATE NEW OBJECT AND PASS CREDENTIAL --- */
+$firebase = new Firebase($auth);
+
+/* --- SET PATH, NAME OF FOLDER WHERE STORE LOGS, AND MILLISECONDS OF DELAY BETWEEN NEW REQUEST */
+$firebase->startStream('products', 'logs/',5000);
+```
+this method start listener and write log file of changes
+
+<hr/>
 ### Unit Tests
 All the unit tests are found in the "/tests" directory.
 Due to the usage of an interface, the tests must run in isolation.
