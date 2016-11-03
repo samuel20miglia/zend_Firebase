@@ -156,7 +156,7 @@ class StreamClient
         $body = $this->response->getBody();
 
 
-        $buffer = $this->infiniteLoop($buffer, $body, $parts, $rawMessage, $remaining, $event);
+        $buffer = $this->infiniteLoop($buffer, $body);
     }
 
     /**
@@ -164,13 +164,9 @@ class StreamClient
      *
      * @param GuzzleHttp\Psr7\Stream $buffer
      * @param mixed $body
-     * @param mixed $parts
-     * @param mixed $rawMessage
-     * @param mixed $remaining
-     * @param mixed $event
-     * @return \Generator
+     * @return Generator
      */
-    private function infiniteLoop($buffer, $body, $parts, $rawMessage, $remaining, $event): GuzzleHttp\Psr7\Stream
+    private function infiniteLoop($buffer, $body)
     {
 
         /* infinte loop */

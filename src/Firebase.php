@@ -404,7 +404,7 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
      * @param string $folderToStoreLog
      * @return Logger $logger
      */
-    private function createLogger($folderToStoreLog): Logger
+    private function createLogger($folderToStoreLog)
     {
         // the default output format is "[%datetime%] %channel%.%level_name%: %message% %context% %extra%\n"
         $output = "%datetime% > %level_name% > %message% %context% %extra%\n";
