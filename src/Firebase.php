@@ -182,31 +182,18 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
         /* returns the data in a human-readable format */
         $options['print'] = 'pretty';
         
-        $options['orderBy'] = $this->quoteOrderByQueryParam($options);
+        foreach ($options as $opt => $optVal) {
+        
+            if ($opt == 'orderBy') {
+                
+                $options['orderBy']= '"' . $optVal . '"';
+        
+            }
+        }
            
         $path = ltrim($path, '/');
         
         return $path . '.json?' . http_build_query($options);
-    }
-
-    /**
-     * Quote orderBy options
-     * from '' -> "param"
-     *
-     * @example orderBy="name"
-     * @param array $options
-     * @return array
-     */
-    private function quoteOrderByQueryParam($options): array
-    {
-        foreach ($options as $opt => $optVal) {
-            
-            if ($opt == 'orderBy') {
-                $optVal = '"' . $optVal . '"';
-                $options['orderBy'] = $optVal;
-            }
-        }
-        return $options;
     }
 
     /**
