@@ -442,14 +442,21 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
     {
         $jsonData = [];
         if ($this->operation === 'GET') {
-            $jsonData = json_decode($this->response, true);
+            
+            if (empty($jsonData)){
+                $jsonData[] = '204 No Content';
+            }else {
+                $jsonData = json_decode($this->response, true);
+            }
+            
         } else {
-            $jsonData[] = 'success';
+            $jsonData[] = 'Success';
         }
         
         /* Set data after operations */
         $this->setOperation($this->operation);
         $this->setStatus($this->status);
+        
         $this->setFirebaseData($jsonData);
         $this->validateResponce();
     }
