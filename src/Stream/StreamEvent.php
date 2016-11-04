@@ -54,7 +54,7 @@ class StreamEvent
      */
     public static function parse($raw)
     {
-
+        $event = new StreamEvent();
         $lines = self::splitEndOfStream($raw);
 
         foreach ($lines as $line) {
@@ -73,20 +73,22 @@ class StreamEvent
                 continue;
             }
 
-            $event = self::parseEventData($name, $value);
+            $event = self::parseEventData($event,$name, $value);
         }
         return $event;
     }
-    
+   
     /**
      * Return Object
+     *
+     * @param \ZendFirebase\Stream\StreamEvent $event
      * @param string $name
      * @param string $value
      * @return \ZendFirebase\Stream\StreamEvent
      */
-    private static function parseEventData($name, $value)
+    private static function parseEventData($event,$name, $value)
     {
-        $event = new StreamEvent();
+       
         
         switch ($name) {
             case 'event':
