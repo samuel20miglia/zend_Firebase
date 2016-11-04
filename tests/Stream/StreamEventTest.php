@@ -99,7 +99,7 @@ class StreamEventTest extends PHPUnit_Framework_TestCase
         $event = StreamEvent::parse("event: testEvent\ndata: testData");
 
         /* Equal than event parameter passed */
-        $this->assertEquals('message', $event->getEventType());
+        $this->assertEquals('testEvent', $event->getEventType());
         /* Equal than data parameter passed */
         $this->assertEquals('testData', $event->getData());
 
