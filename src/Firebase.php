@@ -443,6 +443,7 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
         $jsonData = [];
         if ($this->operation === 'GET') {
             
+            $jsonData = json_decode($this->response, true);
             if (empty($jsonData)){
                 $jsonData[] = '204 No Content';
             }else {
