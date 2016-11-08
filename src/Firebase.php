@@ -121,12 +121,12 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
         $curlMessage = 'Extension CURL is not loaded or not installed.';
 
         // check if auth is null
-        if (! is_object($auth) || null == $auth) {
+        if (!is_object($auth) || null == $auth) {
             trigger_error($authMessage, E_USER_ERROR);
         }
 
         // check if extension is installed
-        if (! extension_loaded('curl')) {
+        if (!extension_loaded('curl')) {
             trigger_error($curlMessage, E_USER_ERROR);
         }
     }
@@ -155,7 +155,7 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
 
     /**
      *
-     * @return the unknown_type
+     * @return string $lastIdStored
      */
     public function getLastIdStored()
     {
@@ -164,12 +164,11 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
 
     /**
      *
-     * @param unknown_type $lastIdStored
+     * @param string $lastIdStored
      */
     public function setLastIdStored($lastIdStored)
     {
         $this->lastIdStored = $lastIdStored;
-        return $this;
     }
 
     /**
@@ -186,7 +185,7 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
         $headers['Content-Type'] = 'application/json';
 
         // check if header is an array
-        if (! is_array($headers)) {
+        if (!is_array($headers)) {
             $str = "The guzzle client headers must be an array.";
             throw new \Exception($str);
         }
@@ -212,7 +211,7 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
 
             if ($opt == 'orderBy') {
 
-                $options['orderBy']= '"' . $optVal . '"';
+                $options['orderBy'] = '"' . $optVal . '"';
 
             }
         }
@@ -329,7 +328,7 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
                 ]);
 
                 // save auto-increment id created from Firebase after post operation
-                $this->setLastIdStored(json_decode($this->response->getBody()->getContents(),true)['name']);
+                $this->setLastIdStored(json_decode($this->response->getBody()->getContents(), true)['name']);
 
                 $this->setDataFromOperation($op, $this->response->getStatusCode());
                 break;
@@ -412,7 +411,7 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
      */
     private function writeEventLogs($logger, $eventData, $event, $path)
     {
-        if (! empty($eventData) || null != $eventData) {
+        if (!empty($eventData) || null != $eventData) {
             $logger->addDebug("path: {$path}", [
                 'DATA' => $eventData,
                 'EVENT TYPE' => $event->getEventType()
@@ -480,9 +479,9 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
         if ($this->operation === 'GET') {
 
             $jsonData = json_decode($this->response, true);
-            if (empty($jsonData)){
+            if (empty($jsonData)) {
                 $jsonData[] = '204 No Content';
-            }else {
+            } else {
                 $jsonData = json_decode($this->response, true);
             }
 
