@@ -329,7 +329,7 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
                 ]);
 
                 // save auto-increment id created from Firebase after post operation
-                $this->setLastIdStored(json_decode($this->response->getBody(),true)['name']);
+                $this->setLastIdStored(json_decode($this->response->getBody()->getContents(),true)['name']);
 
                 $this->setDataFromOperation($op, $this->response->getStatusCode());
                 break;
