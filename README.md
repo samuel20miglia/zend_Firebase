@@ -62,7 +62,7 @@ echo $firebase->getStatus(); <- status of request for example: 200 or 400 or 500
 ```php
 
 /* --- storing data --- */
-$firebase->post('usersMessages', $test,$options);
+$firebase->post('usersMessages', $test,$options); 
 /* --- override data --- */
 $firebase->put('usersMessages', $test,$options);
 /* --- update data --- */
@@ -71,6 +71,14 @@ $firebase->patch('usersMessages', $test,$options);
 $firebase->get('usersMessages',$options);
 /* --- delete data --- */
 $firebase->delete('usersMessages',$options);
+```
+
+### Get Last Auto-Increment Id generate from Firebase after 'post' command
+```php
+
+/* --- get last auto-increment id after post command --- */
+$firebase->getLastIdStored();
+
 ```
 <hr/>
 
