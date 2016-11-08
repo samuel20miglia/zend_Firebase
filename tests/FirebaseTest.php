@@ -144,4 +144,22 @@ class FirebaseTest extends \PHPUnit_Framework_TestCase
         /* type array */
         $this->assertInternalType('array', $firebase['responce']);
     }
+
+    /**
+     * Test Firebase->getLastIdStored()
+     * Test Firebase->setLastIdStored()
+     */
+    public function testGetSetLastIdStored()
+    {
+        /* type string */
+        $this->assertInternalType('string', $this->firebaseInit->getLastIdStored());
+        /* assert empty string */
+        $this->assertEquals('', $this->firebaseInit->getLastIdStored());
+
+        $this->firebaseInit->setLastIdStored('id123abc');
+        /* type string */
+        $this->assertInternalType('string', $this->firebaseInit->getLastIdStored());
+        /* assert empty string */
+        $this->assertEquals('id123abc', $this->firebaseInit->getLastIdStored());
+    }
 }
