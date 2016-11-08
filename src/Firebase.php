@@ -155,6 +155,7 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
     }
 
     /**
+     * Return string of LastIdStored generated after post command
      *
      * @return string $lastIdStored
      */
@@ -164,6 +165,7 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
     }
 
     /**
+     * Set string of LastIdStored generated after post command
      *
      * @param string $lastIdStored
      */
