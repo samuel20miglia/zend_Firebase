@@ -73,7 +73,7 @@ class StreamEvent
                 continue;
             }
 
-            $event = self::parseEventData($event,$name, $value);
+            $event = self::parseEventData($event, $name, $value);
         }
         return $event;
     }
@@ -86,7 +86,7 @@ class StreamEvent
      * @param string $value
      * @return \ZendFirebase\Stream\StreamEvent
      */
-    private static function parseEventData($event,$name, $value)
+    private static function parseEventData($event, $name, $value)
     {
        
         

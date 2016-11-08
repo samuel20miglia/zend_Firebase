@@ -9,6 +9,7 @@ use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\FirePHPHandler;
 use Monolog\Formatter\LineFormatter;
+
 require 'Interfaces/FirebaseInterface.php';
 require 'Stream/StreamClient.php';
 
@@ -157,7 +158,7 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
      *
      * @return string $lastIdStored
      */
-    public function getLastIdStored()
+    public function getLastIdStored(): string
     {
         return $this->lastIdStored;
     }
@@ -208,11 +209,8 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
         $options['print'] = 'pretty';
 
         foreach ($options as $opt => $optVal) {
-
             if ($opt == 'orderBy') {
-
                 $options['orderBy'] = '"' . $optVal . '"';
-
             }
         }
 
@@ -341,6 +339,8 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
                 $this->setDataFromOperation($op, $this->response->getStatusCode());
                 break;
         }
+
+        $this->makeResponce();
     }
 
     /**
@@ -473,18 +473,16 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
      *
      * @example set and validate data passed
      */
-    public function makeResponce()
+    private function makeResponce()
     {
         $jsonData = [];
         if ($this->operation === 'GET') {
-
             $jsonData = json_decode($this->response, true);
             if (empty($jsonData)) {
                 $jsonData[] = '204 No Content';
             } else {
                 $jsonData = json_decode($this->response, true);
             }
-
         } else {
             $jsonData[] = 'Success';
         }
@@ -501,6 +499,6 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
      * Remove object from memory
      */
     public function __destruct()
-    {}
-
+    {
+    }
 }

@@ -96,7 +96,7 @@ class FirebaseTest extends \PHPUnit_Framework_TestCase
     public function testMakeResponce()
     {
         $this->firebaseInit->get('users');
-        $this->firebaseInit->makeResponce();
+       // $this->firebaseInit->makeResponce();
 
         $this->assertNotEmpty($this->firebaseInit->getFirebaseData());
 
