@@ -49,13 +49,17 @@ $firebase->post('usersMessages', $test);
 ### Response Usage
 ```php
 
-/* to create a responce */
-$firebase->makeResponce();
-
 /* --- FIREBASE DATA FROM REALTIME DB IS AN ARRAY  --- */
 $firebase->getFirebaseData(); <- array
 echo $firebase->getOperation(); <- type of current operation for example: GET or POST etc...
 echo $firebase->getStatus(); <- status of request for example: 200 or 400 or 500
+```
+### Get Last Auto-Increment Id generate from Firebase after 'post' command
+```php
+
+/* --- get last auto-increment id after post command --- */
+$firebase->getLastIdStored();
+
 ```
 
 ### Supported Commands
@@ -71,14 +75,6 @@ $firebase->patch('usersMessages', $test,$options);
 $firebase->get('usersMessages',$options);
 /* --- delete data --- */
 $firebase->delete('usersMessages',$options);
-```
-
-### Get Last Auto-Increment Id generate from Firebase after 'post' command
-```php
-
-/* --- get last auto-increment id after post command --- */
-$firebase->getLastIdStored();
-
 ```
 <hr/>
 
