@@ -56,7 +56,7 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
     /**
      * Authentication object
      *
-     * @var $auth
+     * @var Config\FirebaseAuth $auth
      */
     private $auth;
 
@@ -77,7 +77,7 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
     /**
      * Last Auto-Increment saved from post operation
      *
-     * @var $lastIdStored
+     * @var string $lastIdStored
      */
     protected $lastIdStored = '';
 
@@ -155,6 +155,7 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
     }
 
     /**
+     * Return last auto index
      *
      * @return string $lastIdStored
      */
@@ -164,7 +165,7 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
     }
 
     /**
-     *
+     * Set last auto index
      * @param string $lastIdStored
      */
     public function setLastIdStored($lastIdStored)
