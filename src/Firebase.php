@@ -367,7 +367,7 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
      * @param integer $requestDelay
      * @example $requestDelay = 3000 -> 3 seconds between get request
      */
-    public function startStream($path, $folderToStoreLog, $requestDelay = 5000)
+    public function startStream($path, $folderToStoreLog, $requestDelay = 5000,$callback)
     {
         $url = $this->auth->getBaseURI() . $this->getJsonPath($path);
 
@@ -383,9 +383,14 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
         foreach ($events as $event) {
             // decode json data arrived to php array
             $eventData = \json_decode($event->getData(), true);
-
+            
+            // callback to return
+            $callback($eventData, $event->getEventType());
+            
+            // anyway print data in output
             $this->printEventData($eventData, $event);
-
+            
+            //write logs
             $this->writeEventLogs($logger, $eventData, $event, $path);
         }
     }
