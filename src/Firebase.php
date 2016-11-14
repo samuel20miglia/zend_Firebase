@@ -367,7 +367,7 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
      * @param integer $requestDelay
      * @example $requestDelay = 3000 -> 3 seconds between get request
      */
-    public function startStream($path, $folderToStoreLog, $requestDelay = 5000,$callback)
+    public function startStream($path, $folderToStoreLog, $requestDelay = 5000, $callback)
     {
         $url = $this->auth->getBaseURI() . $this->getJsonPath($path);
 
