@@ -147,7 +147,7 @@ class FirebaseTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Test Firebase->getLastIdStored()
-     * Test Firebase->setLastIdStored()
+     *
      */
     public function testGetSetLastIdStored()
     {
