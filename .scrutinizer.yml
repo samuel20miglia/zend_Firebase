@@ -2,7 +2,7 @@ checks:
     php: true
 filter:
     excluded_paths:
-        [vendor/*, doc/*, tests/*]
+        [vendor/*, doc/*, tests/*, examples/*]
 coding_style:
     php:
         spaces:
