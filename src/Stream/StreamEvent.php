@@ -58,6 +58,8 @@ class StreamEvent
         $lines = self::splitEndOfStream($raw);
 
         foreach ($lines as $line) {
+            
+            $name = '';
             $matches = '';
             $matched = preg_match('/(?P<name>[^:]*):?( ?(?P<value>.*))?/', $line, $matches);
 
@@ -69,6 +71,9 @@ class StreamEvent
             $value = $matches['value'];
 
             if ($name === '') {
+                
+                unset($name);
+                unset($value);
                 // ignore comments
                 continue;
             }
