@@ -87,7 +87,9 @@ $firebase->delete('usersMessages',$options);
 
 ### Rest Stream API
 
-Create a file that contains following code ( ex. \examples\filterstream.php). 
+Create a new file your_file_name.php .
+
+Inside this new file insert the following code : 
 
 ```php
 
@@ -102,7 +104,20 @@ $auth->setServertoken('your_firebase_token');
 /* --- CREATE NEW OBJECT AND PASS CREDENTIAL --- */
 $firebase = new Firebase($auth);
 
-/* --- SET PATH, NAME OF FOLDER WHERE STORE LOGS, MILLISECONDS OF DELAY BETWEEN NEW REQUEST, CALLBACK FUNCTION AND ARRAY OPTIONS --- */
+
+$options = []; // container options as type array
+
+$callback = 'callbackFunction'; // name of callback function as type string
+
+function callbackFunction(...$params){
+    // all code needed
+}
+
+/* --- SET PATH, 
+	   NAME OF FOLDER WHERE STORE LOGS, 
+	   MILLISECONDS OF DELAY BETWEEN NEW REQUEST, 
+	   CALLBACK FUNCTION 
+	   AND ARRAY OPTIONS --- */
 $firebase->startStream('products', 'logs/',5000, $callback, $options);
 ```
 
