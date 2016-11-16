@@ -1,9 +1,9 @@
 # PHP7 Firebase REST and STREAM Client
 
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Samuel18/zend_Firebase/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Samuel18/zend_Firebase/?branch=master)
-[![Travis CI Build Status](https://travis-ci.org/Samuel18/zend_Firebase.svg?branch=master)](https://travis-ci.org/Samuel18/zend_Firebase)
+[![Travis CI Build Status](https://travis-ci.org/samuel20miglia/zend_Firebase.svg?branch=master)](https://travis-ci.org/Samuel18/zend_Firebase)
 
-[![PHP 7 ready](http://php7ready.timesplinter.ch/Samuel18/zend_Firebase/badge.svg)](https://travis-ci.org/Samuel18/zend_Firebase)
+[![PHP 7 ready](http://php7ready.timesplinter.ch/samuel20miglia/zend_Firebase/badge.svg)](https://travis-ci.org/Samuel18/zend_Firebase)
 [![Total Downloads](https://poser.pugx.org/zend_firebase/zend_firebase/downloads)](https://packagist.org/packages/zend_firebase/zend_firebase)
 [![Latest Stable Version](https://poser.pugx.org/zend_firebase/zend_firebase/v/stable)](https://packagist.org/packages/zend_firebase/zend_firebase)
 [![License](https://poser.pugx.org/zend_firebase/zend_firebase/license)](https://packagist.org/packages/zend_firebase/zend_firebase)
@@ -11,6 +11,11 @@
 Based on the [Firebase REST API](https://firebase.google.com/docs/reference/rest/database/).
 
 Available on [Packagist](https://packagist.org/packages/zend_firebase/zend_firebase).
+
+###Prerequisites
+- PHP >= 7.0
+- Firebase 
+- Composer (recommended, not required)
 
 ### Adding Firebase PHP to your project using Composer
 
@@ -22,7 +27,7 @@ composer require zend_firebase/zend_firebase dev-master
 
 More info about Composer at [getcomposer.org](http://getcomposer.org).
 
-### Example of Usage
+### Simple Example of Usage
 ```php
 use ZendFirebase\Firebase, ZendFirebase\Config\FirebaseAuth;
 
@@ -35,8 +40,8 @@ $auth->setServertoken('your_firebase_token');
 $test = array(
     "name" => "TEST",
     "id" => 5245,
-    "text" => 'ciao TEST 5245',
-    'status' => 'sended'
+    "text" => "hello TEST 5245",
+    "status" => "sended"
 );
 
 /* --- CREATE NEW OBJECT AND PASS CREDENTIAL --- */
@@ -46,6 +51,8 @@ $firebase = new Firebase($auth);
 /* --- CHOOCE THE OPERATION (SAME NAME OF FIREBASE DOCS)  --- */
 $firebase->post('usersMessages', $test);
 ```
+Inside folder "examples" you can find some simple complete example for library usage. 
+
 ### Response Usage
 ```php
 
@@ -57,7 +64,7 @@ echo $firebase->getStatus(); <- status of request for example: 200 or 400 or 500
 ### Get Last Auto-Increment Id generate from Firebase after 'post' command
 ```php
 
-/* --- get last auto-increment id after post command --- */
+/* --- GET LAST AUTO-INCREMENT ID AFTER POST COMMAND --- */
 $firebase->getLastIdStored();
 
 ```
@@ -65,20 +72,23 @@ $firebase->getLastIdStored();
 ### Supported Commands
 ```php
 
-/* --- storing data --- */
+/* --- STORING DATA --- */
 $firebase->post('usersMessages', $test,$options); 
-/* --- override data --- */
+/* --- OVERRIDE DATA --- */
 $firebase->put('usersMessages', $test,$options);
-/* --- update data --- */
+/* --- UPDATE DATA --- */
 $firebase->patch('usersMessages', $test,$options);
-/* --- retrieve data --- */
+/* --- RETRIEVE DATA --- */
 $firebase->get('usersMessages',$options);
-/* --- delete data --- */
+/* --- DELETE DATA --- */
 $firebase->delete('usersMessages',$options);
 ```
 <hr/>
 
 ### Rest Stream API
+
+Create a file that contains following code ( ex. \examples\filterstream.php). 
+
 ```php
 
 use ZendFirebase\Firebase, ZendFirebase\Config\FirebaseAuth;
@@ -92,17 +102,23 @@ $auth->setServertoken('your_firebase_token');
 /* --- CREATE NEW OBJECT AND PASS CREDENTIAL --- */
 $firebase = new Firebase($auth);
 
-/* --- SET PATH, NAME OF FOLDER WHERE STORE LOGS, AND MILLISECONDS OF DELAY BETWEEN NEW REQUEST */
-$firebase->startStream('products', 'logs/',5000);
+/* --- SET PATH, NAME OF FOLDER WHERE STORE LOGS, MILLISECONDS OF DELAY BETWEEN NEW REQUEST, CALLBACK FUNCTION AND ARRAY OPTIONS --- */
+$firebase->startStream('products', 'logs/',5000, $callback, $options);
 ```
-this method start listener and write log file of changes
+
+Now for run listener open terminal and run you file with command : 
+```bash
+php your_file_name.php
+```
+
+This method start listener and write log file of changes.
 
 <hr/>
-### Unit Tests
+### PHPUnit Tests
 All the unit tests are found in the "/tests" directory.
 Due to the usage of an interface, the tests must run in isolation.
 
-Project Configuration it's just setted for doing all tests with the simple command
+Project Configuration it's just setted for doing all tests with the simple command : 
 
 ```bash
 cd <your_project>
@@ -110,8 +126,12 @@ cd <your_project>
 phpunit
 ```
 
+If you want to run a single test, just run :
+```bash
+cd <your_project>
 
-
+phpunit name_and_path_of_the_file_that_you_want_to_test.php
+```
 
 #### BSD 3-Clause License
 
