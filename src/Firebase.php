@@ -211,32 +211,11 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
         
         foreach ($options as $opt => $optVal) {
             
-            if ($opt == 'orderBy') {
-                
                 if (\is_string($optVal)) {
-                    $options['orderBy'] = '"' . $optVal . '"';
+                    $options[$opt] = '"' . $optVal . '"';
                 }
-            }
-            if ($opt == 'startAt') {
-                
-                if (\is_string($optVal)) {
-                    $options['startAt'] = '"' . $optVal . '"';
-                }
-            }
             
-            if ($opt == 'endAt') {
-                
-                if (\is_string($optVal)) {
-                    $options['endAt'] = '"' . $optVal . '"';
-                }
-            }
-            
-            if ($opt == 'equalTo') {
-                
-                if (\is_string($optVal)) {
-                    $options['equalTo'] = '"' . $optVal . '"';
-                }
-            }
+           
         }
         
         $path = ltrim($path, '/');
