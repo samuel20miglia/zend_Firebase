@@ -69,6 +69,8 @@ class StreamEvent
             $value = $matches['value'];
 
             if ($name === '') {
+                unset($name);
+                unset($value);
                 // ignore comments
                 continue;
             }
@@ -77,7 +79,7 @@ class StreamEvent
         }
         return $event;
     }
-   
+
     /**
      * Return Object
      *
@@ -88,8 +90,8 @@ class StreamEvent
      */
     private static function parseEventData($event, $name, $value)
     {
-       
-        
+
+
         switch ($name) {
             case 'event':
                 $event->eventType = $value;
@@ -97,7 +99,7 @@ class StreamEvent
             case 'data':
                 $event->data = empty($event->data) ? $value : "$event->data\n$value";
                 break;
-        
+
             default:
                 // The field is ignored.
                 continue;
