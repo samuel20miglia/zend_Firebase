@@ -14,7 +14,7 @@ Available on [Packagist](https://packagist.org/packages/zend_firebase/zend_fireb
 
 ###Prerequisites
 - PHP >= 7.0
-- Firebase 
+- Firebase Active Account
 - Composer (recommended, not required)
 
 ### Adding Firebase PHP to your project using Composer
@@ -49,22 +49,22 @@ $firebase = new Firebase($auth);
 
 
 /* --- CHOOCE THE OPERATION (SAME NAME OF FIREBASE DOCS)  --- */
-$firebase->post('usersMessages', $test);
+$firebase->post('path', $test);
 ```
-Inside folder "examples" you can find some simple complete example for library usage. 
+Inside folder "examples" you can find some another simple complete example for library usage. 
 
 ### Response Usage
 ```php
 
 /* --- FIREBASE DATA FROM REALTIME DB IS AN ARRAY  --- */
-$firebase->getFirebaseData(); <- array
-echo $firebase->getOperation(); <- type of current operation for example: GET or POST etc...
-echo $firebase->getStatus(); <- status of request for example: 200 or 400 or 500
+$firebase->getFirebaseData(); 	// <- type array, data returning from Firebase
+echo $firebase->getOperation(); // <- type string, operation just made (for example: GET or POST etc...)
+echo $firebase->getStatus(); 	// <- type numeric, status of request (for example: 200 or 400 or 500)
 ```
 ### Get Last Auto-Increment Id generate from Firebase after 'post' command
 ```php
 
-/* --- GET LAST AUTO-INCREMENT ID AFTER POST COMMAND --- */
+/* --- GET LAST AUTO-INCREMENT ID INSERED AFTER POST COMMAND --- */
 $firebase->getLastIdStored();
 
 ```
@@ -73,15 +73,15 @@ $firebase->getLastIdStored();
 ```php
 
 /* --- STORING DATA --- */
-$firebase->post('usersMessages', $test,$options); 
+$firebase->post('path', $test,$options); 
 /* --- OVERRIDE DATA --- */
-$firebase->put('usersMessages', $test,$options);
+$firebase->put('path', $test,$options);
 /* --- UPDATE DATA --- */
-$firebase->patch('usersMessages', $test,$options);
+$firebase->patch('path', $test,$options);
 /* --- RETRIEVE DATA --- */
-$firebase->get('usersMessages',$options);
+$firebase->get('path',$options);
 /* --- DELETE DATA --- */
-$firebase->delete('usersMessages',$options);
+$firebase->delete('path',$options);
 ```
 <hr/>
 
@@ -118,7 +118,7 @@ function callbackFunction(...$params){
 	   MILLISECONDS OF DELAY BETWEEN NEW REQUEST, 
 	   CALLBACK FUNCTION 
 	   AND ARRAY OPTIONS --- */
-$firebase->startStream('products', 'logs/',5000, $callback, $options);
+$firebase->startStream('path', 'logs/', 5000, $callback, $options);
 ```
 
 Now for run listener open terminal and run you file with command : 
