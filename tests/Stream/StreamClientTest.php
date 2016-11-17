@@ -39,7 +39,7 @@ class StreamClientTest extends PHPUnit_Framework_TestCase
         
         
         /* New instance of StreamClient */
-        $this->streamClient = new StreamClient($this->url, 0,$this->auth);
+        $this->streamClient = new StreamClient($this->url, 0, $this->auth);
     }
 
     /**
@@ -60,7 +60,7 @@ class StreamClientTest extends PHPUnit_Framework_TestCase
      */
     public function test__construct()
     {
-        $this->streamClient->__construct('', 0,'');
+        $this->streamClient->__construct('', 0, '');
     }
 
     /**

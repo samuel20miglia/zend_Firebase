@@ -113,12 +113,15 @@ function callbackFunction(...$params){
     // all code needed
 }
 
+$print = true;
+
 /* --- SET PATH, 
 	   NAME OF FOLDER WHERE STORE LOGS, 
-	   MILLISECONDS OF DELAY BETWEEN NEW REQUEST, 
-	   CALLBACK FUNCTION 
-	   AND ARRAY OPTIONS --- */
-$firebase->startStream('path', 'logs/', 5000, $callback, $options);
+	   MILLISECONDS OF DELAY BETWEEN NEW REQUEST (not required, default 5000), 
+	   CALLBACK FUNCTION, 
+	   ARRAY OPTIONS (not required, default []),
+	   PRINT (not required, default TRUE) --- */
+$firebase->startStream('path', 'logs/', 5000, $callback, $options, $print);
 ```
 
 Now for run listener open terminal and run you file with command : 

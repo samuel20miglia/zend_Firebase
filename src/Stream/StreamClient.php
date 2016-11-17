@@ -161,20 +161,18 @@ class StreamClient
     private function sendRequest()
     {
         try {
-        $headers = [];
-        if ($this->lastMessageId) {
-            $headers['Last-Event-ID'] = $this->lastMessageId;
-        }
+            $headers = [];
+            if ($this->lastMessageId) {
+                $headers['Last-Event-ID'] = $this->lastMessageId;
+            }
         
-        $this->response = $this->client->request('GET', $this->createUrl(), [
+            $this->response = $this->client->request('GET', $this->createUrl(), [
             'stream' => true,
             'headers' => $headers,
-        ]);
-        
+            ]);
         } catch (\GuzzleHttp\Exception\ClientException $e) {
             die((string)$e->getResponse()->getBody());
         }
-        
     }
 
 
