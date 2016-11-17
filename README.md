@@ -57,9 +57,9 @@ Inside folder "examples" you can find some another simple complete example for l
 ```php
 
 /* --- FIREBASE DATA FROM REALTIME DB IS AN ARRAY  --- */
-$firebase->getFirebaseData(); 	// <- type array, data returning from Firebase
-echo $firebase->getOperation(); // <- type string, operation just made (for example: GET or POST etc...)
-echo $firebase->getStatus(); 	// <- type numeric, status of request (for example: 200 or 400 or 500)
+$firebase->getFirebaseData(); 	// <- array, data returning from Firebase
+echo $firebase->getOperation(); // <- string, operation just made (for example: GET or POST etc...)
+echo $firebase->getStatus(); 	// <- numeric, status of request (for example: 200 or 400 or 500)
 ```
 ### Get Last Auto-Increment Id generate from Firebase after 'post' command
 ```php
