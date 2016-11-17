@@ -52,6 +52,13 @@ class StreamClient
      * @var string $url
      */
     private $url;
+    
+    /**
+     * Request options to add to url
+     *
+     * @var string
+     */
+    private $options = [];
 
     /**
      * Last received message id
@@ -74,11 +81,12 @@ class StreamClient
      * @param integer $requestDelay
      * @throws InvaliArgumentException
      */
-    public function __construct($url, $requestDelay)
+    public function __construct($url, $requestDelay, $options)
     {
         $this->url = $url;
         $this->retry = $requestDelay;
-
+        $this->options = $options;
+        
         if (empty($this->url)) {
             throw new \InvalidArgumentException('Error: url empty...');
         }
@@ -96,9 +104,11 @@ class StreamClient
                 'Accept' => 'text/event-stream',
                 'Cache-Control' => 'no-cache',
                 'allow_redirects' => true
-            ]
+            ],
+            
+            'base_uri' => $this->url,
         ]);
-
+        
         $this->connect();
     }
 
@@ -134,21 +144,35 @@ class StreamClient
             throw new RuntimeException('Error: Server forbid connection retry by responding 204 status code.');
         }
     }
+    
+    /**
+     * Create url with or without query options
+     *
+     * @return string
+     */
+    private function createUrl(): string
+    {
+        return $this->url . $this->options;
+    }
 
     /**
      * Send Request
      */
     private function sendRequest()
     {
-        $headers = [];
-        if ($this->lastMessageId) {
-            $headers['Last-Event-ID'] = $this->lastMessageId;
-        }
-
-        $this->response = $this->client->request('GET', $this->url, [
+        try {
+            $headers = [];
+            if ($this->lastMessageId) {
+                $headers['Last-Event-ID'] = $this->lastMessageId;
+            }
+        
+            $this->response = $this->client->request('GET', $this->createUrl(), [
             'stream' => true,
-            'headers' => $headers
-        ]);
+            'headers' => $headers,
+            ]);
+        } catch (\GuzzleHttp\Exception\ClientException $e) {
+            die((string)$e->getResponse()->getBody());
+        }
     }
 
 
