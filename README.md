@@ -51,7 +51,7 @@ $firebase = new Firebase($auth);
 /* --- CHOOCE THE OPERATION (SAME NAME OF FIREBASE DOCS)  --- */
 $firebase->post('path', $test);
 ```
-Inside folder "examples" you can find some another simple complete example for library usage. 
+Inside folder "examples" you can find some another simple complete example for library usage. Go to next step!
 
 ### Response Usage
 ```php
@@ -61,6 +61,8 @@ $firebase->getFirebaseData(); 	// <- array, data returning from Firebase
 echo $firebase->getOperation(); // <- string, operation just made (for example: GET or POST etc...)
 echo $firebase->getStatus(); 	// <- numeric, status of request (for example: 200 or 400 or 500)
 ```
+Go to next step!
+
 ### Get Last Auto-Increment Id generate from Firebase after 'post' command
 ```php
 
@@ -68,12 +70,15 @@ echo $firebase->getStatus(); 	// <- numeric, status of request (for example: 200
 $firebase->getLastIdStored();
 
 ```
+Go to next step!
+
+<hr/>
 
 ### Supported Commands
 ```php
 
 /* --- STORING DATA --- */
-$firebase->post('path', $test,$options); 
+$firebase->post('path', $test,$options);
 /* --- OVERRIDE DATA --- */
 $firebase->put('path', $test,$options);
 /* --- UPDATE DATA --- */
@@ -82,14 +87,48 @@ $firebase->patch('path', $test,$options);
 $firebase->get('path',$options);
 /* --- DELETE DATA --- */
 $firebase->delete('path',$options);
+/* --- RETRIEVE RULES --- */
+$firebase->getRules('.settings/rules',$options);
 ```
+Go to next step!
+
+<hr/>
+
+### Manage rules via REST
+
+```php
+
+require_once __DIR__ . '/vendor/autoload.php';
+use ZendFirebase\Firebase;
+use ZendFirebase\Config\FirebaseAuth;
+
+$auth = new FirebaseAuth();
+
+$auth->setBaseURI(/* complete with your firebase url */);
+$auth->setServertoken(/* complete with your firebase token */);
+
+$path = '.settings/rules'; // path of rules
+
+$firebase = new Firebase($auth);
+
+
+$opt = [];//nothing
+
+/* call function */
+$firebase->getRules($path, $opt);
+
+/* show rules! */
+print_r($firebase->getFirebaseData());
+```
+now you are able to manage rules. Go to next step!
+
 <hr/>
 
 ### Rest Stream API
 
 Create a new file your_file_name.php .
 
-Inside this new file insert the following code : 
+Inside this new file insert the following code :
 
 ```php
 
@@ -115,16 +154,16 @@ function callbackFunction(...$params){
 
 $print = true;
 
-/* --- SET PATH, 
-	   NAME OF FOLDER WHERE STORE LOGS, 
-	   MILLISECONDS OF DELAY BETWEEN NEW REQUEST (not required, default 5000), 
-	   CALLBACK FUNCTION, 
+/* --- SET PATH,
+	   NAME OF FOLDER WHERE STORE LOGS,
+	   MILLISECONDS OF DELAY BETWEEN NEW REQUEST (not required, default 5000),
+	   CALLBACK FUNCTION,
 	   ARRAY OPTIONS (not required, default []),
 	   PRINT (not required, default TRUE) --- */
 $firebase->startStream('path', 'logs/', 5000, $callback, $options, $print);
 ```
 
-Now for run listener open terminal and run you file with command : 
+Now for run listener open terminal and run you file with command :
 ```bash
 php your_file_name.php
 ```
@@ -132,11 +171,12 @@ php your_file_name.php
 This method start listener and write log file of changes.
 
 <hr/>
+
 ### PHPUnit Tests
 All the unit tests are found in the "/tests" directory.
 Due to the usage of an interface, the tests must run in isolation.
 
-Project Configuration it's just setted for doing all tests with the simple command : 
+Project Configuration it's just setted for doing all tests with the simple command :
 
 ```bash
 cd <your_project>
