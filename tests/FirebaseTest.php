@@ -5,7 +5,7 @@ use ZendFirebase\Firebase;
 use ZendFirebase\Config\FirebaseAuth;
 
 require_once 'src/Firebase.php';
-require_once 'src/Config/FirebaseAuth.php';
+require_once '../src/Authentication/FirebaseAuth.php';
 
 /**
  * Firebase test case.

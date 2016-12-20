@@ -87,7 +87,7 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
      *
      * @param Config\FirebaseAuth $auth
      */
-    public function __construct(\ZendFirebase\Config\FirebaseAuth $auth)
+    public function __construct(\ZendFirebase\Authentication\FirebaseAuth $auth)
     {
         $this->checkDipendenties($auth);
         
@@ -300,13 +300,23 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
     }
 
     /**
-     * RULES - Retrieve firebase rules
+     * READ RULES - Retrieve firebase rules
      *
      * @param string $path
      */
     public function getRules($path)
     {
         $this->writeRequest('get', $this->getJsonPath($path, []), []);
+    }
+    
+    /**
+     * WRITE RULES - Retrieve firebase rules
+     *
+     * @param string $path
+     */
+    public function writeRules($path,array $data)
+    {
+        $this->writeRequest('put', $this->getJsonPath($path, []), $data);
     }
 
     /**

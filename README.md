@@ -29,7 +29,7 @@ More info about Composer at [getcomposer.org](http://getcomposer.org).
 
 ### Simple Example of Usage
 ```php
-use ZendFirebase\Firebase, ZendFirebase\Config\FirebaseAuth;
+use ZendFirebase\Firebase, ZendFirebase\Authentication\FirebaseAuth;
 
 $auth = new FirebaseAuth();
 
@@ -96,11 +96,13 @@ Go to next step!
 
 ### Manage rules via REST
 
+####Read
+
 ```php
 
 require_once __DIR__ . '/vendor/autoload.php';
 use ZendFirebase\Firebase;
-use ZendFirebase\Config\FirebaseAuth;
+use ZendFirebase\Authentication\FirebaseAuth;
 
 $auth = new FirebaseAuth();
 
@@ -112,12 +114,41 @@ $path = '.settings/rules'; // path of rules
 $firebase = new Firebase($auth);
 
 
-$opt = [];//nothing
-
 /* call function */
-$firebase->getRules($path, $opt);
+$firebase->getRules($path);
 
 /* show rules! */
+print_r($firebase->getFirebaseData());
+```
+
+####Write
+
+```php
+
+require_once __DIR__ . '/vendor/autoload.php';
+use ZendFirebase\Firebase;
+use ZendFirebase\Authentication\FirebaseAuth;
+
+$auth = new FirebaseAuth();
+
+$auth->setBaseURI(/* complete with your firebase url */);
+$auth->setServertoken(/* complete with your firebase token */);
+
+$path = '.settings/rules'; // path of rules
+
+$firebase = new Firebase($auth);
+
+$rules =[
+     "rules" => [
+         ".read" => true,
+         ".write" => "!data.exists() || !newData.exists()"
+         ]
+ ];
+ 
+/* call function to write */
+$firebase->writeRules($path,$rules);
+
+/* show result! */
 print_r($firebase->getFirebaseData());
 ```
 now you are able to manage rules. Go to next step!
@@ -132,7 +163,7 @@ Inside this new file insert the following code :
 
 ```php
 
-use ZendFirebase\Firebase, ZendFirebase\Config\FirebaseAuth;
+use ZendFirebase\Firebase, ZendFirebase\Authentication\FirebaseAuth;
 
 $auth = new FirebaseAuth();
 

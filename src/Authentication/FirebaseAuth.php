@@ -1,6 +1,6 @@
 <?php
 declare(strict_types = 1);
-namespace ZendFirebase\Config;
+namespace ZendFirebase\Authentication;
 
 /**
  * PHP7 FIREBASE LIBRARY (http://samuelventimiglia.it/)
@@ -28,6 +28,9 @@ class FirebaseAuth
      */
     private $serverToken;
 
+    /**
+     *
+     */
     public function __construct()
     {
         //
