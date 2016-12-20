@@ -185,7 +185,7 @@ class FirebaseResponce
      *
      * @return string|false
      */
-    protected  function validateJson()
+    protected function validateJson()
     {
         switch (json_last_error()) {
             case JSON_ERROR_NONE:

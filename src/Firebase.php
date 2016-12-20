@@ -9,6 +9,7 @@ use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\FirePHPHandler;
 use Monolog\Formatter\LineFormatter;
+
 require 'Interfaces/FirebaseInterface.php';
 require 'Stream/StreamClient.php';
 
@@ -344,7 +345,6 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
                 $this->setDataFromOperation($op, $bodyResponse->getStatusCode());
                 break;
             case 'rules':
-                
                 $response = $this->client->get($path);
                 $bodyResponse = $response->getBody()->getContents();
      
@@ -362,7 +362,6 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
         
         $this->response = $bodyResponse;
         $this->makeResponce();
-        
     }
 
     /**
@@ -509,11 +508,9 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
     {
         $jsonData = [];
         if ($this->operation === 'GET') {
-            
             $jsonData = json_decode($this->response, true);
             
-            if ($this->validateJson())
-            {
+            if ($this->validateJson()) {
                 $jsonData[] = $this->validateJson();
             }
             if (empty($jsonData)) {
@@ -535,5 +532,6 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
      * Remove object from memory
      */
     public function __destruct()
-    {}
+    {
+    }
 }
