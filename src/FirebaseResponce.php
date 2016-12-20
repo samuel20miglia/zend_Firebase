@@ -179,4 +179,38 @@ class FirebaseResponce
             throw new \Exception($gettype);
         }
     }
+    
+    /**
+     * Validate type of json receved
+     *
+     * @return string|false
+     */
+    protected  function validateJson()
+    {
+        switch (json_last_error()) {
+            case JSON_ERROR_NONE:
+                $jsonValidator =  false;
+                break;
+            case JSON_ERROR_DEPTH:
+                $jsonValidator =  ' - Maximum stack depth exceeded';
+                break;
+            case JSON_ERROR_STATE_MISMATCH:
+                $jsonValidator =  ' - Underflow or the modes mismatch';
+                break;
+            case JSON_ERROR_CTRL_CHAR:
+                $jsonValidator =  ' - Unexpected control character found';
+                break;
+            case JSON_ERROR_SYNTAX:
+                $jsonValidator =  ' - Syntax error, malformed JSON';
+                break;
+            case JSON_ERROR_UTF8:
+                $jsonValidator =  ' - Malformed UTF-8 characters, possibly incorrectly encoded';
+                break;
+            default:
+                $jsonValidator =  ' - Unknown error';
+                break;
+        }
+        
+        return $jsonValidator;
+    }
 }
