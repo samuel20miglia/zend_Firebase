@@ -345,8 +345,12 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
                 break;
             case 'rules':
                 $operation = 'get';
+                $bodyResponse = '';
+                
                 $response = $this->client->{$operation}($path);
-                $this->response = $response->getBody();
+                $bodyResponse = $response->getBody()->getContents();
+                $this->response = $bodyResponse;
+     
                 $this->setDataFromOperation('get', $response->getStatusCode());
                 break;
             
