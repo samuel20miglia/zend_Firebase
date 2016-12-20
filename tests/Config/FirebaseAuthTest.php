@@ -3,7 +3,7 @@ namespace ZendFirebaseTest\Config;
 
 use ZendFirebase\Config\FirebaseAuth;
 
-require 'src/Config/FirebaseAuth.php';
+require '../../src/Authentication/FirebaseAuth.php';
 
 /**
  * Test class for authentication object
