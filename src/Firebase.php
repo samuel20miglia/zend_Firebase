@@ -303,12 +303,10 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
      * RULES - Retrieve firebase rules
      *
      * @param string $path
-     * @param array $data
-     * @param array $options
      */
-    public function getRules($path, array $data, $options = [])
+    public function getRules($path)
     {
-        $this->writeRequest('rules', $this->getJsonPath($path, $options), $data);
+        $this->writeRequest('get', $this->getJsonPath($path, []), []);
     }
 
     /**
@@ -343,12 +341,6 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
                     ->getContents(), true)['name']);
                 
                 $this->setDataFromOperation($op, $bodyResponse->getStatusCode());
-                break;
-            case 'rules':
-                $response = $this->client->get($path);
-                $bodyResponse = $response->getBody()->getContents();
-     
-                $this->setDataFromOperation('get', $response->getStatusCode());
                 break;
             
             default:
@@ -389,7 +381,7 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
      * @param boolean $print
      * @example $requestDelay = 3000 -> 3 seconds between get request
      */
-    public function startStream($path, $folderToStoreLog, $requestDelay = 5000, $callback, $options = [], $print = true)
+    public function startStream($path, $folderToStoreLog, $callback, $requestDelay = 5000, $options = [], $print = true)
     {
         $url = $this->auth->getBaseURI();
         
@@ -510,7 +502,7 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
         if ($this->operation === 'GET') {
             $jsonData = json_decode($this->response, true);
             
-            if ($this->validateJson()) {
+            if ($this->validateJson() !== false) {
                 $jsonData[] = $this->validateJson();
             }
             if (empty($jsonData)) {
