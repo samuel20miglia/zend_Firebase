@@ -2,10 +2,10 @@
 namespace ZendFirebaseTest;
 
 use ZendFirebase\Firebase;
-use ZendFirebase\Config\FirebaseAuth;
+use ZendFirebase\Authentication\FirebaseAuth;
 
 require_once 'src/Firebase.php';
-require_once '../src/Authentication/FirebaseAuth.php';
+require_once 'src/Authentication/FirebaseAuth.php';
 
 /**
  * Firebase test case.

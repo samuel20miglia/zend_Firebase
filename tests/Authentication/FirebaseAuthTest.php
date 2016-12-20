@@ -1,9 +1,9 @@
 <?php
-namespace ZendFirebaseTest\Config;
+namespace ZendFirebaseTest\Authentication;
 
-use ZendFirebase\Config\FirebaseAuth;
+use ZendFirebase\Authentication\FirebaseAuth;
 
-require '../../src/Authentication/FirebaseAuth.php';
+require 'src/Authentication/FirebaseAuth.php';
 
 /**
  * Test class for authentication object
