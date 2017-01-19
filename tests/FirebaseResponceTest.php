@@ -104,4 +104,29 @@ class FirebaseResponceTest extends \PHPUnit_Framework_TestCase
         // This function throwed new Exception if something not went well
         $this->firebaseResponce->validateResponce();
     }
+    
+    /**
+     * Tests FirebaseResponce->validateJson()
+     *
+     * @return false
+     */
+    public function testValidateJson()
+    {
+        $fakeData = [
+            'ciao',
+            'ciao_ciao' => [
+                'v1',
+                'v2',
+                'v3',
+                'v4',
+            ]
+        ];
+        $jData = \json_encode($fakeData);
+        
+        \json_decode($jData);
+        
+        \var_dump($this->firebaseResponce->validateJson());
+        
+        $this->assertFalse($this->firebaseResponce->validateJson());
+    }
 }

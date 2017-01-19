@@ -17,7 +17,7 @@ require 'Stream/StreamClient.php';
  * PHP7 FIREBASE LIBRARY (http://samuelventimiglia.it/)
  *
  *
- * @link https://github.com/Samuel18/zend_Firebase
+ * @link https://github.com/samuel20miglia/zend_Firebase
  * @copyright Copyright (c) 2016-now Ventimiglia Samuel - Biasin Davide
  * @license BSD 3-Clause License
  *
@@ -94,13 +94,13 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
         // store object into variable
         $this->auth = $auth;
         
-        $this->gulleClientInit();
+        $this->guzzeClientInit();
     }
 
     /**
      * Create new guzzle client
      */
-    private function gulleClientInit()
+    private function guzzeClientInit()
     {
         
         /* create new client */
@@ -213,6 +213,7 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
         foreach ($options as $opt => $optVal) {
             if (\is_string($optVal)) {
                 $options[$opt] = '"' . $optVal . '"';
+                \var_dump($optVal);
             }
         }
         

@@ -8,7 +8,7 @@ use RuntimeException;
  * PHP7 FIREBASE LIBRARY (http://samuelventimiglia.it/)
  *
  *
- * @link https://github.com/Samuel18/zend_Firebase
+ * @link https://github.com/samuel20miglia/zend_Firebase
  * @copyright Copyright (c) 2016-now Ventimiglia Samuel - Biasin Davide
  * @license BSD 3-Clause License
  *
