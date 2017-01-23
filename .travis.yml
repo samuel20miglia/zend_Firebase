@@ -19,6 +19,7 @@ matrix:
         
 before_install:
 - composer install --dev
+- travis_retry composer self-update
 
 script:
   - vendor/bin/phpunit ${PHPUNIT_FLAGS}
@@ -26,3 +27,6 @@ script:
 after_script:
   - if [[ "$COVERAGE" = true ]]; then wget https://scrutinizer-ci.com/ocular.phar; fi
   - if [[ "$COVERAGE" = true ]]; then php ocular.phar code-coverage:upload --format=php-clover coverage.clover; fi
+  
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
