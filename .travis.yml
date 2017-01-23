@@ -20,9 +20,6 @@ matrix:
 before_install:
 - composer install --dev
 
-install:
-  - travis_retry composer update ${COMPOSER_FLAGS} --prefer-source --no-interaction
-  
 script:
   - vendor/bin/phpunit ${PHPUNIT_FLAGS}
   

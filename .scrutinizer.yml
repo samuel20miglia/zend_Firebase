@@ -10,9 +10,7 @@ coding_style:
                 unary_additive: true
                 concatenation: true
 tools:
-    external_code_coverage:
-        timeout: 120    # Timeout in seconds.
+    external_code_coverage: true
     php_code_sniffer: true
-    php_code_coverage: true
     php_cs_fixer:
         config: { level: psr2 } # or psr1 if you would just like to get fixes for PSR1
