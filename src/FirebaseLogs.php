@@ -89,4 +89,3 @@ class FirebaseLogs
         return $logger;
     }
 }
-

@@ -10,7 +10,6 @@ use Monolog\Handler\StreamHandler;
 use Monolog\Handler\FirePHPHandler;
 use Monolog\Formatter\LineFormatter;
 
-
 /**
  * PHP7 FIREBASE LIBRARY (http://samuelventimiglia.it/)
  *
@@ -313,7 +312,7 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
      *
      * @param string $path
      */
-    public function writeRules($path,array $data)
+    public function writeRules($path, array $data)
     {
         $this->writeRequest('put', $this->getJsonPath($path, []), $data);
     }
