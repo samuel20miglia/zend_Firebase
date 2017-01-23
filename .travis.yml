@@ -16,6 +16,7 @@ matrix:
         - COMPOSER_FLAGS="--prefer-lowest --prefer-stable"
         - COVERAGE=true
         - PHPUNIT_FLAGS="--coverage-clover=coverage.clover"
+        - CODECOV_TOKEN="a428b30b-32ca-4f26-a2cf-3447647f58d2"
         
 before_install:
 - composer install --dev
