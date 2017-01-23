@@ -2,7 +2,7 @@
 declare(strict_types = 1);
 namespace ZendFirebase;
 
-use Interfaces\FirebaseInterface;
+use ZendFirebase\Interfaces\FirebaseInterface;
 use GuzzleHttp\Client;
 use ZendFirebase\Stream\StreamClient;
 use Monolog\Logger;
@@ -10,8 +10,6 @@ use Monolog\Handler\StreamHandler;
 use Monolog\Handler\FirePHPHandler;
 use Monolog\Formatter\LineFormatter;
 
-require 'Interfaces/FirebaseInterface.php';
-require 'Stream/StreamClient.php';
 
 /**
  * PHP7 FIREBASE LIBRARY (http://samuelventimiglia.it/)
