@@ -2,6 +2,7 @@
 
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Samuel18/zend_Firebase/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Samuel18/zend_Firebase/?branch=master)
 [![Travis CI Build Status](https://travis-ci.org/samuel20miglia/zend_Firebase.svg?branch=master)](https://travis-ci.org/Samuel18/zend_Firebase)
+[![codecov](https://codecov.io/gh/samuel20miglia/zend_Firebase/branch/master/graph/badge.svg)](https://codecov.io/gh/samuel20miglia/zend_Firebase)
 
 [![PHP 7 ready](http://php7ready.timesplinter.ch/samuel20miglia/zend_Firebase/badge.svg)](https://travis-ci.org/Samuel18/zend_Firebase)
 [![Total Downloads](https://poser.pugx.org/zend_firebase/zend_firebase/downloads)](https://packagist.org/packages/zend_firebase/zend_firebase)
