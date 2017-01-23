@@ -17,13 +17,3 @@ tools:
   php_cs_fixer:
     config:
       level: psr2
-build:
-  environment:
-    php:
-      version: 7.0
-    tests:
-      override:
-      - command: phpunit --coverage-clover=clover
-        coverage:
-          file: clover
-          format: clover
