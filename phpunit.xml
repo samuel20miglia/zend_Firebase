@@ -10,4 +10,13 @@
 	<logging>
         <log type="coverage-clover" target="coverage/clover.xml"/>
     </logging>
+    <filter>
+  <whitelist processUncoveredFilesFromWhitelist="true">
+    <directory suffix=".php">tests/</directory>
+    
+    <exclude>
+      <directory suffix=".php">src/</directory>
+    </exclude>
+  </whitelist>
+</filter>
 </phpunit>
