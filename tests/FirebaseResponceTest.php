@@ -125,7 +125,7 @@ class FirebaseResponceTest extends \PHPUnit_Framework_TestCase
         
         \json_decode($jData);
         
-        \var_dump($this->firebaseResponce->validateJson());
+        //\var_dump($this->firebaseResponce->validateJson());
         
         $this->assertFalse($this->firebaseResponce->validateJson());
     }
