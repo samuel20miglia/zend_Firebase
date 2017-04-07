@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "e0b02ac13d8999c4d432a94db683ae69",
+    "content-hash": "ce3600e4313aad7a2560e77e7aff8328",
     "packages": [
         {
             "name": "guzzlehttp/guzzle",
-            "version": "dev-master",
+            "version": "6.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "a1c4a74bf31d4e41d783fafb635c806cc19c2e9b"
+                "reference": "8d6c6cc55186db87b7dc5009827429ba4e9dc006"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/a1c4a74bf31d4e41d783fafb635c806cc19c2e9b",
-                "reference": "a1c4a74bf31d4e41d783fafb635c806cc19c2e9b",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/8d6c6cc55186db87b7dc5009827429ba4e9dc006",
+                "reference": "8d6c6cc55186db87b7dc5009827429ba4e9dc006",
                 "shasum": ""
             },
             "require": {
@@ -29,9 +29,6 @@
                 "ext-curl": "*",
                 "phpunit/phpunit": "^4.0",
                 "psr/log": "^1.0"
-            },
-            "suggest": {
-                "psr/log": "Required for using the Log middleware"
             },
             "type": "library",
             "extra": {
@@ -69,7 +66,7 @@
                 "rest",
                 "web service"
             ],
-            "time": "2017-03-22 11:33:29"
+            "time": "2017-02-28T22:50:30+00:00"
         },
         {
             "name": "guzzlehttp/promises",
@@ -890,7 +887,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2017-04-07T04:39:58+00:00"
+            "time": "2017-04-07 04:39:58"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -1160,7 +1157,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2017-04-07T14:33:58+00:00"
+            "time": "2017-04-07 14:33:58"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -2347,7 +2344,6 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "guzzlehttp/guzzle": 20,
         "guzzlehttp/psr7": 20,
         "phpunit/phpunit": 20,
         "phpunit/php-code-coverage": 20
@@ -2355,7 +2351,7 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.0"
+        "php": ">=7.0"
     },
     "platform-dev": []
 }
