@@ -4,7 +4,7 @@
   "version" : "v0.4.4",
   "require" : {
     "php" : ">=7.0",
-    "guzzlehttp/guzzle" : "6.3.2",
+    "guzzlehttp/guzzle" : "6.2.3",
     "monolog/monolog" : "1.21.0"
   },
   "repositories" : [ {
