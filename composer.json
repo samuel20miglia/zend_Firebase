@@ -4,7 +4,7 @@
   "version" : "v0.4.4",
   "require" : {
     "php" : ">=7.0",
-    "guzzlehttp/guzzle" : "5.3.1",
+    "guzzlehttp/guzzle" : "*",
     "guzzlehttp/psr7" : "1.4.2",
     "monolog/monolog" : "1.21.0"
   },
