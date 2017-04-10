@@ -1,15 +1,10 @@
 {
   "name" : "zend_firebase/zend_firebase",
-  "homepage" : "http://www.samuelventimiglia.it/",
   "description" : "PHP Firebase library rest and stream api",
   "version" : "v0.4.4",
-  "minimum-stability" : "dev",
-  "prefer-stable":true,
-  "license" : "BSD-3-Clause",
-  "keywords" : [ "firebase", "firebase library", "firebase php library", "google php firebase library", "google firebase", "php firebase", "php library firebase", "REST", "REST API", "wrapper", "php7 firebase", "php firebase", "REST firebase", "REST php7 firebase", "STREAM REST php7 firebase", "STREAM REST firebase", "stream firebase", "firebase stream api" ],
   "require" : {
     "php" : ">=7.0",
-    "guzzlehttp/guzzle" : "6.*",
+    "guzzlehttp/guzzle" : "*",
     "guzzlehttp/psr7" : "1.4.2",
     "monolog/monolog" : "1.21.0"
   },
@@ -23,11 +18,14 @@
     "friendsofphp/php-cs-fixer" : "v1.12.3",
     "phpunit/php-code-coverage" : "*"
   },
+  "license" : "BSD-3-Clause",
+  "keywords" : [ "firebase", "firebase library", "firebase php library", "google php firebase library", "google firebase", "php firebase", "php library firebase", "REST", "REST API", "wrapper", "php7 firebase", "php firebase", "REST firebase", "REST php7 firebase", "STREAM REST php7 firebase", "STREAM REST firebase", "stream firebase", "firebase stream api" ],
   "autoload-dev" : {
     "psr-4" : {
       "ZendFirebaseTest\\" : "tests/"
     }
   },
+  "minimum-stability" : "dev",
   "autoload" : {
     "psr-4" : {
       "ZendFirebase\\" : "src/"
@@ -42,6 +40,8 @@
   "support" : {
     "issues" : "https://github.com/Samuel18/zend_Firebase/issues"
   },
+  "prefer-stable" : true,
+  "homepage" : "http://www.samuelventimiglia.it/",
   "authors" : [ {
     "name" : "Biasin Davide",
     "email" : "dav.biasin@gmail.com",
