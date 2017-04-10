@@ -4,7 +4,7 @@
   "version" : "v0.4.4",
   "require" : {
     "php" : ">=7.0",
-    "guzzlehttp/guzzle" : "*",
+    "guzzlehttp/guzzle" : "6.3.2",
     "guzzlehttp/psr7" : "1.4.2",
     "monolog/monolog" : "1.21.0"
   },
@@ -40,7 +40,6 @@
   "support" : {
     "issues" : "https://github.com/Samuel18/zend_Firebase/issues"
   },
-  "prefer-stable" : true,
   "homepage" : "http://www.samuelventimiglia.it/",
   "authors" : [ {
     "name" : "Biasin Davide",
