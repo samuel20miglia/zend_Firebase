@@ -474,4 +474,3 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
         return $this->status;
     }
 }
-

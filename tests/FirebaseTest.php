@@ -64,7 +64,6 @@ class FirebaseTest extends TestCase
         $testAuth->setBaseURI($this->baseUri);
         $this->firebaseInit->__construct($this->auth);
         $this->assertEquals($testAuth, $this->auth);
-
     }
 
     /**
