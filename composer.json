@@ -1,52 +1,75 @@
 {
-  "name" : "zend_firebase/zend_firebase",
-  "description" : "PHP Firebase library rest and stream api",
-  "version" : "v0.4.4",
-  "require" : {
-    "php" : ">=7.0",
-    "guzzlehttp/guzzle" : "6.2.3",
-    "monolog/monolog" : "1.21.0"
-  },
-  "repositories" : [ {
-    "type" : "composer",
-    "url" : "https://packagist.org/"
-  } ],
-  "require-dev" : {
-    "phpunit/PHPUnit" : "5.7.0",
-    "squizlabs/php_codesniffer" : "2.7.0",
-    "friendsofphp/php-cs-fixer" : "v1.12.3",
-    "phpunit/php-code-coverage" : "*"
-  },
-  "license" : "BSD-3-Clause",
-  "keywords" : [ "firebase", "firebase library", "firebase php library", "google php firebase library", "google firebase", "php firebase", "php library firebase", "REST", "REST API", "wrapper", "php7 firebase", "php firebase", "REST firebase", "REST php7 firebase", "STREAM REST php7 firebase", "STREAM REST firebase", "stream firebase", "firebase stream api" ],
-  "autoload-dev" : {
-    "psr-4" : {
-      "ZendFirebaseTest\\" : "tests/"
-    }
-  },
-  "minimum-stability" : "dev",
-  "autoload" : {
-    "psr-4" : {
-      "ZendFirebase\\" : "src/"
-    }
-  },
-  "scripts" : {
-    "cs-check" : "phpcs",
-    "cs-fix" : "phpcbf",
-    "test" : "phpunit",
-    "test-coverage" : "phpunit --coverage-clover clover.xml"
-  },
-  "support" : {
-    "issues" : "https://github.com/Samuel18/zend_Firebase/issues"
-  },
-  "homepage" : "http://www.samuelventimiglia.it/",
-  "authors" : [ {
-    "name" : "Biasin Davide",
-    "email" : "dav.biasin@gmail.com",
-    "role" : "Web Developer"
-  }, {
-    "name" : "Samuel Ventimiglia",
-    "email" : "info@samuelventimiglia.it",
-    "role" : "Web Developer"
-  } ]
+	"name" : "zend_firebase/zend_firebase",
+	"version" : "v0.4.4",
+	"require" : {
+		"php" : ">=7.0",
+		"guzzlehttp/guzzle" : "6.2.3@stable",
+		"monolog/monolog" : "1.22.1@stable"
+	},
+	"repositories" : [{
+			"type" : "composer",
+			"url" : "https://packagist.org/"
+		}
+	],
+	"require-dev" : {
+		"phpunit/PHPUnit" : "6.1.x-dev",
+		"squizlabs/php_codesniffer" : "3.0.x-dev",
+		"friendsofphp/php-cs-fixer" : "2.3.x-dev",
+		"phpunit/php-code-coverage" : "5.2.1"
+	},
+	"license" : "BSD-3-Clause",
+	"keywords" : [
+		"firebase",
+		"firebase library",
+		"firebase php library",
+		"google php firebase library",
+		"google firebase",
+		"php firebase",
+		"php library firebase",
+		"REST",
+		"REST API",
+		"wrapper",
+		"php7 firebase",
+		"php firebase",
+		"REST firebase",
+		"REST php7 firebase",
+		"STREAM REST php7 firebase",
+		"STREAM REST firebase",
+		"stream firebase",
+		"firebase stream api"
+	],
+	"autoload-dev" : {
+		"psr-4" : {
+			"Zend\\FirebaseTest\\" : "tests/"
+		}
+	},
+	"minimum-stability" : "stable",
+	"autoload" : {
+		"psr-4" : {
+			"Zend\\Firebase\\" : "src/"
+		}
+	},
+	"scripts" : {
+		"cs-check" : "phpcs",
+		"cs-fix" : "phpcbf",
+		"test" : "phpunit",
+		"test-coverage" : "phpunit --coverage-clover clover.xml"
+	},
+	"support" : {
+		"issues" : "https://github.com/Samuel18/zend_Firebase/issues",
+		"email" : "info@samuelventimiglia.it"
+	},
+	"homepage" : "https://samuel20miglia.github.io/zend_Firebase/",
+	"authors" : [{
+			"name" : "Biasin Davide",
+			"email" : "dav.biasin@gmail.com",
+			"role" : "Web Developer"
+		}, {
+			"name" : "Samuel Ventimiglia",
+			"email" : "info@samuelventimiglia.it",
+			"role" : "Web Developer"
+		}
+	],
+	"type" : "library",
+	"description" : "php library for manage all rest and stream operations of firebase"
 }

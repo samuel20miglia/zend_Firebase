@@ -1,12 +1,13 @@
 <?php
-require_once __DIR__ . '/vendor/autoload.php';
+require_once 'vendor/autoload.php';
+
 use Zend\Firebase\Firebase;
 use Zend\Firebase\Authentication\FirebaseAuth;
 
 $auth = new FirebaseAuth();
 
-$auth->setBaseURI(/* complete with your firebase url */);
-$auth->setServertoken(/* complete with your firebase token */);
+$auth->setBaseURI('https://zendfirebase.firebaseio.com/');
+$auth->setServertoken('YdLUSTlxVOAEEuLAMpB49lAm98AMMCMMWm6y82r4');
 
 $path = '.settings/rules'; // path that you want patch
 

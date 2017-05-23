@@ -1,7 +1,8 @@
 <?php
-namespace ZendFirebaseTest\Authentication;
+namespace Zend\FirebaseTest\Authentication;
 
-use ZendFirebase\Authentication\FirebaseAuth;
+use Zend\Firebase\Authentication\FirebaseAuth;
+use PHPUnit\Framework\TestCase;
 
 require 'src/Authentication/FirebaseAuth.php';
 
@@ -11,7 +12,7 @@ require 'src/Authentication/FirebaseAuth.php';
  * @author sviluppo
  *
  */
-class FirebaseAuthTest extends \PHPUnit_Framework_TestCase
+class FirebaseAuthTest extends TestCase
 {
 
     protected $auth;
@@ -26,7 +27,7 @@ class FirebaseAuthTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         parent::setUp();
-        
+
         // TODO Auto-generated AuthSetupTest::setUp()
         $this->auth = new FirebaseAuth();
     }
@@ -38,7 +39,7 @@ class FirebaseAuthTest extends \PHPUnit_Framework_TestCase
     {
         // TODO Auto-generated AuthSetupTest::tearDown()
         $this->auth = null;
-        
+
         parent::tearDown();
     }
 

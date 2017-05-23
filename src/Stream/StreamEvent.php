@@ -1,5 +1,5 @@
 <?php
-namespace ZendFirebase\Stream;
+namespace Zend\Firebase\Stream;
 
 use InvalidArgumentException;
 
@@ -41,7 +41,7 @@ class StreamEvent
      * @param string $data
      * @param string $eventType
      */
-    public function __construct($data = '', $eventType = 'message')
+    public function __construct(string $data = '', string $eventType = 'message')
     {
         $this->data = $data;
         $this->eventType = $eventType;
@@ -88,7 +88,7 @@ class StreamEvent
      * @param string $value
      * @return \ZendFirebase\Stream\StreamEvent
      */
-    private static function parseEventData($event, $name, $value)
+    private static function parseEventData(StreamEvent $event, string $name, string $value): StreamEvent
     {
 
 
@@ -112,12 +112,12 @@ class StreamEvent
      * Find enf of stream
      *
      * @param mixed $raw
-     * @return mixed
+     * @return array
      */
-    private static function splitEndOfStream($raw)
+    private static function splitEndOfStream($raw):array
     {
         $lines = preg_split(self::END_OF_LINE, $raw);
-        return $lines;
+        return (!$lines) ?: [];
     }
 
 
