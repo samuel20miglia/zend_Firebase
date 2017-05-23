@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../vendor/autoload.php';
-use ZendFirebase\Firebase;
-use ZendFirebase\Authentication\FirebaseAuth;
+use Zend\Firebase\Firebase;
+use Zend\Firebase\Authentication\FirebaseAuth;
 
 $auth = new FirebaseAuth();
 
