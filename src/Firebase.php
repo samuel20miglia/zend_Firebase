@@ -34,20 +34,6 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
     private $timeout = 30;
 
     /**
-     * Format of datetime of logs
-     *
-     * @var string $dateFormatLog
-     */
-    private $dateFormatLog = "Y n j, g:i a";
-
-    /**
-     * DateTime of log filename
-     *
-     * @var string $dateFormatLogFilename
-     */
-    private static $dateFormatLogFilename;
-
-    /**
      * Authentication object
      *
      * @var Config\FirebaseAuth $auth

@@ -26,12 +26,37 @@ use Monolog\Formatter\LineFormatter;
 class FirebaseLogs
 {
 
+    /**
+     *
+     * @var Logger
+     */
     private $logger;
 
-    private $folderToStoreLog;
     /**
+     *
+     * @var string
      */
-    public function __construct($folderToStoreLog)
+    private $folderToStoreLog;
+
+    /**
+     * Format of datetime of logs
+     *
+     * @var string $dateFormatLog
+     */
+    private $dateFormatLog = "Y n j, g:i a";
+
+    /**
+     * DateTime of log filename
+     *
+     * @var string $dateFormatLogFilename
+     */
+    private static $dateFormatLogFilename;
+
+    /**
+     *
+     * @param string $folderToStoreLog
+     */
+    public function __construct(string $folderToStoreLog)
     {
         $this->folderToStoreLog = $folderToStoreLog;
 
@@ -73,12 +98,12 @@ class FirebaseLogs
         $output = "%datetime% > %level_name% > %message% %context% %extra%\n";
         // finally, create a formatter
         $formatter = new LineFormatter($output, $this->dateFormatLog);
-        self::$dateFormatLogFilename = date("Y-m-d_H:i:s");
+        $this->dateFormatLogFilename = date("Y-m-d_H:i:s");
         // Create the logger
         $this->logger = new Logger('stream_logger');
 
         // Now add some handlers
-        $stream = new StreamHandler(trim($folderToStoreLog) . self::$dateFormatLogFilename . ".log", Logger::DEBUG);
+        $stream = new StreamHandler(trim($folderToStoreLog) . $this->dateFormatLogFilename . ".log", Logger::DEBUG);
 
         $stream->setFormatter($formatter);
         $this->logger->pushHandler($stream);
