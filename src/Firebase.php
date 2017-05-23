@@ -220,7 +220,7 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
      */
     public function get(string $path, array $options = [])
     {
-        $this->writeRequest('get', $this->getJsonPath($path, $options), '');
+        $this->writeRequest('get', $this->getJsonPath($path, $options), []);
     }
 
     /**
@@ -348,8 +348,8 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
     {
         $oP = \strtoupper($operation);
 
-        $this->status = $status; // 200
-        $this->operation = $oP;
+        $this->status = intval($status); // 200
+        $this->operation = (string) $oP;
     }
 
     /**
@@ -458,4 +458,20 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
     {
         unset($this->auth);
     }
+
+    public function getFirebaseData():array
+    {
+        return $this->firebaseData;
+    }
+
+    public function getOperation(): string
+    {
+        return $this->operation;
+    }
+
+    public function getStatus(): int
+    {
+        return $this->status;
+    }
 }
+

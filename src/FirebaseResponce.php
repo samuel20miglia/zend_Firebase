@@ -25,7 +25,7 @@ class FirebaseResponce
      *
      * @var array $firebaseData
      */
-    private $firebaseData;
+    protected $firebaseData;
 
     /**
      * Type of operation
