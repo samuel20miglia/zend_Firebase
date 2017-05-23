@@ -1,5 +1,5 @@
 <?php
-namespace ZendFirebase\Interfaces;
+namespace Zend\Firebase\Interfaces;
 
 /**
  * Interface FirebaseInterface
