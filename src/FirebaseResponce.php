@@ -1,6 +1,6 @@
 <?php
 declare(strict_types = 1);
-namespace ZendFirebase;
+namespace Zend\Firebase;
 
 /**
  * PHP7 FIREBASE LIBRARY (http://samuelventimiglia.it/)
@@ -42,20 +42,6 @@ class FirebaseResponce
     protected $status;
 
     /**
-     * Constructior method
-     */
-    public function __construct()
-    {
-    }
-
-    /**
-     * Remove this current Object from memory
-     */
-    public function __destruct()
-    {
-    }
-
-    /**
      * Format to array the responce
      *
      * @return array $firebaseData
@@ -90,7 +76,7 @@ class FirebaseResponce
      *
      * @param array $firebaseData
      */
-    public function setFirebaseData($firebaseData)
+    protected function setFirebaseData($firebaseData)
     {
         $this->firebaseData = $firebaseData;
     }
@@ -100,7 +86,7 @@ class FirebaseResponce
      *
      * @param string $operation
      */
-    public function setOperation($operation)
+    protected function setOperation($operation)
     {
         $this->operation = $operation;
     }
@@ -110,7 +96,7 @@ class FirebaseResponce
      *
      * @param integer $status
      */
-    public function setStatus($status)
+    protected function setStatus($status)
     {
         $this->status = $status;
     }
@@ -121,19 +107,19 @@ class FirebaseResponce
      *
      * @throws \Exception
      */
-    public function validateResponce()
+    protected function validateResponce()
     {
         try {
             /* check validity of Operation */
             $this->validateOperation();
-            
+
             /* check validity of Status */
             $this->validateStatus();
-            
+
             /* check validity of FirebaseData */
             $this->validateData();
         } catch (\Exception $e) {
-            echo $e->getMessage();
+            throw $e->getMessage();
         }
     }
 
@@ -147,7 +133,7 @@ class FirebaseResponce
         if (! is_string($this->getOperation())) {
             $getOperation = "Operation parameter must be STRING and NOT EMPTY. Received : ";
             $getOperation .= gettype($this->getOperation()) . " ({$this->getOperation()}).";
-            
+
             throw new \Exception($getOperation);
         }
     }
@@ -162,7 +148,7 @@ class FirebaseResponce
         if (! is_numeric($this->getStatus())) {
             $getStatus = "Status parameter must be NUMERIC. Received : ";
             $getStatus .= gettype($this->getStatus()) . " ({$this->getStatus()}).";
-            
+
             throw new \Exception($getStatus);
         }
     }
@@ -179,17 +165,17 @@ class FirebaseResponce
             throw new \Exception($gettype);
         }
     }
-    
+
     /**
      * Validate type of json receved
      *
-     * @return string|false
+     * @return string
      */
-    public function validateJson()
+    protected function validateJson():string
     {
         switch (json_last_error()) {
             case JSON_ERROR_NONE:
-                $jsonValidator =  false;
+                $jsonValidator =  '';
                 break;
             case JSON_ERROR_STATE_MISMATCH:
                 $jsonValidator =  ' - Underflow or the modes mismatch';
@@ -201,7 +187,7 @@ class FirebaseResponce
                 $jsonValidator =  ' - Malformed UTF-8 characters, possibly incorrectly encoded';
                 break;
         }
-        
+
         return $jsonValidator;
     }
 }

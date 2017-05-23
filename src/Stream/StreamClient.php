@@ -1,5 +1,5 @@
 <?php
-namespace ZendFirebase\Stream;
+namespace Zend\Firebase\Stream;
 
 use GuzzleHttp;
 use RuntimeException;
@@ -52,7 +52,7 @@ class StreamClient
      * @var string $url
      */
     private $url;
-    
+
     /**
      * Request options to add to url
      *
@@ -86,7 +86,7 @@ class StreamClient
         $this->url = $url;
         $this->retry = $requestDelay;
         $this->options = $options;
-        
+
         if (empty($this->url)) {
             throw new \InvalidArgumentException('Error: url empty...');
         }
@@ -105,10 +105,10 @@ class StreamClient
                 'Cache-Control' => 'no-cache',
                 'allow_redirects' => true
             ],
-            
+
             'base_uri' => $this->url,
         ]);
-        
+
         $this->connect();
     }
 
@@ -144,7 +144,7 @@ class StreamClient
             throw new RuntimeException('Error: Server forbid connection retry by responding 204 status code.');
         }
     }
-    
+
     /**
      * Create url with or without query options
      *
@@ -165,7 +165,7 @@ class StreamClient
             if ($this->lastMessageId) {
                 $headers['Last-Event-ID'] = $this->lastMessageId;
             }
-        
+
             $this->response = $this->client->request('GET', $this->createUrl(), [
             'stream' => true,
             'headers' => $headers,

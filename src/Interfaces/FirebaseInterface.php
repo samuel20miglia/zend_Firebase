@@ -18,7 +18,7 @@ interface FirebaseInterface
      * @param array $data
      * @param array $options
      */
-    public function put($path, array $data, $options = []);
+    public function put(string $path, array $data, array $options = []);
 
     /**
      *
@@ -26,7 +26,7 @@ interface FirebaseInterface
      * @param array $data
      * @param array $options
      */
-    public function post($path, array $data, $options = []);
+    public function post(string $path, array $data, array $options = []);
 
     /**
      *
@@ -34,19 +34,19 @@ interface FirebaseInterface
      * @param array $data
      * @param array $options
      */
-    public function patch($path, array $data, $options = []);
+    public function patch(string $path, array $data, array $options = []);
 
     /**
      *
      * @param unknown $path
      * @param array $options
      */
-    public function get($path, $options = []);
+    public function get(string $path, array $options = []);
 
     /**
      *
      * @param unknown $path
      * @param array $options
      */
-    public function delete($path, $options = []);
+    public function delete(string $path, array $options = []);
 }

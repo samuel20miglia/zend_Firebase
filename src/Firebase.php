@@ -1,14 +1,15 @@
 <?php
 declare(strict_types = 1);
-namespace ZendFirebase;
+namespace Zend\Firebase;
 
-use ZendFirebase\Interfaces\FirebaseInterface;
+use Zend\Firebase\Interfaces\FirebaseInterface;
 use GuzzleHttp\Client;
-use ZendFirebase\Stream\StreamClient;
+use Zend\Firebase\Stream\StreamClient;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\FirePHPHandler;
 use Monolog\Formatter\LineFormatter;
+use Zend\Firebase\Authentication\FirebaseAuth;
 
 /**
  * PHP7 FIREBASE LIBRARY (http://samuelventimiglia.it/)
@@ -84,49 +85,41 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
      *
      * @param Config\FirebaseAuth $auth
      */
-    public function __construct(\ZendFirebase\Authentication\FirebaseAuth $auth)
+    public function __construct(FirebaseAuth $auth)
     {
-        $this->checkDipendenties($auth);
-        
-        // store object into variable
-        $this->auth = $auth;
-        
-        $this->guzzeClientInit();
-    }
 
-    /**
-     * Create new guzzle client
-     */
-    private function guzzeClientInit()
-    {
-        
-        /* create new client */
-        $this->client = new Client([
-            'base_uri' => $this->auth->getBaseURI(),
-            'timeout' => $this->getTimeout(),
-            'headers' => $this->getRequestHeaders()
-        ]);
-    }
-
-    /**
-     * Controll of all dipendenties
-     *
-     * @param \ZendFirebase\Config\FirebaseAuth $auth
-     */
-    private function checkDipendenties($auth)
-    {
         $authMessage = 'Forget credential or is not an object.';
         $curlMessage = 'Extension CURL is not loaded or not installed.';
-        
+
         // check if auth is null
-        if (! is_object($auth) || null == $auth) {
-            trigger_error($authMessage, E_USER_ERROR);
+        if (!$auth instanceof FirebaseAuth) {
+            throw new \Exception($authMessage);
         }
-        
+
         // check if extension is installed
         if (! extension_loaded('curl')) {
             trigger_error($curlMessage, E_USER_ERROR);
         }
+
+        // store object into variable
+        $this->auth = $auth;
+
+        $this->client = $this->guzzeClientInit();
+    }
+
+    /**
+     * Init of guzzle
+     * @return Client
+     */
+    private function guzzeClientInit(): Client
+    {
+
+        /* create new client */
+        return new Client([
+            'base_uri' => $this->auth->getBaseURI(),
+            'timeout' => $this->getTimeout(),
+            'headers' => $this->getRequestHeaders()
+        ]);
     }
 
     /**
@@ -146,7 +139,7 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
      *
      * @param integer $timeout
      */
-    public function setTimeout($timeout)
+    public function setTimeout(int $timeout)
     {
         $this->timeout = $timeout;
     }
@@ -166,7 +159,7 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
      *
      * @param string $lastIdStored
      */
-    public function setLastIdStored($lastIdStored)
+    public function setLastIdStored(string $lastIdStored)
     {
         $this->lastIdStored = $lastIdStored;
     }
@@ -183,13 +176,13 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
         $headers['stream'] = true;
         $headers['Accept'] = 'application/json';
         $headers['Content-Type'] = 'application/json';
-        
+
         // check if header is an array
         if (! is_array($headers)) {
             $str = "The guzzle client headers must be an array.";
             throw new \Exception($str);
         }
-        
+
         return $headers;
     }
 
@@ -206,16 +199,15 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
         $auth = $this->auth->getServertoken();
         /* returns the data in a human-readable format */
         $options['print'] = 'pretty';
-        
+
         foreach ($options as $opt => $optVal) {
             if (\is_string($optVal)) {
                 $options[$opt] = '"' . $optVal . '"';
-                \var_dump($optVal);
             }
         }
-        
+
         $path = ltrim($path, '/');
-        
+
         return $path . '.json?auth=' . $auth . '&' . http_build_query($options) . '';
     }
 
@@ -229,7 +221,7 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
      *
      * @see \Interfaces\FirebaseInterface::delete()
      */
-    public function delete($path, $options = [])
+    public function delete(string $path, array $options = [])
     {
         $this->writeRequest('delete', $this->getJsonPath($path, $options), '');
     }
@@ -244,7 +236,7 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
      *
      * @see \Interfaces\FirebaseInterface::get()
      */
-    public function get($path, $options = [])
+    public function get(string $path, array $options = [])
     {
         $this->writeRequest('get', $this->getJsonPath($path, $options), '');
     }
@@ -260,7 +252,7 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
      *
      * @see \Interfaces\FirebaseInterface::patch()
      */
-    public function patch($path, array $data, $options = [])
+    public function patch(string $path, array $data, array $options = [])
     {
         $this->writeRequest('patch', $this->getJsonPath($path, $options), $data);
     }
@@ -276,7 +268,7 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
      *
      * @see \Interfaces\FirebaseInterface::post()
      */
-    public function post($path, array $data, $options = [])
+    public function post(string $path, array $data, array $options = [])
     {
         $this->writeRequest('post', $this->getJsonPath($path, $options), $data);
     }
@@ -292,7 +284,7 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
      *
      * @see \Interfaces\FirebaseInterface::put()
      */
-    public function put($path, array $data, $options = [])
+    public function put(string $path, array $data, array $options = [])
     {
         $this->writeRequest('put', $this->getJsonPath($path, $options), $data);
     }
@@ -302,17 +294,17 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
      *
      * @param string $path
      */
-    public function getRules($path)
+    public function getRules(string $path)
     {
         $this->writeRequest('get', $this->getJsonPath($path, []), []);
     }
-    
+
     /**
      * WRITE RULES - Retrieve firebase rules
      *
      * @param string $path
      */
-    public function writeRules($path, array $data)
+    public function writeRules(string $path, array $data)
     {
         $this->writeRequest('put', $this->getJsonPath($path, []), $data);
     }
@@ -324,10 +316,10 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
      * @param string $path
      * @param mixed $data
      */
-    private function writeRequest($op, $path, $data)
+    private function writeRequest(string $op, string $path, array $data)
     {
         $operation = \strtolower($op);
-        
+
         switch ($operation) {
             case 'get':
                 $response = $this->client->{$operation}($path);
@@ -343,23 +335,23 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
                 $bodyResponse = $this->client->{$operation}($path, [
                     'body' => \json_encode($data)
                 ]);
-                
+
                 // save auto-increment id created from Firebase after post operation
                 $this->setLastIdStored(json_decode($bodyResponse->getBody()
                     ->getContents(), true)['name']);
-                
+
                 $this->setDataFromOperation($op, $bodyResponse->getStatusCode());
                 break;
-            
+
             default:
                 $bodyResponse = $this->client->{$operation}($path, [
                     'body' => \json_encode($data)
                 ]);
-                
+
                 $this->setDataFromOperation($op, $bodyResponse->getStatusCode());
                 break;
         }
-        
+
         $this->response = $bodyResponse;
         $this->makeResponce();
     }
@@ -373,7 +365,7 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
     private function setDataFromOperation($operation, $status)
     {
         $oP = \strtoupper($operation);
-        
+
         $this->status = $status; // 200
         $this->operation = $oP;
     }
@@ -392,28 +384,28 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
     public function startStream($path, $folderToStoreLog, $callback, $requestDelay = 5000, $options = [], $print = true)
     {
         $url = $this->auth->getBaseURI();
-        
+
         $client = new StreamClient($url, $requestDelay, $this->getJsonPath($path, $options));
-        
+
         // returns generator
         $events = $client->getEvents();
-        
+
         // call method for create instance of logger
         $logger = $this->createLogger($this->formatFolderName($folderToStoreLog));
-        
+
         // blocks until new event arrive
         foreach ($events as $event) {
             // decode json data arrived to php array
             $eventData = \json_decode($event->getData(), true);
-            
+
             // callback to return
             $callback($eventData, $event->getEventType());
-            
+
             if ($print) {
                 // anyway print data in output
                 $this->printEventData($eventData, $event);
             }
-            
+
             // write logs
             $this->writeEventLogs($logger, $eventData, $event, $path);
         }
@@ -460,13 +452,13 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
      * @param string $folderToStoreLog
      * @return string $folderName
      */
-    private function formatFolderName($folderToStoreLog): string
+    private function formatFolderName(string $folderToStoreLog): string
     {
         /* search / in string */
         $folderName = substr(strrchr(trim($folderToStoreLog), "/"), 1);
         /* if not exsits add on path+/ */
         $folderName = empty($folderName) ? $folderToStoreLog . '/' : $folderToStoreLog;
-        
+
         return $folderName;
     }
 
@@ -477,7 +469,7 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
      * @param string $folderToStoreLog
      * @return Logger $logger
      */
-    private function createLogger($folderToStoreLog)
+    private function createLogger(string $folderToStoreLog): Logger
     {
         // the default output format is "[%datetime%] %channel%.%level_name%: %message% %context% %extra%\n"
         $output = "%datetime% > %level_name% > %message% %context% %extra%\n";
@@ -486,14 +478,14 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
         self::$dateFormatLogFilename = date("Y-m-d_H:i:s");
         // Create the logger
         $logger = new Logger('stream_logger');
-        
+
         // Now add some handlers
         $stream = new StreamHandler(trim($folderToStoreLog) . self::$dateFormatLogFilename . ".log", Logger::DEBUG);
-        
+
         $stream->setFormatter($formatter);
         $logger->pushHandler($stream);
         $logger->pushHandler(new FirePHPHandler());
-        
+
         // You can now use your logger
         $logger->addInfo('Stream logger is ready...');
         return $logger;
@@ -509,7 +501,7 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
         $jsonData = [];
         if ($this->operation === 'GET') {
             $jsonData = json_decode($this->response, true);
-            
+
             if ($this->validateJson() !== false) {
                 $jsonData[] = $this->validateJson();
             }
@@ -519,13 +511,13 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
         } else {
             $jsonData[] = 'Success';
         }
-        
+
         /* Set data after operations */
-        $this->setOperation($this->operation);
-        $this->setStatus($this->status);
-        
-        $this->setFirebaseData($jsonData);
-        $this->validateResponce();
+        parent::setOperation($this->operation);
+        parent::setStatus($this->status);
+
+        parent::setFirebaseData($jsonData);
+        parent::validateResponce();
     }
 
     /**
@@ -533,5 +525,6 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
      */
     public function __destruct()
     {
+        unset($this->auth);
     }
 }

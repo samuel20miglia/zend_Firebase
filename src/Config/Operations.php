@@ -1,5 +1,5 @@
 <?php
-namespace ZendFirebase\Config;
+namespace Zend\Firebase\Config;
 
 /**
  *

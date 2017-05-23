@@ -1,6 +1,6 @@
 <?php
 declare(strict_types = 1);
-namespace ZendFirebase\Authentication;
+namespace Zend\Firebase\Authentication;
 
 /**
  * PHP7 FIREBASE LIBRARY (http://samuelventimiglia.it/)
@@ -66,7 +66,7 @@ class FirebaseAuth
             trigger_error($str, E_USER_ERROR);
         }
         $baseURI .= (substr($baseURI, - 1) == '/' ? '' : '/');
-        
+
         $this->baseURI = \trim($baseURI);
     }
 

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types = 1);
 
-namespace ZendFirebase;
+namespace Zend\Firebase;
 
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
@@ -27,17 +27,17 @@ class FirebaseLogs
 {
 
     private $logger;
-    
+
     private $folderToStoreLog;
     /**
      */
     public function __construct($folderToStoreLog)
     {
         $this->folderToStoreLog = $folderToStoreLog;
-        
+
         $this->createLogger($folderToStoreLog);
     }
-    
+
     /**
      * Write log of current event
      *
@@ -59,7 +59,7 @@ class FirebaseLogs
             ]);
         }
     }
-    
+
     /**
      *
      * Create logger instance for save stream log
@@ -76,14 +76,14 @@ class FirebaseLogs
         self::$dateFormatLogFilename = date("Y-m-d_H:i:s");
         // Create the logger
         $logger = new Logger('stream_logger');
-    
+
         // Now add some handlers
         $stream = new StreamHandler(trim($folderToStoreLog) . self::$dateFormatLogFilename . ".log", Logger::DEBUG);
-    
+
         $stream->setFormatter($formatter);
         $logger->pushHandler($stream);
         $logger->pushHandler(new FirePHPHandler());
-    
+
         // You can now use your logger
         $logger->addInfo('Stream logger is ready...');
         return $logger;
