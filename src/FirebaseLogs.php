@@ -46,15 +46,15 @@ class FirebaseLogs
      * @param mixed $event
      * @param string $path
      */
-    public function writeEventLogs($logger, $eventData, $event, $path)
+    public function writeEventLogs($eventData, $event, $path)
     {
         if (! empty($eventData) || null != $eventData) {
-            $logger->addDebug("path: {$path}", [
+            $this->logger->addDebug("path: {$path}", [
                 'DATA' => $eventData,
                 'EVENT TYPE' => $event->getEventType()
             ]);
         } else {
-            $logger->addDebug("path: {$path}", [
+            $this->logger->addDebug("path: {$path}", [
                 'EVENT TYPE' => $event->getEventType()
             ]);
         }
@@ -75,17 +75,17 @@ class FirebaseLogs
         $formatter = new LineFormatter($output, $this->dateFormatLog);
         self::$dateFormatLogFilename = date("Y-m-d_H:i:s");
         // Create the logger
-        $logger = new Logger('stream_logger');
+        $this->logger = new Logger('stream_logger');
 
         // Now add some handlers
         $stream = new StreamHandler(trim($folderToStoreLog) . self::$dateFormatLogFilename . ".log", Logger::DEBUG);
 
         $stream->setFormatter($formatter);
-        $logger->pushHandler($stream);
-        $logger->pushHandler(new FirePHPHandler());
+        $this->logger->pushHandler($stream);
+        $this->logger->pushHandler(new FirePHPHandler());
 
         // You can now use your logger
-        $logger->addInfo('Stream logger is ready...');
-        return $logger;
+        $this->logger->addInfo('Stream logger is ready...');
+        return $this->logger;
     }
 }

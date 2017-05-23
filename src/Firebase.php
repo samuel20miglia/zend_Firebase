@@ -5,10 +5,6 @@ namespace Zend\Firebase;
 use Zend\Firebase\Interfaces\FirebaseInterface;
 use GuzzleHttp\Client;
 use Zend\Firebase\Stream\StreamClient;
-use Monolog\Logger;
-use Monolog\Handler\StreamHandler;
-use Monolog\Handler\FirePHPHandler;
-use Monolog\Formatter\LineFormatter;
 use Zend\Firebase\Authentication\FirebaseAuth;
 
 /**
@@ -391,7 +387,7 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
         $events = $client->getEvents();
 
         // call method for create instance of logger
-        $logger = $this->createLogger($this->formatFolderName($folderToStoreLog));
+        $logger = new FirebaseLogs($this->formatFolderName($folderToStoreLog));
 
         // blocks until new event arrive
         foreach ($events as $event) {
@@ -407,7 +403,7 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
             }
 
             // write logs
-            $this->writeEventLogs($logger, $eventData, $event, $path);
+            $logger->writeEventLogs($eventData, $event, $path);
         }
     }
 
@@ -425,28 +421,6 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
     }
 
     /**
-     * Write log of current event
-     *
-     * @param Logger $logger
-     * @param array $eventData
-     * @param mixed $event
-     * @param string $path
-     */
-    private function writeEventLogs($logger, $eventData, $event, $path)
-    {
-        if (! empty($eventData) || null != $eventData) {
-            $logger->addDebug("path: {$path}", [
-                'DATA' => $eventData,
-                'EVENT TYPE' => $event->getEventType()
-            ]);
-        } else {
-            $logger->addDebug("path: {$path}", [
-                'EVENT TYPE' => $event->getEventType()
-            ]);
-        }
-    }
-
-    /**
      * Format folder name
      *
      * @param string $folderToStoreLog
@@ -460,35 +434,6 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
         $folderName = empty($folderName) ? $folderToStoreLog . '/' : $folderToStoreLog;
 
         return $folderName;
-    }
-
-    /**
-     *
-     * Create logger instance for save stream log
-     *
-     * @param string $folderToStoreLog
-     * @return Logger $logger
-     */
-    private function createLogger(string $folderToStoreLog): Logger
-    {
-        // the default output format is "[%datetime%] %channel%.%level_name%: %message% %context% %extra%\n"
-        $output = "%datetime% > %level_name% > %message% %context% %extra%\n";
-        // finally, create a formatter
-        $formatter = new LineFormatter($output, $this->dateFormatLog);
-        self::$dateFormatLogFilename = date("Y-m-d_H:i:s");
-        // Create the logger
-        $logger = new Logger('stream_logger');
-
-        // Now add some handlers
-        $stream = new StreamHandler(trim($folderToStoreLog) . self::$dateFormatLogFilename . ".log", Logger::DEBUG);
-
-        $stream->setFormatter($formatter);
-        $logger->pushHandler($stream);
-        $logger->pushHandler(new FirePHPHandler());
-
-        // You can now use your logger
-        $logger->addInfo('Stream logger is ready...');
-        return $logger;
     }
 
     /**
