@@ -171,7 +171,7 @@ class StreamClient
             'headers' => $headers,
             ]);
         } catch (\GuzzleHttp\Exception\ClientException $e) {
-            die((string)$e->getResponse()->getBody());
+            die((string) $e->getResponse()->getBody());
         }
     }
 
