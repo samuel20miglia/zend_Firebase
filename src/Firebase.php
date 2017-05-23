@@ -65,7 +65,7 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
      * Create new Firebase client object
      * Remember to install PHP CURL extention
      *
-     * @param Config\FirebaseAuth $auth
+     * @param FirebaseAuth $auth
      */
     public function __construct(FirebaseAuth $auth)
     {
@@ -79,7 +79,7 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
         }
 
         // check if extension is installed
-        if (! extension_loaded('curl')) {
+        if (!extension_loaded('curl')) {
             trigger_error($curlMessage, E_USER_ERROR);
         }
 
@@ -160,7 +160,7 @@ class Firebase extends FirebaseResponce implements FirebaseInterface
         $headers['Content-Type'] = 'application/json';
 
         // check if header is an array
-        if (! is_array($headers)) {
+        if (!is_array($headers)) {
             $str = "The guzzle client headers must be an array.";
             throw new \Exception($str);
         }

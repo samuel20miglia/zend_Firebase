@@ -130,7 +130,7 @@ class FirebaseResponce
      */
     private function validateOperation()
     {
-        if (! is_string($this->getOperation())) {
+        if (!is_string($this->getOperation())) {
             $getOperation = "Operation parameter must be STRING and NOT EMPTY. Received : ";
             $getOperation .= gettype($this->getOperation()) . " ({$this->getOperation()}).";
 
@@ -145,7 +145,7 @@ class FirebaseResponce
      */
     private function validateStatus()
     {
-        if (! is_numeric($this->getStatus())) {
+        if (!is_numeric($this->getStatus())) {
             $getStatus = "Status parameter must be NUMERIC. Received : ";
             $getStatus .= gettype($this->getStatus()) . " ({$this->getStatus()}).";
 
@@ -160,7 +160,7 @@ class FirebaseResponce
      */
     private function validateData()
     {
-        if (! is_array($this->getFirebaseData())) {
+        if (!is_array($this->getFirebaseData())) {
             $gettype = "FirebaseData parameter must be ARRAY. Received : " . gettype($this->getFirebaseData()) . ".";
             throw new \Exception($gettype);
         }
@@ -175,16 +175,16 @@ class FirebaseResponce
     {
         switch (json_last_error()) {
             case JSON_ERROR_NONE:
-                $jsonValidator =  '';
+                $jsonValidator = '';
                 break;
             case JSON_ERROR_STATE_MISMATCH:
-                $jsonValidator =  ' - Underflow or the modes mismatch';
+                $jsonValidator = ' - Underflow or the modes mismatch';
                 break;
             case JSON_ERROR_SYNTAX:
-                $jsonValidator =  ' - Syntax error, malformed JSON';
+                $jsonValidator = ' - Syntax error, malformed JSON';
                 break;
             case JSON_ERROR_UTF8:
-                $jsonValidator =  ' - Malformed UTF-8 characters, possibly incorrectly encoded';
+                $jsonValidator = ' - Malformed UTF-8 characters, possibly incorrectly encoded';
                 break;
         }
 

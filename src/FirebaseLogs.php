@@ -66,14 +66,13 @@ class FirebaseLogs
     /**
      * Write log of current event
      *
-     * @param Logger $logger
      * @param array $eventData
      * @param mixed $event
      * @param string $path
      */
     public function writeEventLogs($eventData, $event, $path)
     {
-        if (! empty($eventData) || null != $eventData) {
+        if (!empty($eventData) || null != $eventData) {
             $this->logger->addDebug("path: {$path}", [
                 'DATA' => $eventData,
                 'EVENT TYPE' => $event->getEventType()
