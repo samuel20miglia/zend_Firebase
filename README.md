@@ -23,7 +23,7 @@ Available on [Packagist](https://packagist.org/packages/zend_firebase/zend_fireb
 ```bash
 cd <your_project>
 
-composer require zend_firebase/zend_firebase [![Latest Stable Version](https://poser.pugx.org/zend_firebase/zend_firebase/v/stable)](https://packagist.org/packages/zend_firebase/zend_firebase)
+composer require zend_firebase/zend_firebase
 ```
 
 More info about Composer at [getcomposer.org](http://getcomposer.org).
