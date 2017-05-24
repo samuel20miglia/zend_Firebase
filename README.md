@@ -23,14 +23,14 @@ Available on [Packagist](https://packagist.org/packages/zend_firebase/zend_fireb
 ```bash
 cd <your_project>
 
-composer require zend_firebase/zend_firebase dev-master
+composer require zend_firebase/zend_firebase [![Latest Stable Version](https://poser.pugx.org/zend_firebase/zend_firebase/v/stable)](https://packagist.org/packages/zend_firebase/zend_firebase)
 ```
 
 More info about Composer at [getcomposer.org](http://getcomposer.org).
 
 ### Simple Example of Usage
 ```php
-use ZendFirebase\Firebase, ZendFirebase\Authentication\FirebaseAuth;
+use Zend\Firebase\Firebase, Zend\Firebase\Authentication\FirebaseAuth;
 
 $auth = new FirebaseAuth();
 
@@ -102,8 +102,8 @@ Go to next step!
 ```php
 
 require_once __DIR__ . '/vendor/autoload.php';
-use ZendFirebase\Firebase;
-use ZendFirebase\Authentication\FirebaseAuth;
+use Zend\Firebase\Firebase;
+use Zend\Firebase\Authentication\FirebaseAuth;
 
 $auth = new FirebaseAuth();
 
@@ -127,8 +127,8 @@ print_r($firebase->getFirebaseData());
 ```php
 
 require_once __DIR__ . '/vendor/autoload.php';
-use ZendFirebase\Firebase;
-use ZendFirebase\Authentication\FirebaseAuth;
+use Zend\Firebase\Firebase;
+use Zend\Firebase\Authentication\FirebaseAuth;
 
 $auth = new FirebaseAuth();
 
@@ -145,7 +145,7 @@ $rules =[
          ".write" => "!data.exists() || !newData.exists()"
          ]
  ];
- 
+
 /* call function to write */
 $firebase->writeRules($path,$rules);
 
@@ -164,7 +164,7 @@ Inside this new file insert the following code :
 
 ```php
 
-use ZendFirebase\Firebase, ZendFirebase\Authentication\FirebaseAuth;
+use Zend\Firebase\Firebase, Zend\Firebase\Authentication\FirebaseAuth;
 
 $auth = new FirebaseAuth();
 
@@ -213,7 +213,7 @@ Project Configuration it's just setted for doing all tests with the simple comma
 ```bash
 cd <your_project>
 
-phpunit
+composer test
 ```
 
 If you want to run a single test, just run :
